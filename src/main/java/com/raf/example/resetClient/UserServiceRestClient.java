@@ -2,6 +2,7 @@ package com.raf.example.resetClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.dto.ClientCreateDto;
+import com.raf.example.dto.ManagerCreateDto;
 import com.raf.example.dto.TokenRequestDto;
 import com.raf.example.dto.TokenResponseDto;
 import okhttp3.*;
@@ -44,6 +45,24 @@ public class UserServiceRestClient {
 
         Request request = new Request.Builder()
                 .url(URL + "/users/registration/client")
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            System.out.println("Registration successful!");
+        else
+            throw new RuntimeException("Username or email already in use");
+    }
+
+    public void registerManager(ManagerCreateDto managerCreateDto) throws RuntimeException, IOException {
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(managerCreateDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/registration/manager")
                 .post(body)
                 .build();
 

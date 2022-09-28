@@ -3,6 +3,7 @@ package com.raf.example;
 import com.raf.example.dto.UserDto;
 import com.raf.example.resetClient.UserServiceRestClient;
 import com.raf.example.view.RegisterClientView;
+import com.raf.example.view.RegisterManagerView;
 import com.raf.example.view.StartView;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class MainFrame extends JFrame {
     private UserDto currentUser;
     private StartView startView;
     private RegisterClientView registerClientView;
+    private RegisterManagerView registerManagerView;
     private UserServiceRestClient userServiceRestClient;
 
 
@@ -30,6 +32,7 @@ public class MainFrame extends JFrame {
 
         startView = new StartView();
         registerClientView = new RegisterClientView();
+        registerManagerView = new RegisterManagerView();
 
         userServiceRestClient = new UserServiceRestClient();
 
@@ -54,11 +57,14 @@ public class MainFrame extends JFrame {
         this.getContentPane().setVisible(true);
     }
 
-    public void showLogin() {
+    public void showRegisterManager(){
+        this.getContentPane().setVisible(false);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(registerManagerView);
+        this.getContentPane().setVisible(true);
     }
 
-
-    public void showRegisterManager() {
+    public void showLogin() {
     }
 
     public String getToken() {

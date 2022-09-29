@@ -1,4 +1,4 @@
-package com.raf.example.resetClient;
+package com.raf.example.restClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.dto.ClientCreateDto;
@@ -9,7 +9,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 
-public class UserServiceRestClient {
+public class UserService {
     //public static final String URL = "http://localhost:8084/user-service/api";
     public static final String URL = "http://localhost:8080/api";
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -28,7 +28,7 @@ public class UserServiceRestClient {
         Call call = client.newCall(request);
 
         Response response = call.execute();
-        System.out.println(request.toString());
+
         if (response.code() == 200) {
             String json = response.body().string();
             TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);

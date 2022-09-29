@@ -1,11 +1,9 @@
 package com.raf.example;
 
 import com.raf.example.dto.UserDto;
-import com.raf.example.resetClient.UserServiceRestClient;
-import com.raf.example.view.LoginView;
-import com.raf.example.view.RegisterClientView;
-import com.raf.example.view.RegisterManagerView;
-import com.raf.example.view.StartView;
+import com.raf.example.restClient.UserService;
+import com.raf.example.restReservation.ReservationService;
+import com.raf.example.view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +16,10 @@ public class MainFrame extends JFrame {
     private RegisterClientView registerClientView;
     private RegisterManagerView registerManagerView;
     private LoginView loginView;
-    private UserServiceRestClient userServiceRestClient;
+    private ManagerView managerView;
+
+    private UserService userService;
+    private ReservationService reservationService;
 
 
     public static MainFrame getInstance() {
@@ -27,6 +28,8 @@ public class MainFrame extends JFrame {
         }
         return instance;
     }
+
+
     private MainFrame(){
         this.setResizable(false);
         this.setPreferredSize(new Dimension(900, 700));
@@ -36,8 +39,10 @@ public class MainFrame extends JFrame {
         registerClientView = new RegisterClientView();
         registerManagerView = new RegisterManagerView();
         loginView = new LoginView();
+        managerView = new ManagerView();
 
-        userServiceRestClient = new UserServiceRestClient();
+        userService = new UserService();
+        reservationService = new ReservationService();
 
         this.setTitle("Client GUI application");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -75,6 +80,10 @@ public class MainFrame extends JFrame {
     }
 
     public void showManagerView() {
+        this.getContentPane().setVisible(false);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(managerView);
+        this.getContentPane().setVisible(true);
     }
 
     public void showClientView() {
@@ -93,8 +102,8 @@ public class MainFrame extends JFrame {
         this.token = token;
     }
 
-    public UserServiceRestClient getUserServiceRestClient() {
-        return userServiceRestClient;
+    public UserService getUserServiceRestClient() {
+        return userService;
     }
 
     public void setCurrentUser(UserDto userDto) { this.currentUser = userDto; }
@@ -102,5 +111,13 @@ public class MainFrame extends JFrame {
     public UserDto getCurrentUser() { return currentUser; }
 
     public void showForgotPasswordView() {
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public ReservationService getReservationService() {
+        return reservationService;
     }
 }

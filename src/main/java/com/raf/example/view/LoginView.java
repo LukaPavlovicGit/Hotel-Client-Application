@@ -37,7 +37,6 @@ public class LoginView extends JPanel {
                 String token = MainFrame.getInstance().getUserServiceRestClient()
                         .login(new TokenRequestDto(emailField.getText().toString(), String.valueOf(passwordField.getPassword())));
                 MainFrame.getInstance().setToken(token);
-                System.out.println("token: " + token);
 
                 MainFrame.getInstance().setCurrentUser(TokenDecoder.decodeToken(token));
                 String role = MainFrame.getInstance().getCurrentUser().getRole();

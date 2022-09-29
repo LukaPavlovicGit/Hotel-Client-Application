@@ -21,7 +21,7 @@ public class ReservationService {
 
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(hotelDto));
         Request request = new Request.Builder()
-                .url(URL + "/hotels/add")
+                .url(URL + "/hotels")
                 .addHeader("authorization", "token " + token)
                 .post(body)
                 .build();
@@ -33,5 +33,27 @@ public class ReservationService {
             JOptionPane.showMessageDialog(null, "Hotel added successfully!");
         else
             throw new RuntimeException("Cannot add a new hotel!");
+    }
+
+    public void editHotel(HotelDto hotelDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        Long managerId = TokenDecoder.getId(token);
+
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(hotelDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/hotels")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Hotel updated successfully!");
+        else
+            throw new RuntimeException("Cannot update a hotel!");
     }
 }

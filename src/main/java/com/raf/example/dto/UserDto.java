@@ -16,6 +16,8 @@ public class UserDto {
 
     private Date birthdate;
 
+    private String role;
+
     public UserDto(){}
 
     public UserDto(Long id, String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate) {
@@ -26,6 +28,12 @@ public class UserDto {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.birthdate = birthdate;
+    }
+
+    public UserDto(Long id, String role, String email){
+        this.id = id;
+        this.role = role;
+        this.email = email;
     }
 
     public Long getId() {
@@ -82,6 +90,14 @@ public class UserDto {
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

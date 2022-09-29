@@ -2,6 +2,7 @@ package com.raf.example;
 
 import com.raf.example.dto.UserDto;
 import com.raf.example.resetClient.UserServiceRestClient;
+import com.raf.example.view.LoginView;
 import com.raf.example.view.RegisterClientView;
 import com.raf.example.view.RegisterManagerView;
 import com.raf.example.view.StartView;
@@ -16,6 +17,7 @@ public class MainFrame extends JFrame {
     private StartView startView;
     private RegisterClientView registerClientView;
     private RegisterManagerView registerManagerView;
+    private LoginView loginView;
     private UserServiceRestClient userServiceRestClient;
 
 
@@ -33,6 +35,7 @@ public class MainFrame extends JFrame {
         startView = new StartView();
         registerClientView = new RegisterClientView();
         registerManagerView = new RegisterManagerView();
+        loginView = new LoginView();
 
         userServiceRestClient = new UserServiceRestClient();
 
@@ -65,7 +68,22 @@ public class MainFrame extends JFrame {
     }
 
     public void showLogin() {
+        this.getContentPane().setVisible(false);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(loginView);
+        this.getContentPane().setVisible(true);
     }
+
+    public void showManagerView() {
+    }
+
+    public void showClientView() {
+    }
+
+    public void showAdminView() {
+    }
+
+
 
     public String getToken() {
         return token;
@@ -77,5 +95,12 @@ public class MainFrame extends JFrame {
 
     public UserServiceRestClient getUserServiceRestClient() {
         return userServiceRestClient;
+    }
+
+    public void setCurrentUser(UserDto userDto) { this.currentUser = userDto; }
+
+    public UserDto getCurrentUser() { return currentUser; }
+
+    public void showForgotPasswordView() {
     }
 }

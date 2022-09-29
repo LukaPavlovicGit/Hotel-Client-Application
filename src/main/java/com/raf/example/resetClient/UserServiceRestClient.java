@@ -17,8 +17,7 @@ public class UserServiceRestClient {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public String login(String email, String password) throws IOException {
-        TokenRequestDto tokenRequestDto = new TokenRequestDto(email, password);
+    public String login(TokenRequestDto tokenRequestDto) throws IOException {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(tokenRequestDto));
 
         Request request = new Request.Builder()

@@ -1,13 +1,12 @@
 package com.raf.example.restClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.raf.example.dto.ClientCreateDto;
-import com.raf.example.dto.ManagerCreateDto;
-import com.raf.example.dto.TokenRequestDto;
-import com.raf.example.dto.TokenResponseDto;
+import com.raf.example.MainFrame;
+import com.raf.example.dto.*;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserService {
     //public static final String URL = "http://localhost:8084/user-service/api";
@@ -38,8 +37,7 @@ public class UserService {
         throw new RuntimeException("Invalid username or password");
     }
 
-    public void registerClient(ClientCreateDto clientCreateDto) throws RuntimeException, IOException {
-
+    public void registerClient(ClientCreateDto clientCreateDto) throws IOException {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientCreateDto));
 
         Request request = new Request.Builder()
@@ -56,8 +54,7 @@ public class UserService {
             throw new RuntimeException("Username or email already in use");
     }
 
-    public void registerManager(ManagerCreateDto managerCreateDto) throws RuntimeException, IOException {
-
+    public void registerManager(ManagerCreateDto managerCreateDto) throws IOException {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(managerCreateDto));
 
         Request request = new Request.Builder()
@@ -73,4 +70,176 @@ public class UserService {
         else
             throw new RuntimeException("Username or email already in use");
     }
+
+    public void updateManager(ManagerDto managerDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(managerDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/UserProfileConfiguration/updateManager")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            System.out.println("here");
+        else
+            throw new RuntimeException("Error while updating manager!");
+    }
+    public void updateClient(ClientDto clientDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/UserProfileConfiguration/updateClient")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            System.out.println("here");
+        else
+            throw new RuntimeException("Error while updating client!");
+    }
+    public void updateAdmin(UserDto userDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/UserProfileConfiguration/updateAdmin")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            System.out.println("here");
+        else
+            throw new RuntimeException("Error while updating admin!");
+    }
+    public List<UserDto> getAllUsers() throws IOException{
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/users")
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            return objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("Error while getting all users");
+    }
+
+    public UserDto getUserById(String userId) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/" + userId)
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            return objectMapper.readValue(response.body().string(), UserDto.class);
+        else
+            throw new RuntimeException("Error while getting users by id!");
+
+    }
+
+    public List<ClientDto> getAllClients() throws IOException{
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/clients")
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            return objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("Error while getting all clients!");
+    }
+
+    public List<ManagerDto> getAllManagers() throws IOException{
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/managers")
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            return objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("Error while getting all clients!");
+    }
+
+    public void blockUser(String userId) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userId));
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/block")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+        if (response.code() == 200)
+            System.out.println("User has been blocked!");
+        else
+            throw new RuntimeException("Error while blocking the user");
+    }
+
+    public void giveAccessToUser(String userId) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userId));
+
+        Request request = new Request.Builder()
+                .url(URL + "/users/unblock")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+        if (response.code() == 200)
+            System.out.println("User has been given the access!");
+        else
+            throw new RuntimeException("Error while blocking the user");
+    }
+
+    public void changeRank(RankDto rankDto) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(rankDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/rank")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+        if (response.code() == 200)
+            System.out.println("Rank changed successfully!");
+        else
+            throw new RuntimeException("Error while changing rank");
+    }
+
 }

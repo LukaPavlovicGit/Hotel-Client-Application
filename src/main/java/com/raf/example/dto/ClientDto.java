@@ -3,29 +3,28 @@ package com.raf.example.dto;
 import java.util.Date;
 
 
-public class ManagerDto {
+public class ClientDto {
 
     private String username;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private Date birthdate;
-    private String hotelName;
-    private Date hireDate;
+    private String numOfPassport;
+    private Integer numOfReservation;
 
-    public ManagerDto() {
-    }
+    public ClientDto(){}
 
-    public ManagerDto(String username, String fistName, String lastName, String email, String phoneNumber, Date birthdate, String hotelName, Date hireDate) {
+    public ClientDto(String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate, String numOfPassport, Integer numOfReservation) {
         this.username = username;
-        this.fistName = fistName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.birthdate = birthdate;
-        this.hotelName = hotelName;
-        this.hireDate = hireDate;
+        this.numOfPassport = numOfPassport;
+        this.numOfReservation = numOfReservation;
     }
 
     public String getUsername() {
@@ -36,12 +35,12 @@ public class ManagerDto {
         this.username = username;
     }
 
-    public String getFistName() {
-        return fistName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFistName(String fistName) {
-        this.fistName = fistName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -76,19 +75,19 @@ public class ManagerDto {
         this.birthdate = birthdate;
     }
 
-    public String getHotelName() {
-        return hotelName;
+    public String getNumOfPassport() {
+        return numOfPassport;
     }
 
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
+    public void setNumOfPassport(String numOfPassport) {
+        this.numOfPassport = numOfPassport;
     }
 
-    public Date getHireDate() {
-        return hireDate;
+    public Integer getNumOfReservation() {
+        return numOfReservation;
     }
 
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
+    public void setNumOfReservation(Integer numOfReservation) {
+        this.numOfReservation = numOfReservation;
     }
 }

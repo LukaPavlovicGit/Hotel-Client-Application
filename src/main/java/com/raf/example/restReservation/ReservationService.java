@@ -2,12 +2,16 @@ package com.raf.example.restReservation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
+import com.raf.example.dto.AvailableRoomsFilterDto;
 import com.raf.example.dto.HotelDto;
+import com.raf.example.dto.ReviewDto;
+import com.raf.example.dto.RoomDto;
 import com.raf.example.tokenDecoder.TokenDecoder;
 import okhttp3.*;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.List;
 
 public class ReservationService {
     public static final String URL = "http://localhost:9081/api";
@@ -35,10 +39,9 @@ public class ReservationService {
             throw new RuntimeException("Cannot add a new hotel!");
     }
 
-    public void editHotel(HotelDto hotelDto) throws IOException {
+    public void updateHotel(HotelDto hotelDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
         Long managerId = TokenDecoder.getId(token);
-
 
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(hotelDto));
 
@@ -55,5 +58,213 @@ public class ReservationService {
             JOptionPane.showMessageDialog(null, "Hotel updated successfully!");
         else
             throw new RuntimeException("Cannot update a hotel!");
+    }
+
+    public void addRoom(String roomType, Integer roomNumber) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/rooms").newBuilder();
+        httpBuilder.addQueryParameter("roomType", roomType);
+        httpBuilder.addQueryParameter("roomNumber", String.valueOf(roomNumber)); // na ruti na prihvata kao integer !!!!!!
+
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Room added successfully!");
+        else
+            throw new RuntimeException("Cannot add a new room!");
+    }
+
+    public void editRoom(RoomDto roomDto) throws IOException{ // DODAJ RUTU ZA UPDATE
+        String token = MainFrame.getInstance().getToken();
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomDto));
+        Request request = new Request.Builder()
+                .url(URL + "/rooms")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if(response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Room added successfully!");
+        else
+            throw new RuntimeException("Cannot add a new hotel!");
+    }
+
+    public List getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
+
+        List availableRooms;
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(availableRoomsFilterDto));
+        Request request = new Request.Builder()
+                .url(URL + "/rooms")
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            availableRooms = objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("Cannot get rooms!");
+
+        return availableRooms;
+    }
+
+    public void createReservation(String roomId, String startDate, String endDate) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reservations").newBuilder();
+        httpBuilder.addQueryParameter("roomId", roomId); // na ruti na prihvata Interger nteger !!!!!!
+        httpBuilder.addQueryParameter("startDate", startDate);  // na ruti na prihvata Date !!!!!!
+        httpBuilder.addQueryParameter("endDate", endDate);  // na ruti na prihvata Date !!!!!!
+
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Reservation made successfully!");
+        else
+            throw new RuntimeException("Cannot make reservation!");
+    }
+
+    public void cancelReservation(String reservationId) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, reservationId);
+
+        Request request = new Request.Builder()
+                .url(URL + "/reservations/" + reservationId)
+                .addHeader("authorization", "token " + token)
+                .delete(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Reservation canceled!");
+        else
+            throw new RuntimeException("ERROR");
+    }
+
+    public void addReview(ReviewDto reviewDto) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(reviewDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/reviews")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Review added successfully!");
+        else
+            throw new RuntimeException("Error while adding review");
+
+    }
+    public void updateReview(Long id, ReviewDto reviewDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(reviewDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/reviews/" + id)
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Review updated successfully!");
+        else
+            throw new RuntimeException("Error while updating review");
+    }
+    public void deleteReview(String reviewId) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reviews").newBuilder();
+        httpBuilder.addQueryParameter("reviewId", reviewId);
+
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("authorization", "token " + token)
+                .delete()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Review removed!");
+        else
+            throw new RuntimeException("Cannot remove review!");
+    }
+
+    public List getAllReviews(String hotelName, String city) throws IOException {
+        List reviews;
+        String token = MainFrame.getInstance().getToken();
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reviews/all").newBuilder();
+        httpBuilder.addQueryParameter("hotelName", hotelName);
+        httpBuilder.addQueryParameter("city", city);
+
+        Request request = new Request.Builder()
+                .url(httpBuilder.build())
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            reviews = objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("ERROR");
+
+        return reviews;
+    }
+
+    public List getTopRatedHotels() throws IOException {
+        List reviews;
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/reviews")
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            reviews = objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("ERROR");
+
+        return reviews;
     }
 }

@@ -77,7 +77,7 @@ public class RegisterManagerView extends JPanel {
             try {
                 Date birthDate = Date.valueOf(dateOfBirthField.getText());
                 Date hireDate = Date.valueOf(hireDateField.getText());
-                MainFrame.getInstance().getUserServiceRestClient()
+                MainFrame.getInstance().getUserService()
                         .registerManager(new ManagerCreateDto(usernameField.getText(), passwordField.getText(), nameField.getText(), lastnameField.getText(),
                                 emailField.getText(), phoneNumberField.getText(), birthDate, hireDate));
 

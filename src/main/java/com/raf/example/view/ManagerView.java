@@ -6,140 +6,70 @@ import com.raf.example.dto.ManagerDto;
 import com.raf.example.dto.RoomDto;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.Date;
 
 public class ManagerView extends JPanel {
-    // add new hotel
-    private JTextField newHotelCity = new JTextField("city");
-    private JTextField newHotelName = new JTextField("hotel name");
-    private JTextField newHotelDescription = new JTextField("description");
+
+    private StringBuilder sb = new StringBuilder();
+    private JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
+
     private JButton addHotelBtn = new JButton("ADD HOTEL");
-    private JPanel panel1 = new JPanel();
-
-    // update hotel
-    private JTextField updateHotelCity = new JTextField("city");
-    private JTextField updateHotelName = new JTextField("hotel name");
-    private JTextField updateHotelDescription = new JTextField("description");
     private JButton updateHotelBtn = new JButton("UPDATE HOTEL");
-    private JPanel panel2 = new JPanel();
-
-    // add new room
-    private JTextField newRoomNumber = new JTextField("room number");
-    private JTextField newRoomType = new JTextField("room type");
     private JButton addRoomBtn = new JButton("ADD ROOM");
-    private JPanel panel3 = new JPanel();
-
-    // edit room
-    private JTextField currentRoomNumber = new JTextField("room number");
-    private JTextField updateRoomNumber = new JTextField("room type");
-    private JTextField updateRoomType = new JTextField("price per day");
-    private JTextField updateRoomPrice= new JTextField("room number");
     private JButton updateRoomBtn = new JButton("UPDATE ROOM");
-    private JPanel panel4 = new JPanel();
-
-    /*  IMPLEMENTIRAJ ZA ROOMTYPECONTROLER FUNCKIONALNOSTI
-
-    private JTextField startPrice = new JTextField("start price");
-    private JTextField endPrice = new JTextField("end price");
-    private JTextField newType = new JTextField("new type");
-    private JButton setTypes = new JButton("SET TYPE");
-    private JPanel panel5 = new JPanel();
-    */
-
-    // cancel reservation
-    private JTextField reservationId = new JTextField("reservation id");
     private JButton showReservations = new JButton("SHOW ALL");
-    private JButton cancelReservation = new JButton("CANCEL RESERV");
-    private JPanel panel6 = new JPanel();
+    private JButton cancelReservation = new JButton("CANCEL RESERVATION");
+    private JButton setRoomTypesBtn = new JButton("SET ROOM TYPES");                   //   NIJE IMPLEMENTIRANO
+    private JButton listNotificationsSentToManagerBtn = new JButton("LIST NOTIFICATIONS");//   NIJE IMPLEMENTIRANO
+    private JButton updateManagerBtn = new JButton("UPDATE MANAGER");
+    private JButton getNotificationsBtn = new JButton("GET NOTIFICATIONS"); // NIJE ODRANJENO, OVO JE ZA ADMINA SAMO????
 
-    /*   NIJE IMPLEMENTIRANO
-    // list notifications sent to manager
-    private JButton listNotifications = new JButton("LIST NOTIFS");
-    private JPanel panel7 = new JPanel();;
-
-
-     */
-
-    // update parameters
-    private JTextField usernameChange = new JTextField("username"),
-                       passChange = new JTextField("passwords"),
-                       emailChange = new JTextField("email"),
-                       pNoChange = new JTextField("phone no."),
-                       dateChange = new JTextField("date of birth"),
-                       dateEmpChange = new JTextField("hire date"),
-                       fNameChange = new JTextField("name"),
-                       lNameChange = new JTextField("lastname"),
-                       psChange = new JTextField("passport");
-    private JButton btnChange = new JButton("UPDATE USER");
-    private JPanel panel8= new JPanel();;
-
-    //list notifications
-    private JTextField notifTypeFilterField = new JTextField("");
-    private JTextField notifDateAfterField = new JTextField("");;
-    private JButton getNotifsBtn = new JButton("GET NOTIFICATIONS");
-    private JPanel panel11= new JPanel();
-
+    private TextArea addHotelTa = new TextArea();
+    private TextArea updateHotelTa = new TextArea();
+    private TextArea addRoomTa = new TextArea();
+    private TextArea updateRoomTa = new TextArea();
+    private TextArea getAllReservationsTa = new TextArea();
+    private TextArea cancelReservationTa = new TextArea();
+    private TextArea updateUserTa = new TextArea();
+    private TextArea getNotificationsTa = new TextArea();
+    private TextArea setRoomTypesTa = new TextArea();
     public ManagerView(){
         addListeners();
 
-        panel1.add(newHotelCity);
-        panel1.add(newHotelName);
-        panel1.add(newHotelDescription);
-        panel1.add(addHotelBtn);
+        JPanel jContentPane = new JPanel();
+        jContentPane.setLayout(null);
 
-        panel2.add(updateHotelCity);
-        panel2.add(updateHotelName);
-        panel2.add(updateHotelDescription);
-        panel2.add(updateHotelBtn);
+        JPanel northPanel = new JPanel();
 
-        panel3.add(newRoomNumber);
-        panel3.add(newRoomType);
-        panel3.add(addRoomBtn);
+        northPanel.setBounds(61, 11, 81, 140);
+        northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
+        jContentPane.add(northPanel);
 
-        panel4.add(currentRoomNumber);
-        panel4.add(updateRoomNumber);
-        panel4.add(updateRoomType);
-        panel4.add(updateRoomPrice);
-        panel4.add(updateRoomBtn);
-
-        panel6.add(showReservations);
-        panel6.add(reservationId);
-        panel6.add(cancelReservation);
-
-        panel8.add(usernameChange);
-        panel8.add(passChange);
-        panel8.add(emailChange);
-        panel8.add(pNoChange);
-        panel8.add(dateChange);
-        panel8.add(dateEmpChange);
-        panel8.add(fNameChange);
-        panel8.add(lNameChange);
-        panel8.add(psChange);
-        panel8.add(btnChange);
-
-        panel11.add(notifTypeFilterField);
-        panel11.add(notifDateAfterField);
-        panel11.add(getNotifsBtn);
+        northPanel.add(listNotificationsSentToManagerBtn);
+        northPanel.add(getNotificationsBtn);
+        northPanel.add(showReservations);
 
 
-        this.removeAll();
-        this.add(panel1);
-        this.add(panel2);
-        this.add(panel3);
-        this.add(panel4);
-        //this.add(panel5);
-        this.add(panel6);
-        //this.add(panel7);
-        this.add(panel8);
-      //  this.add(panel10);
-        this.add(panel11);
+        addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
+        addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
+        addNewTab("ADD ROOM", setAddRoomTa(), addRoomBtn);
+        addNewTab("UPDATE ROOM", setUpdateRoomTa(), updateRoomBtn);
+        addNewTab("CANCEL RESERVATION", setCancelReservationTa(), cancelReservation);
+        addNewTab("UPDATE MANAGER", setUpdateUserTa(), updateManagerBtn);
+        addNewTab("ADD ROOM TYPES", setSetRoomTypesTa(), setRoomTypesBtn);
+
+        this.setLayout(new BorderLayout());
+        this.add("Center",tabs);
+
     }
 
     private void addListeners() {
         addHotelBtn.addActionListener(e -> {
             try {
-                MainFrame.getInstance().getReservationService().addNewHotel(new HotelDto(newHotelCity.getText(), newHotelName.getText(), newHotelDescription.getText()));
+                String[] str = addHotelTa.getText().split("[\n]");
+                MainFrame.getInstance().getReservationService().addNewHotel(new HotelDto(str[0], str[1], str[2]));
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -148,8 +78,8 @@ public class ManagerView extends JPanel {
 
         updateHotelBtn.addActionListener(e -> {
             try {
-                HotelDto hotelDto = new HotelDto(updateHotelCity.getText(), updateHotelName.getText(), updateHotelDescription.getText());
-                MainFrame.getInstance().getReservationService().updateHotel(hotelDto);
+                String[] str = updateHotelTa.getText().split("[\n]");
+                MainFrame.getInstance().getReservationService().updateHotel(new HotelDto(str[0], str[1], str[2]));
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -158,7 +88,9 @@ public class ManagerView extends JPanel {
 
         addRoomBtn.addActionListener(e -> {
             try {
-                MainFrame.getInstance().getReservationService().addRoom(newRoomType.getText(), Integer.valueOf(newRoomNumber.getText()));
+                String[] str = addRoomTa.getText().split("[\n]");
+                MainFrame.getInstance().getReservationService()
+                        .addRoom(str[0].split(":")[1].trim(), Integer.valueOf(str[1].split(":")[1].trim()));
             }
             catch (Exception exception) {
                 exception.printStackTrace();
@@ -167,8 +99,10 @@ public class ManagerView extends JPanel {
 
         updateRoomBtn.addActionListener(e -> {
             try {
-                RoomDto roomDto = new RoomDto(Integer.parseInt(currentRoomNumber.getText()), updateRoomType.getText(), Double.parseDouble(updateRoomPrice.getText()));
-                MainFrame.getInstance().getReservationService().editRoom(roomDto);
+                String[] str = addRoomTa.getText().split("[\n]");
+                MainFrame.getInstance().getReservationService()
+                        .editRoom(new RoomDto(Integer.valueOf(str[0].split(":")[1].trim()),str[1].split(":")[1].trim()));
+
             }
             catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -176,49 +110,119 @@ public class ManagerView extends JPanel {
         });
         cancelReservation.addActionListener(e -> {
             try {
-                MainFrame.getInstance().getReservationService().cancelReservation(reservationId.getText());
+                String[] str = addRoomTa.getText().split("[\n]");
+                MainFrame.getInstance().getReservationService().cancelReservation(str[0].split(":")[1].trim());
             }
             catch (Exception exception) {
                 exception.printStackTrace();
             }
         });
-        // String username, String fistName, String lastName, String email, String phoneNumber, Date birthdate, String hotelName, Date hireDate
-        btnChange.addActionListener(e -> {
-            ManagerDto dto = new ManagerDto();
-            //dto.set(MainFrame.getInstance().getCurrentUser().getId());
-            if(!usernameChange.getText().equals("") && !usernameChange.getText().equals("username"))
-                dto.setUsername(usernameChange.getText());
-            if(!fNameChange.getText().equals("") && !fNameChange.getText().equals("first name"))
-                dto.setFistName(fNameChange.getText());
-            if(!lNameChange.getText().equals("") && !lNameChange.getText().equals("last name"))
-                dto.setLastName(lNameChange.getText());
-            if(!emailChange.getText().equals("") && !emailChange.getText().equals("email"))
-                dto.setEmail(emailChange.getText());
-            if(!pNoChange.getText().equals("") && !pNoChange.getText().equals("phone no."))
-                dto.setPhoneNumber(pNoChange.getText());
-            if(!dateChange.getText().equals("") && !dateChange.getText().equals("date of birth"))
-                dto.setBirthdate(Date.valueOf(dateChange.getText()));
-            if(!dateEmpChange.getText().equals("") && !dateEmpChange.getText().equals("date of employment"))
-                dto.setHireDate(Date.valueOf(dateEmpChange.getText()));
 
+        updateManagerBtn.addActionListener(e -> {
             try {
-                //MainFrame.getInstance().getUserServiceRestClient().changeUser(dto);
+                String[] str = addRoomTa.getText().split("[\n]");
+                ManagerDto managerDto = new ManagerDto(
+                                            str[0].split(":")[1].trim(),
+                                            str[1].split(":")[1].trim(),
+                                            str[2].split(":")[1].trim(),
+                                            str[3].split(":")[1].trim(),
+                                            str[4].split(":")[1].trim(),
+                                            Date.valueOf(str[4].split(":")[1].trim()),
+                                            null,
+                                            Date.valueOf(str[5].split(":")[1].trim())
+                                         );
 
-                if (dto.getEmail() != null && !dto.getEmail().equals(""))
-                    MainFrame.getInstance().getCurrentUser().setEmail(dto.getEmail());
-                if (dto.getFistName() != null && !dto.getFistName().equals(""))
-                    MainFrame.getInstance().getCurrentUser().setFirstName(dto.getFistName());
-                if (dto.getLastName() != null && !dto.getLastName().equals(""))
-                    MainFrame.getInstance().getCurrentUser().setLastName(dto.getLastName());
-                if (dto.getUsername() != null && !dto.getUsername().equals(""))
-                    MainFrame.getInstance().getCurrentUser().setUsername(dto.getUsername());
+                MainFrame.getInstance().getUserService().updateManager(managerDto);
             }
             catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error while changing user", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        null, "Error while updating manager in managerView", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+    private void addNewTab(String tabName, TextArea ta, JButton button){
+        JPanel pan = new JPanel();
+        pan.setLayout(new BorderLayout());
+        pan.add("Center", ta);
+        pan.add("South", button);
+        tabs.addTab(tabName, pan);
+    }
 
+    private TextArea setAddHotelTextArea(){
+        sb.delete(0,sb.length());
+        sb.append("city : \n");
+        sb.append("hotel name : \n");
+        sb.append("description : \n");
+        addHotelTa.setText(sb.toString());
+        return addHotelTa;
+    }
 
+    public TextArea setUpdateHotelTa(){
+        sb.delete(0,sb.length());
+        sb.append("city : \n");
+        sb.append("hotel name : \n");
+        sb.append("description : \n");
+        updateHotelTa.setText(sb.toString());
+        return updateHotelTa;
+    }
+
+    public TextArea setAddRoomTa(){
+        sb.delete(0,sb.length());
+        sb.append("room number : \n");
+        sb.append("room type : \n");
+        addRoomTa.setText(sb.toString());
+        return addRoomTa;
+    }
+    public TextArea setUpdateRoomTa(){
+        sb.delete(0,sb.length());
+        sb.append("room number : \n");
+        sb.append("room type : \n");
+        sb.append("price : \n");
+        updateRoomTa.setText(sb.toString());
+        return updateRoomTa;
+    }
+    public TextArea setGetAllReservationsTa(){
+        sb.delete(0,sb.length());
+        sb.append("[ ]");
+        getAllReservationsTa.setText(sb.toString());
+        return getAllReservationsTa;
+    }
+    public TextArea setCancelReservationTa(){
+        sb.delete(0,sb.length());
+        sb.append("reservation id : \n");
+        cancelReservationTa.setText(sb.toString());
+        return cancelReservationTa;
+    }
+    public TextArea setUpdateUserTa(){
+        sb.delete(0,sb.length());
+        sb.append("username : \n");
+        sb.append("fistName : \n");
+        sb.append("lastName : \n");
+        sb.append("email : \n");
+        sb.append("phoneNumber : \n");
+        sb.append("birthdate : \n");
+        sb.append("hireDate : \n");
+        updateUserTa.setText(sb.toString());
+        return updateUserTa;
+    }
+
+    public TextArea setGetNotificationsTa(){
+        sb.delete(0,sb.length());
+        sb.append("[ ]");
+        getNotificationsTa.setText(sb.toString());
+        return getNotificationsTa;
+    }
+
+    public TextArea setSetRoomTypesTa(){
+        sb.delete(0,sb.length());
+        sb.append("YOU CAN ADD AS MANY AS YOU WANT ROOM TYPES FOR THE HOTEL! \n\n");
+        sb.append("example:\n\n");
+        sb.append("typeName: D, pricePerDay: 20.0\n");
+        sb.append("typeName: C, pricePerDay: 40.0\n");
+        sb.append("typeName: B, pricePerDay: 80.0\n");
+        sb.append("typeName: A, pricePerDay: 150.0\n");
+        sb.append("=================================\n");
+        getNotificationsTa.setText(sb.toString());
+        return getNotificationsTa;
     }
 }

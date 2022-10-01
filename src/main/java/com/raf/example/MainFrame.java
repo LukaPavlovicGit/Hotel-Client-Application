@@ -102,10 +102,6 @@ public class MainFrame extends JFrame {
         this.token = token;
     }
 
-    public UserService getUserServiceRestClient() {
-        return userService;
-    }
-
     public void setCurrentUser(UserDto userDto) { this.currentUser = userDto; }
 
     public UserDto getCurrentUser() { return currentUser; }

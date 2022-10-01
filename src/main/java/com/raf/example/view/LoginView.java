@@ -34,7 +34,7 @@ public class LoginView extends JPanel {
     private void addListeners() {
         loginButton.addActionListener(e -> {//emailField.getText().toString(), String.valueOf(passwordField.getPassword())
             try {
-                String token = MainFrame.getInstance().getUserServiceRestClient()
+                String token = MainFrame.getInstance().getUserService()
                         .login(new TokenRequestDto(emailField.getText().toString(), String.valueOf(passwordField.getPassword())));
                 MainFrame.getInstance().setToken(token);
 

@@ -72,7 +72,7 @@ public class RegisterClientView extends JPanel{
         registerBtn.addActionListener( e -> {
             try {
                 Date date = Date.valueOf(dateOfBirthField.getText());
-                MainFrame.getInstance().getUserServiceRestClient()
+                MainFrame.getInstance().getUserService()
                         .registerClient(new ClientCreateDto(usernameField.getText(), passwordField.getText() ,nameField.getText(), lastnameField.getText(),
                                                               emailField.getText(), phoneNumberField.getText(), date, passportNumberField.getText()));
 

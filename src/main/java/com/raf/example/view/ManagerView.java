@@ -4,10 +4,10 @@ import com.raf.example.MainFrame;
 import com.raf.example.dto.HotelDto;
 import com.raf.example.dto.ManagerDto;
 import com.raf.example.dto.RoomDto;
-import com.raf.example.dto.UserDto;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.sql.Date;
 
 public class ManagerView extends JPanel {
     // add new hotel
@@ -75,9 +75,9 @@ public class ManagerView extends JPanel {
     private JPanel panel8= new JPanel();;
 
     //list notifications
-    private JTextField notifTypeFilterField;
-    private JTextField notifDateAfterField;
-    private JButton getNotifsBtn;
+    private JTextField notifTypeFilterField = new JTextField("");
+    private JTextField notifDateAfterField = new JTextField("");;
+    private JButton getNotifsBtn = new JButton("GET NOTIFICATIONS");
     private JPanel panel11= new JPanel();
 
     public ManagerView(){
@@ -118,9 +118,22 @@ public class ManagerView extends JPanel {
         panel8.add(psChange);
         panel8.add(btnChange);
 
+        panel11.add(notifTypeFilterField);
+        panel11.add(notifDateAfterField);
+        panel11.add(getNotifsBtn);
+
 
         this.removeAll();
         this.add(panel1);
+        this.add(panel2);
+        this.add(panel3);
+        this.add(panel4);
+        //this.add(panel5);
+        this.add(panel6);
+        //this.add(panel7);
+        this.add(panel8);
+      //  this.add(panel10);
+        this.add(panel11);
     }
 
     private void addListeners() {
@@ -169,15 +182,14 @@ public class ManagerView extends JPanel {
                 exception.printStackTrace();
             }
         });
-       /* btnChange.addActionListener(e -> {
+        // String username, String fistName, String lastName, String email, String phoneNumber, Date birthdate, String hotelName, Date hireDate
+        btnChange.addActionListener(e -> {
             ManagerDto dto = new ManagerDto();
-            dto.setId(MainFrame.getInstance().getCurrentUser().getId());
+            //dto.set(MainFrame.getInstance().getCurrentUser().getId());
             if(!usernameChange.getText().equals("") && !usernameChange.getText().equals("username"))
                 dto.setUsername(usernameChange.getText());
-            if(!passChange.getText().equals("") && !passChange.getText().equals("password"))
-                dto.setPassword(passChange.getText());
             if(!fNameChange.getText().equals("") && !fNameChange.getText().equals("first name"))
-                dto.setFirstName(fNameChange.getText());
+                dto.setFistName(fNameChange.getText());
             if(!lNameChange.getText().equals("") && !lNameChange.getText().equals("last name"))
                 dto.setLastName(lNameChange.getText());
             if(!emailChange.getText().equals("") && !emailChange.getText().equals("email"))
@@ -185,19 +197,17 @@ public class ManagerView extends JPanel {
             if(!pNoChange.getText().equals("") && !pNoChange.getText().equals("phone no."))
                 dto.setPhoneNumber(pNoChange.getText());
             if(!dateChange.getText().equals("") && !dateChange.getText().equals("date of birth"))
-                dto.setDateOfBirth(dateChange.getText());
-            if(!psChange.getText().equals("") && !psChange.getText().equals("passport"))
-                dto.setPassportNumber(psChange.getText());
+                dto.setBirthdate(Date.valueOf(dateChange.getText()));
             if(!dateEmpChange.getText().equals("") && !dateEmpChange.getText().equals("date of employment"))
-                dto.setDateOfEmployment(dateEmpChange.getText());
+                dto.setHireDate(Date.valueOf(dateEmpChange.getText()));
 
             try {
-                MainFrame.getInstance().getUserServiceRestClient().changeUser(dto);
+                //MainFrame.getInstance().getUserServiceRestClient().changeUser(dto);
 
                 if (dto.getEmail() != null && !dto.getEmail().equals(""))
                     MainFrame.getInstance().getCurrentUser().setEmail(dto.getEmail());
-                if (dto.getFirstName() != null && !dto.getFirstName().equals(""))
-                    MainFrame.getInstance().getCurrentUser().setFirstName(dto.getFirstName());
+                if (dto.getFistName() != null && !dto.getFistName().equals(""))
+                    MainFrame.getInstance().getCurrentUser().setFirstName(dto.getFistName());
                 if (dto.getLastName() != null && !dto.getLastName().equals(""))
                     MainFrame.getInstance().getCurrentUser().setLastName(dto.getLastName());
                 if (dto.getUsername() != null && !dto.getUsername().equals(""))
@@ -207,7 +217,7 @@ public class ManagerView extends JPanel {
                 JOptionPane.showMessageDialog(null, "Error while changing user", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
-        });*/
+        });
 
 
     }

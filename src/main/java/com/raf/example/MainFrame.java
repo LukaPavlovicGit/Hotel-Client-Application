@@ -1,8 +1,8 @@
 package com.raf.example;
 
 import com.raf.example.dto.UserDto;
-import com.raf.example.restClient.UserService;
-import com.raf.example.restReservation.ReservationService;
+import com.raf.example.rest.UserService;
+import com.raf.example.rest.ReservationService;
 import com.raf.example.view.*;
 
 import javax.swing.*;

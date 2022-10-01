@@ -1,4 +1,4 @@
-package com.raf.example.restReservation;
+package com.raf.example.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;

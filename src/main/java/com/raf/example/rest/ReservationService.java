@@ -7,6 +7,7 @@ import com.raf.example.dto.HotelDto;
 import com.raf.example.dto.ReviewDto;
 import com.raf.example.dto.RoomDto;
 import com.raf.example.tokenDecoder.TokenDecoder;
+import com.raf.example.view.ManagerView;
 import okhttp3.*;
 
 import javax.swing.*;
@@ -60,12 +61,12 @@ public class ReservationService {
             throw new RuntimeException("Cannot update a hotel!");
     }
 
-    public void addRoom(String roomType, Integer roomNumber) throws IOException{
+    public void addRoom(String roomType, String roomNumber) throws IOException{
         String token = MainFrame.getInstance().getToken();
 
         HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/rooms").newBuilder();
         httpBuilder.addQueryParameter("roomType", roomType);
-        httpBuilder.addQueryParameter("roomNumber", String.valueOf(roomNumber)); // na ruti na prihvata kao integer !!!!!!
+        httpBuilder.addQueryParameter("roomNumber", roomNumber); // na ruti na prihvata kao integer !!!!!!
 
         Request request = new Request.Builder()
                 .url(httpBuilder.build())
@@ -84,8 +85,8 @@ public class ReservationService {
 
     public void editRoom(RoomDto roomDto) throws IOException{ // DODAJ RUTU ZA UPDATE
         String token = MainFrame.getInstance().getToken();
-
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomDto));
+
         Request request = new Request.Builder()
                 .url(URL + "/rooms")
                 .addHeader("authorization", "token " + token)
@@ -102,12 +103,13 @@ public class ReservationService {
     }
 
     public List getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
-
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(availableRoomsFilterDto));
         List availableRooms;
 
-        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(availableRoomsFilterDto));
         Request request = new Request.Builder()
                 .url(URL + "/rooms")
+                .addHeader("authorization", "token " + token)
                 .post(body)
                 .build();
 
@@ -183,7 +185,7 @@ public class ReservationService {
             throw new RuntimeException("Error while adding review");
 
     }
-    public void updateReview(Long id, ReviewDto reviewDto) throws IOException {
+    public void updateReview(String id, ReviewDto reviewDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(reviewDto));
 
@@ -248,8 +250,8 @@ public class ReservationService {
     }
 
     public List getTopRatedHotels() throws IOException {
-        List reviews;
         String token = MainFrame.getInstance().getToken();
+        List reviews;
 
         Request request = new Request.Builder()
                 .url(URL + "/reviews")

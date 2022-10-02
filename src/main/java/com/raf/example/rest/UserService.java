@@ -208,7 +208,7 @@ public class UserService {
             throw new RuntimeException("Error while blocking the user");
     }
 
-    public void giveAccessToUser(String userId) throws IOException{
+    public void unblockUser(String userId) throws IOException{
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userId));
 
@@ -225,7 +225,7 @@ public class UserService {
             throw new RuntimeException("Error while blocking the user");
     }
 
-    public void changeRank(RankDto rankDto) throws IOException{
+    public void rankConfiguration(RankDto rankDto) throws IOException{
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(rankDto));
 
@@ -241,5 +241,40 @@ public class UserService {
         else
             throw new RuntimeException("Error while changing rank");
     }
+    public void addRank(RankDto rankDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(rankDto));
 
+        Request request = new Request.Builder()
+                .url(URL + "/rank")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            System.out.println("Rank created successfully!");
+        else
+            throw new RuntimeException("Error while creating rank");
+    }
+    public void addAllRanks(List<RankDto> ranksDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(ranksDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/rank/all")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            System.out.println("All ranks created successfully!");
+        else
+            throw new RuntimeException("Error while creating all ranks");
+    }
 }

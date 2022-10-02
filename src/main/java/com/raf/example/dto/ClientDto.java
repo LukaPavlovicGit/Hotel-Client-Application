@@ -16,6 +16,16 @@ public class ClientDto {
 
     public ClientDto(){}
 
+    public ClientDto(String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate, String numOfPassport) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthdate = birthdate;
+        this.numOfPassport = numOfPassport;
+    }
+
     public ClientDto(String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate, String numOfPassport, Integer numOfReservation) {
         this.username = username;
         this.firstName = firstName;

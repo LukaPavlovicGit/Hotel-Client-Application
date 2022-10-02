@@ -1,6 +1,7 @@
 package com.raf.example;
 
 import com.raf.example.dto.UserDto;
+import com.raf.example.rest.NotificationService;
 import com.raf.example.rest.UserService;
 import com.raf.example.rest.ReservationService;
 import com.raf.example.view.*;
@@ -17,9 +18,11 @@ public class MainFrame extends JFrame {
     private RegisterManagerView registerManagerView;
     private LoginView loginView;
     private ManagerView managerView;
+    private ClientView clientView;
 
     private UserService userService;
     private ReservationService reservationService;
+    private NotificationService notificationService;
 
 
     public static MainFrame getInstance() {
@@ -40,9 +43,11 @@ public class MainFrame extends JFrame {
         registerManagerView = new RegisterManagerView();
         loginView = new LoginView();
         managerView = new ManagerView();
+        clientView = new ClientView();
 
         userService = new UserService();
         reservationService = new ReservationService();
+        notificationService = new NotificationService();
 
         this.setTitle("Client GUI application");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -87,6 +92,10 @@ public class MainFrame extends JFrame {
     }
 
     public void showClientView() {
+        this.getContentPane().setVisible(false);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(clientView);
+        this.getContentPane().setVisible(true);
     }
 
     public void showAdminView() {
@@ -115,5 +124,9 @@ public class MainFrame extends JFrame {
 
     public ReservationService getReservationService() {
         return reservationService;
+    }
+
+    public NotificationService getNotificationService() {
+        return notificationService;
     }
 }

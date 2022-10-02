@@ -1,8 +1,27 @@
 package com.raf.example.dto;
 
 public class RankDto {
+    private Long id;
     private String name;
     private Integer reach;
+
+    public RankDto() {
+    }
+
+    public RankDto(String name, Integer reach) {
+        this.name = name;
+        this.reach = reach;
+    }
+
+    public RankDto(Long id, String name, Integer reach) {
+        this.id = id;
+        this.name = name;
+        this.reach = reach;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

@@ -3,7 +3,6 @@ import java.util.Date;
 
 public class UserDto {
 
-    private Long id;
     private String username;
 
     private String firstName;
@@ -20,8 +19,7 @@ public class UserDto {
 
     public UserDto(){}
 
-    public UserDto(Long id, String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate) {
-        this.id = id;
+    public UserDto(String username, String firstName, String lastName, String email, String phoneNumber, Date birthdate) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,17 +29,8 @@ public class UserDto {
     }
 
     public UserDto(Long id, String role, String email){
-        this.id = id;
         this.role = role;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

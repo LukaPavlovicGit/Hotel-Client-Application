@@ -11,15 +11,12 @@ public class EmailNotificationDto {
         this.text = text;
     }
 
+    public EmailNotificationDto(String type, String text) {
+        this.type = type;
+        this.text = text;
+    }
+
     public EmailNotificationDto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getType() {

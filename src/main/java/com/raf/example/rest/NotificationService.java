@@ -22,7 +22,7 @@ public class NotificationService {
     public List<SentEmailDto> getAllNotifications() throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
-                .url(URL + "/notifications/allSent")
+                .url(URL + "/notifications/all")
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();
@@ -39,7 +39,7 @@ public class NotificationService {
     public List<SentEmailDto> getAllNotificationsByEmail(String email) throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
-                .url(URL + "/notifications/allSent/"+email)
+                .url(URL + "/notifications/all/" + email)
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();
@@ -56,7 +56,7 @@ public class NotificationService {
     public List<EmailNotificationDto> getAllNotificationTypes() throws IOException{
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
-                .url(URL + "/notifications/type")
+                .url(URL + "/notifications/all/type")
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();

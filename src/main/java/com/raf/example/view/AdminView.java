@@ -24,7 +24,7 @@ public class AdminView extends JPanel {
     private JButton updateAdminBtn = new JButton("UPDATE");
     private JButton getAllNotificationsBtn = new JButton("GET ALL");
     private JButton getAllNotificationTypesBtn = new JButton("GET ALL");
-    private JButton changeNotificationTypeBtn = new JButton("CHANGE");
+    private JButton updateNotificationTypeBtn = new JButton("CHANGE");
     private JButton deleteNotificationTypeBtn = new JButton("DELETE");
 
     private JTextArea blockUserTa = new JTextArea();
@@ -33,7 +33,7 @@ public class AdminView extends JPanel {
     private JTextArea addAllRanksTa = new JTextArea();
     private JTextArea rankConfigurationTa = new JTextArea();
     private JTextArea updateAdminTa = new JTextArea();
-    private JTextArea changeNotificationTypeTa = new JTextArea();
+    private JTextArea updateNotificationTypeTa = new JTextArea();
     private JTextArea deleteNotificationTypeTa = new JTextArea();
 
 
@@ -122,9 +122,9 @@ public class AdminView extends JPanel {
                 exception.printStackTrace();
             }
         });
-        changeNotificationTypeBtn.addActionListener(e -> {
+        updateNotificationTypeBtn.addActionListener(e -> {
             try{
-                String[] str = changeNotificationTypeTa.getText().split("[\n]");
+                String[] str = updateNotificationTypeTa.getText().split("[\n]");
                 MainFrame.getInstance().getNotificationService()
                         .changeNotificationType(new EmailNotificationDto(
                                 Long.valueOf(str[0].split(":")[1].trim()),
@@ -137,7 +137,7 @@ public class AdminView extends JPanel {
         });
         deleteNotificationTypeBtn.addActionListener(e -> {
             try{
-                String[] str = changeNotificationTypeTa.getText().split("[\n]");
+                String[] str = updateNotificationTypeTa.getText().split("[\n]");
                 MainFrame.getInstance().getNotificationService()
                         .deleteNotificationType( Long.valueOf(str[0].split(":")[1].trim()) );
             }
@@ -146,13 +146,34 @@ public class AdminView extends JPanel {
             }
         });
         getAllUsersBtn.addActionListener(e -> {
-
+            try{
+                List list = MainFrame.getInstance().getUserService()
+                        .getAllUsers();
+                JOptionPane.showMessageDialog(null, list);
+            }
+            catch (Exception exception){
+                exception.printStackTrace();
+            }
         });
         getAllNotificationsBtn.addActionListener(e -> {
-
+            try{
+                List list = MainFrame.getInstance().getNotificationService()
+                        .getAllNotifications();
+                JOptionPane.showMessageDialog(null, list);
+            }
+            catch (Exception exception){
+                exception.printStackTrace();
+            }
         });
         getAllNotificationTypesBtn.addActionListener(e -> {
-
+            try{
+                List list = MainFrame.getInstance().getNotificationService()
+                        .getAllNotificationTypes();
+                JOptionPane.showMessageDialog(null, list);
+            }
+            catch (Exception exception){
+                exception.printStackTrace();
+            }
         });
     }
 
@@ -225,8 +246,8 @@ public class AdminView extends JPanel {
         sb.append("Notification id (to apply changes on) : \n");
         sb.append("type name : \n");
         sb.append("text : \n");
-        changeNotificationTypeTa.setText(sb.toString());
-        return changeNotificationTypeTa;
+        updateNotificationTypeTa.setText(sb.toString());
+        return updateNotificationTypeTa;
     }
     public JTextArea setDeleteNotificationTypeTa() {
         sb.delete(0,sb.length());

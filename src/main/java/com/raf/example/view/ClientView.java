@@ -16,12 +16,12 @@ public class ClientView extends JPanel {
 
     private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
     private JButton reservationBtn = new JButton("RESERVATION");
-    private JButton cancelReservationBtn = new JButton("CANCEL RESERVATION");
-    private JButton addReviewBtn = new JButton("ADD REVIEW");
-    private JButton listReviewsBtn = new JButton("LIST REVIEWS");
-    private JButton updateReviewBtn = new JButton("UPDATE REVIEW");
-    private JButton deleteReviewBtn = new JButton("DELETE REVIEW");
-    private JButton updateClientBtn = new JButton("UPDATE CLIENT");
+    private JButton cancelReservationBtn = new JButton("CANCEL");
+    private JButton addReviewBtn = new JButton("ADD");
+    private JButton listReviewsBtn = new JButton("LIST");
+    private JButton updateReviewBtn = new JButton("UPDATE");
+    private JButton deleteReviewBtn = new JButton("DELETE");
+    private JButton updateClientBtn = new JButton("UPDATE");
     private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
     private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS");
 
@@ -59,6 +59,7 @@ public class ClientView extends JPanel {
         jContentPane.add(northPanel);
 
         northPanel.add(listBestHotelsBtn);
+        northPanel.add(listNotificationsBtn);
 
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listNotificationsBtn);
         addNewTab("RESERVATION", setReservationTa(), reservationBtn);

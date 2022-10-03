@@ -1,6 +1,7 @@
 package com.raf.example.view;
 
 import com.raf.example.MainFrame;
+import com.raf.example.controller.*;
 import com.raf.example.dto.EmailNotificationDto;
 import com.raf.example.dto.RankDto;
 import com.raf.example.dto.UserDto;
@@ -20,10 +21,10 @@ public class AdminView extends JPanel {
     private JButton addRankBtn = new JButton("ADD");
     private JButton addAllRanksBtn = new JButton("ADD ALL");
     private JButton rankConfigurationBtn = new JButton("CONFIGURE");
-    private JButton getAllUsersBtn = new JButton("GET ALL");
+    private JButton getAllUsersBtn = new JButton("GET ALL USERS");
     private JButton updateAdminBtn = new JButton("UPDATE");
-    private JButton getAllNotificationsBtn = new JButton("GET ALL");
-    private JButton getAllNotificationTypesBtn = new JButton("GET ALL");
+    private JButton getAllNotificationsBtn = new JButton("GET ALL NOTIFICATION");
+    private JButton getAllNotificationTypesBtn = new JButton("GET ALL NOTIFICATION TYPES");
     private JButton updateNotificationTypeBtn = new JButton("CHANGE");
     private JButton deleteNotificationTypeBtn = new JButton("DELETE");
 
@@ -38,7 +39,28 @@ public class AdminView extends JPanel {
 
 
     public AdminView(){
-        addListeners();
+
+        blockUserBtn.addActionListener(new BlockUserAction(blockUserTa));
+        unBlockUserBtn.addActionListener(new UnblockUserAction(unBlockUserTa));
+        addRankBtn.addActionListener(new AddRankAction(addRankTa));
+        addAllRanksBtn.addActionListener(new AddAllRanksAction(addAllRanksTa));
+        rankConfigurationBtn.addActionListener(new RankConfigurationAction(rankConfigurationTa));
+        updateAdminBtn.addActionListener(new UpdateAdminAction(updateAdminTa));
+        updateNotificationTypeBtn.addActionListener(new UpdateNotificationTypeAction(updateNotificationTypeTa));
+        deleteNotificationTypeBtn.addActionListener(new DeleteNotificationType(deleteNotificationTypeTa));
+        getAllUsersBtn.addActionListener(new GetAllUsersAction());
+        getAllNotificationsBtn.addActionListener(new GetAllNotificationsAction());
+        getAllNotificationTypesBtn.addActionListener(new GetAllNotificationTypesAction());
+
+        addNewTab("BLOCK USER", setBlockUserTa(), blockUserBtn);
+        addNewTab("UNBLOCK USER", setUnBlockUserTa(), unBlockUserBtn);
+        addNewTab("ADD RANK", setAddRankTa(), addRankBtn);
+        addNewTab("add all ranks", setAddAllRanksTa(), addAllRanksBtn);
+        addNewTab("RANK CONFIG", setRankConfigurationTa(), rankConfigurationBtn);
+        addNewTab("UPDATE ADMIN", setUpdateAdminTa(), updateAdminBtn);
+        addNewTab("notif type config", setUpdateNotificationTypeTa(), updateNotificationTypeBtn);
+        addNewTab("delete notif type", setBlockUserTa(), blockUserBtn);
+
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -48,135 +70,11 @@ public class AdminView extends JPanel {
         northPanel.setBounds(61, 11, 81, 140);
         northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
         jContentPane.add(northPanel);
-    }
 
-    private void addListeners() {
-        blockUserBtn.addActionListener(e -> {
-            try{
-                String[] str = blockUserTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService().blockUser(str[0].split(":")[1].trim());
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        unBlockUserBtn.addActionListener(e -> {
-            try{
-                String[] str = blockUserTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService().unblockUser(str[0].split(":")[1].trim());
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        addRankBtn.addActionListener(e -> {
-            try{
-                String[] str = blockUserTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService()
-                        .addRank(new RankDto(str[0].split(":")[1].trim(),
-                                             Integer.valueOf(str[1].split(":")[1].trim())) );
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        addAllRanksBtn.addActionListener(e -> {
-            try{
-                String text = addAllRanksTa.getText().split("[+]")[1];
-                String[] str = text.split("#");
-                List<RankDto> list = new ArrayList<>();
-                for(String line : str) {
-                    list.add(new RankDto(
-                                str[0].split(":")[1].trim(),
-                                Integer.valueOf(str[1].split(":")[1].trim())) );
-                }
-                MainFrame.getInstance().getUserService().addAllRanks(list);
-            }
-            catch(Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        rankConfigurationBtn.addActionListener(e -> {
-            try{
-                String[] str = blockUserTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService()
-                        .rankConfiguration(new RankDto(
-                                Long.valueOf(str[0].split(":")[1].trim()),
-                                str[1].split(":")[1].trim(),
-                                Integer.valueOf(str[2].split(":")[1].trim())) );
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        updateAdminBtn.addActionListener(e -> {
-            try{
-                String[] str = updateAdminTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService()
-                        .updateAdmin( new UserDto(
-                                str[0].split(":")[1].trim(),
-                                str[1].split(":")[1].trim(),
-                                str[2].split(":")[1].trim(),
-                                str[3].split(":")[1].trim(),
-                                str[4].split(":")[1].trim(),
-                                Date.valueOf(str[5].split(":")[1].trim())) );
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        updateNotificationTypeBtn.addActionListener(e -> {
-            try{
-                String[] str = updateNotificationTypeTa.getText().split("[\n]");
-                MainFrame.getInstance().getNotificationService()
-                        .changeNotificationType(new EmailNotificationDto(
-                                Long.valueOf(str[0].split(":")[1].trim()),
-                                str[1].split(":")[1].trim(),
-                                str[2].split(":")[1].trim()) );
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        deleteNotificationTypeBtn.addActionListener(e -> {
-            try{
-                String[] str = updateNotificationTypeTa.getText().split("[\n]");
-                MainFrame.getInstance().getNotificationService()
-                        .deleteNotificationType( Long.valueOf(str[0].split(":")[1].trim()) );
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        getAllUsersBtn.addActionListener(e -> {
-            try{
-                List list = MainFrame.getInstance().getUserService()
-                        .getAllUsers();
-                JOptionPane.showMessageDialog(null, list);
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        getAllNotificationsBtn.addActionListener(e -> {
-            try{
-                List list = MainFrame.getInstance().getNotificationService()
-                        .getAllNotifications();
-                JOptionPane.showMessageDialog(null, list);
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        getAllNotificationTypesBtn.addActionListener(e -> {
-            try{
-                List list = MainFrame.getInstance().getNotificationService()
-                        .getAllNotificationTypes();
-                JOptionPane.showMessageDialog(null, list);
-            }
-            catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
+        northPanel.add(getAllNotificationsBtn);
+        northPanel.add(getAllNotificationsBtn);
+        northPanel.add(getAllNotificationTypesBtn);
     }
-
 
     private void addNewTab(String tabName, JTextArea ta, JButton button){
         JPanel pan = new JPanel();
@@ -241,7 +139,7 @@ public class AdminView extends JPanel {
         return updateAdminTa;
     }
 
-    public JTextArea setChangeNotificationTypeTa() {
+    public JTextArea setUpdateNotificationTypeTa() {
         sb.delete(0,sb.length());
         sb.append("Notification id (to apply changes on) : \n");
         sb.append("type name : \n");

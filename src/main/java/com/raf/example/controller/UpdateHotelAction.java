@@ -3,19 +3,21 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.HotelDto;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UpdateHotelAction  implements ActionListener {
-    private String text;
+    private JTextArea ta;
 
-    public UpdateHotelAction(String text) {
-        this.text = text;
+    public UpdateHotelAction(JTextArea ta) {
+        this.ta = ta;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String[] str = text.split("[\n]");
+            String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getReservationService().updateHotel(new HotelDto(str[0], str[1], str[2]));
         }
         catch (Exception exception) {

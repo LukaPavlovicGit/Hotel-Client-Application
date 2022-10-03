@@ -181,7 +181,7 @@ public class ClientView extends JPanel {
         listNotificationsBtn.addActionListener(e -> {
             try {
                 String[] str = updateClientTa.getText().split("[\n]");
-                java.util.List<SentEmailDto> list =  MainFrame.getInstance().getNotificationService().getAllNotificationsByEmail(str[0].split(":")[1].trim());
+                java.util.List<SentEmailDto> list =  MainFrame.getInstance().getNotificationService().getAllNotificationsByCurrentUserEmail();
                 JOptionPane.showMessageDialog(null, list);
             }
             catch (IOException ex) {

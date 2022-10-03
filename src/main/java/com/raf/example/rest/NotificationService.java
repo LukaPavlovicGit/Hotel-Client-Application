@@ -36,10 +36,10 @@ public class NotificationService {
             throw new RuntimeException("Error getting all sent notifications");
     }
 
-    public List<SentEmailDto> getAllNotificationsByEmail(String email) throws IOException {
+    public List<SentEmailDto> getAllNotificationsByCurrentUserEmail() throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
-                .url(URL + "/notifications/all/" + email)
+                .url(URL + "/notifications/allByEmail")
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();

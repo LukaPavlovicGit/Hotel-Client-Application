@@ -1,15 +1,9 @@
 package com.raf.example.view;
 
-import com.raf.example.MainFrame;
 import com.raf.example.controller.*;
-import com.raf.example.dto.HotelDto;
-import com.raf.example.dto.ManagerDto;
-import com.raf.example.dto.RoomDto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.sql.Date;
 
 public class ManagerView extends JPanel {
 
@@ -20,7 +14,7 @@ public class ManagerView extends JPanel {
     private JButton updateHotelBtn = new JButton("UPDATE HOTEL");
     private JButton addRoomBtn = new JButton("ADD ROOM");
     private JButton updateRoomBtn = new JButton("UPDATE ROOM");
-    private JButton showReservations = new JButton("SHOW ALL");
+    private JButton listReservations = new JButton("LIST ALL RESERVATIONS");
     private JButton cancelReservation = new JButton("CANCEL RESERVATION");
     private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS"); // NIJE IMPLEMENTIRANO
     private JButton updateManagerBtn = new JButton("UPDATE MANAGER");
@@ -41,13 +35,15 @@ public class ManagerView extends JPanel {
 
     public ManagerView(){
 
-        addHotelBtn.addActionListener(new AddHotelAction(addHotelTa.getText()));
-        updateHotelBtn.addActionListener(new UpdateHotelAction(updateHotelTa.getText()));
-        addRoomBtn.addActionListener(new AddRoomAction(addRoomTa.getText()));
-        updateRoomBtn.addActionListener(new UpdateRoomAction(updateRoomTa.getText()));
-        cancelReservation.addActionListener(new CancelReservationAction(cancelReservationTa.getText()));
-        updateManagerBtn.addActionListener(new UpdateRoomTypeAction(updateHotelTa.getText()));
-        updateRoomTypeBtn.addActionListener(new UpdateManagerAction(updateRoomTypeTa.getText()));
+        addHotelBtn.addActionListener(new AddHotelAction(addHotelTa));
+        updateHotelBtn.addActionListener(new UpdateHotelAction(updateHotelTa));
+        addRoomBtn.addActionListener(new AddRoomAction(addRoomTa));
+        updateRoomBtn.addActionListener(new UpdateRoomAction(updateRoomTa));
+        cancelReservation.addActionListener(new CancelReservationAction(cancelReservationTa));
+        updateManagerBtn.addActionListener(new UpdateRoomTypeAction(updateHotelTa));
+        updateRoomTypeBtn.addActionListener(new UpdateManagerAction(updateRoomTypeTa));
+        listNotificationsBtn.addActionListener(new ListNotificationsAction());
+        listReservations.addActionListener(new ListReservationsBtn());
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -59,9 +55,8 @@ public class ManagerView extends JPanel {
         jContentPane.add(northPanel);
 
         northPanel.add(listNotificationsBtn);
-        northPanel.add(getNotificationsBtn);
-        northPanel.add(showReservations);
-        
+        northPanel.add(listReservations);
+
         addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
         addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
         addNewTab("ADD ROOM", setAddRoomTa(), addRoomBtn);

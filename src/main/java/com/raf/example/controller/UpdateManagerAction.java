@@ -9,15 +9,15 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 
 public class UpdateManagerAction  implements ActionListener {
-    private String text;
+    private JTextArea ta;
 
-    public UpdateManagerAction(String text) {
-        this.text = text;
+    public UpdateManagerAction(JTextArea ta) {
+        this.ta = ta;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String[] str = text.split("[\n]");
+            String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getUserService()
                     .updateManager(new ManagerDto(
                             str[0].split(":")[1].trim(),

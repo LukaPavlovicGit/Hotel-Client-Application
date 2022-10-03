@@ -4,21 +4,22 @@ import com.raf.example.MainFrame;
 import com.raf.example.dto.RankDto;
 import com.raf.example.dto.RoomTypeDto;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SetRoomTypesAction implements ActionListener {
-    private String text;
+    private JTextArea ta;
 
-    public SetRoomTypesAction(String text) {
-        this.text = text;
+    public SetRoomTypesAction(JTextArea ta) {
+        this.ta = ta;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            String s = text.split("[+]")[1];
+            String s = ta.getText().split("[+]")[1];
             String[] str = s.split("#");
             List<RoomTypeDto> list = new ArrayList<>();
             for(String line : str) {

@@ -303,6 +303,25 @@ public class ReservationService {
         return reviews;
     }
 
+    public List getAllReservations() throws IOException {
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/reservations")
+                .addHeader("authorization", "token " + token)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.code() == 200)
+            return objectMapper.readValue(response.body().string(), List.class);
+        else
+            throw new RuntimeException("ERROR while getting all reservations!");
+
+    }
+
     public List getTopRatedHotels() throws IOException {
         String token = MainFrame.getInstance().getToken();
         List reviews;

@@ -1,17 +1,10 @@
 package com.raf.example.view;
 
-import com.raf.example.MainFrame;
 import com.raf.example.controller.BackAction;
 import com.raf.example.controller.RegisterClientAction;
-import com.raf.example.dto.ClientCreateDto;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterClientView extends JPanel{
     private StringBuilder sb = new StringBuilder();
@@ -21,7 +14,7 @@ public class RegisterClientView extends JPanel{
     private JButton backBtn = new JButton("BACK");
 
     private JTextArea registerTa = new JTextArea();
-    
+
     public RegisterClientView(){
 
         registerBtn.addActionListener(new RegisterClientAction(registerTa));

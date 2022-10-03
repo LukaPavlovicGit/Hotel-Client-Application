@@ -1,4 +1,19 @@
 package com.raf.example.controller;
 
-public class ChangePasswordAction {
+import com.raf.example.MainFrame;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ChangePasswordAction implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try{
+            MainFrame.getInstance().showForgotPasswordView();
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+    }
 }

@@ -1,6 +1,9 @@
 package com.raf.example.view;
 
 import com.raf.example.MainFrame;
+import com.raf.example.controller.BackAction;
+import com.raf.example.controller.ChangePasswordAction;
+import com.raf.example.controller.LonginAction;
 import com.raf.example.dto.TokenRequestDto;
 import com.raf.example.tokenDecoder.TokenDecoder;
 
@@ -9,64 +12,57 @@ import java.awt.*;
 import java.io.IOException;
 
 public class LoginView extends JPanel {
-    private JTextField emailField = new JTextField("email", 14);
-    private JPasswordField passwordField = new JPasswordField("password", 14);
-    private JPanel panel = new JPanel();
+    private StringBuilder sb = new StringBuilder();
+    private JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
+
     private JButton loginButton = new JButton("Login");
-    private JOptionPane  optionPane = new JOptionPane();
-    private JButton  backBtn = new JButton("Back");
     private JButton changePasswordBtn = new JButton("Change password");
+    private JButton  backBtn = new JButton("Back");
+
+    private JTextArea loginTa = new JTextArea();
+    private JTextArea changePasswordTa = new JTextArea();
+
 
     public LoginView(){
-        addListeners();
+        loginButton.addActionListener(new LonginAction(loginTa));
+        backBtn.addActionListener(new BackAction());
+        changePasswordBtn.addActionListener(new ChangePasswordAction());
 
-        panel.add(emailField);
-        panel.add(passwordField);
-        this.add(panel, BorderLayout.CENTER);
+        JPanel jContentPane = new JPanel();
+        jContentPane.setLayout(null);
 
-        JPanel optionsPanel = new JPanel(new FlowLayout());
-        optionsPanel.add(backBtn);
-        optionsPanel.add(loginButton);
-        optionsPanel.add(changePasswordBtn);
-        this.add(optionsPanel, BorderLayout.SOUTH);
+        JPanel northPanel = new JPanel();
+
+        northPanel.setBounds(61, 11, 81, 140);
+        northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
+        jContentPane.add(northPanel);
+
+        northPanel.add(backBtn);
+        northPanel.add(changePasswordBtn);
+
+        addNewTab("LOGIN", setLoginTa(), loginButton);
+
+        BorderLayout bl = new BorderLayout();
+        bl.setHgap(20);
+        bl.setVgap(20);
+        this.setLayout(bl);
+        this.add("North", northPanel);
+        this.add("Center",tabs);
     }
 
-    private void addListeners() {
-        loginButton.addActionListener(e -> {//emailField.getText().toString(), String.valueOf(passwordField.getPassword())
-            try {
-                String token = MainFrame.getInstance().getUserService()
-                        .login(new TokenRequestDto(emailField.getText().toString(), String.valueOf(passwordField.getPassword())));
-                MainFrame.getInstance().setToken(token);
+    private void addNewTab(String tabName, JTextArea ta, JButton button){
+        JPanel pan = new JPanel();
+        pan.setLayout(new BorderLayout());
+        pan.add("Center", ta);
+        pan.add("South", button);
+        tabs.addTab(tabName, pan);
+    }
 
-                MainFrame.getInstance().setCurrentUser(TokenDecoder.decodeToken(token));
-                String role = MainFrame.getInstance().getCurrentUser().getRole();
-                if (role.equals("ROLE_MANAGER"))
-                    MainFrame.getInstance().showManagerView();
-                else if (role.equals("ROLE_CLIENT"))
-                    MainFrame.getInstance().showClientView();
-                else
-                    MainFrame.getInstance().showAdminView();
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Incorrect email or password", "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
-            }
-        });
-
-        backBtn.addActionListener((event)->{
-            try{
-                MainFrame.getInstance().showMainView();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-
-        changePasswordBtn.addActionListener((event)->{
-            try{
-                MainFrame.getInstance().showForgotPasswordView();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
+    private JTextArea setLoginTa(){
+        sb.delete(0,sb.length());
+        sb.append("username : \n");
+        sb.append("password : \n");
+        loginTa.setText(sb.toString());
+        return loginTa;
     }
 }

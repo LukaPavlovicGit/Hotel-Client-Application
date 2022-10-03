@@ -33,7 +33,7 @@ public class RegisterClientAction implements ActionListener {
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(
-                    null, "Error while updating manager in managerView", "Error", JOptionPane.ERROR_MESSAGE);
+                    null, "Error while creating client", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

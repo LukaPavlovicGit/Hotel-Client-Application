@@ -1,6 +1,7 @@
 package com.raf.example.view;
 
 import com.raf.example.MainFrame;
+import com.raf.example.controller.*;
 import com.raf.example.dto.*;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class ClientView extends JPanel {
     private JButton updateReviewBtn = new JButton("UPDATE REVIEW");
     private JButton deleteReviewBtn = new JButton("DELETE REVIEW");
     private JButton updateClientBtn = new JButton("UPDATE CLIENT");
-    private JButton bestHotelsBtn = new JButton("BEST HOTELS");
+    private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
     private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS");
 
     private JTextArea listAvailableRoomsTa = new JTextArea();
@@ -32,11 +33,21 @@ public class ClientView extends JPanel {
     private JTextArea updateReviewTa = new JTextArea();
     private JTextArea deleteReviewTa = new JTextArea();
     private JTextArea updateClientTa = new JTextArea();
-    private JTextArea bestHotelsTa = new JTextArea();
+    private JTextArea listBestHotelsTa = new JTextArea();
     private JTextArea listNotificationsTa = new JTextArea();
 
     public ClientView(){
-        addListeners();
+
+        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+        reservationBtn.addActionListener(new ReservationAction(reservationTa));
+        cancelReservationBtn.addActionListener(new CancelReservationAction(cancelReservationTa));
+        addReviewBtn.addActionListener(new AddReviewAction(addReviewTa));
+        listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
+        updateReviewBtn.addActionListener(new UpdateReviewAction(updateReviewTa));
+        deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
+        updateClientBtn.addActionListener(new UpdateClientAction(updateClientTa));
+        listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
+        listNotificationsBtn.addActionListener(new ListNotificationsAction());
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -47,7 +58,7 @@ public class ClientView extends JPanel {
         northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.X_AXIS));
         jContentPane.add(northPanel);
 
-        northPanel.add(bestHotelsBtn);
+        northPanel.add(listBestHotelsBtn);
 
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listNotificationsBtn);
         addNewTab("RESERVATION", setReservationTa(), reservationBtn);
@@ -64,130 +75,6 @@ public class ClientView extends JPanel {
         this.setLayout(bl);
         this.add("North", northPanel);
         this.add("Center",tabs);
-    }
-
-    private void addListeners() {
-        listAvailableRoomsBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService()
-                        .getAvailableRooms(new AvailableRoomsFilterDto(
-                            str[0].split(":")[1].trim(),
-                            str[1].split(":")[1].trim(),
-                            LocalDate.parse(str[2].split(":")[1].trim()),
-                            LocalDate.parse(str[3].split(":")[1].trim()),
-                            str[4].split(":")[1].trim())  );
-            }
-            catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        reservationBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService()
-                                        .createReservation(
-                                                str[0].split(":")[1].trim(),
-                                                str[1].split(":")[1].trim(),
-                                                str[2].split(":")[1].trim() );
-
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        cancelReservationBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService().cancelReservation( str[0].split(":")[1].trim() );
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        addReviewBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService()
-                                        .addReview(new ReviewDto(Long.valueOf(
-                                                    str[0].split(":")[1].trim()),
-                                                    Long.valueOf(str[1].split(":")[1].trim()),
-                                                    Integer.valueOf(str[2].split(":")[1].trim()),
-                                                    str[3].split(":")[1].trim()) );
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        listReviewsBtn.addActionListener(e -> {
-            try { // String hotelName, String city
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                List reviews = (List) MainFrame.getInstance().getReservationService()
-                        .getAllReviews(str[0].split(":")[1].trim(),
-                                       str[1].split(":")[1].trim() );
-
-                JOptionPane.showMessageDialog(null, reviews);
-            }catch (Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        updateReviewBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService()
-                        .updateReview(str[0].split(":")[1].trim(), new ReviewDto(Long.valueOf(
-                                str[1].split(":")[1].trim()),
-                                Long.valueOf(str[2].split(":")[1].trim()),
-                                Integer.valueOf(str[3].split(":")[1].trim()),
-                                str[4].split(":")[1].trim()));
-            } catch(Exception exception){
-                exception.printStackTrace();
-            }
-
-        });
-        deleteReviewBtn.addActionListener(e -> {
-            try {
-                String[] str = listAvailableRoomsTa.getText().split("[\n]");
-                MainFrame.getInstance().getReservationService().deleteReview( str[0].split(":")[1].trim() );
-
-            } catch(Exception exception){
-                exception.printStackTrace();
-            }
-        });
-        updateClientBtn.addActionListener(e -> {
-            try {
-                String[] str = updateClientTa.getText().split("[\n]");
-                MainFrame.getInstance().getUserService()
-                        .updateClient( new ClientDto(
-                                    str[0].split(":")[1].trim(),
-                                    str[1].split(":")[1].trim(),
-                                    str[2].split(":")[1].trim(),
-                                    str[3].split(":")[1].trim(),
-                                    str[4].split(":")[1].trim(),
-                                    Date.valueOf(str[5].split(":")[1].trim()),
-                                    str[6].split(":")[1].trim() ));
-            }
-            catch (Exception ex) {
-                JOptionPane.showMessageDialog(
-                        null, "Error while updating manager in managerView", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-        bestHotelsBtn.addActionListener(e -> {
-            try {
-                List list = (List) MainFrame.getInstance().getReservationService().getTopRatedHotels();
-                JOptionPane.showMessageDialog(null, list);
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        listNotificationsBtn.addActionListener(e -> {
-            try {
-                String[] str = updateClientTa.getText().split("[\n]");
-                java.util.List<SentEmailDto> list =  MainFrame.getInstance().getNotificationService().getAllNotificationsByCurrentUserEmail();
-                JOptionPane.showMessageDialog(null, list);
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
     }
 
     private void addNewTab(String tabName, JTextArea ta, JButton button){
@@ -266,8 +153,8 @@ public class ClientView extends JPanel {
     }
     private JTextArea setBestHotelsTa(){
         sb.delete(0,sb.length());
-        bestHotelsTa.setText(sb.toString());
-        return bestHotelsTa;
+        listBestHotelsTa.setText(sb.toString());
+        return listBestHotelsTa;
     }
     private JTextArea setListNotificationsTa(){
         sb.delete(0,sb.length());

@@ -20,7 +20,9 @@ public class LonginAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             String[] str = ta.getText().split("[\n]");
-            String token = MainFrame.getInstance().getUserService().login(new TokenRequestDto(str[0], str[1]));
+            String token = MainFrame.getInstance().getUserService().login(new TokenRequestDto(
+                                                                            str[0].split(":")[1].trim(),
+                                                                            str[1].split(":")[1].trim())    );
 
             MainFrame.getInstance().setToken(token);
             MainFrame.getInstance().setCurrentUser(TokenDecoder.decodeToken(token));

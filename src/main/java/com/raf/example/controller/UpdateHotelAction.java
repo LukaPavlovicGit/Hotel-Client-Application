@@ -18,7 +18,10 @@ public class UpdateHotelAction  implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             String[] str = ta.getText().split("[\n]");
-            MainFrame.getInstance().getReservationService().updateHotel(new HotelDto(str[0], str[1], str[2]));
+            MainFrame.getInstance().getReservationService().updateHotel(new HotelDto(
+                                                                    str[0].split(":")[1].trim(),
+                                                                    str[1].split(":")[1].trim(),
+                                                                    str[2].split(":")[1].trim()) );
         }
         catch (Exception exception) {
             exception.printStackTrace();

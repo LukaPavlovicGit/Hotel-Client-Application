@@ -2,10 +2,7 @@ package com.raf.example.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
-import com.raf.example.dto.AvailableRoomsFilterDto;
-import com.raf.example.dto.HotelDto;
-import com.raf.example.dto.ReviewDto;
-import com.raf.example.dto.RoomDto;
+import com.raf.example.dto.*;
 import com.raf.example.tokenDecoder.TokenDecoder;
 import com.raf.example.view.ManagerView;
 import okhttp3.*;
@@ -100,6 +97,63 @@ public class ReservationService {
             JOptionPane.showMessageDialog(null, "Room added successfully!");
         else
             throw new RuntimeException("Cannot add a new hotel!");
+    }
+
+    public void addAllRoomTypes(List<RoomTypeDto> roomTypeDtos) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomTypeDtos));
+
+        Request request = new Request.Builder()
+                .url(URL + "/roomTypes/all")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "All room types made successfully!");
+        else
+            throw new RuntimeException("ERROR while adding all room types!");
+    }
+
+    public void updateRoomType(RoomTypeDto roomTypeDto) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomTypeDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/roomTypes")
+                .addHeader("authorization", "token " + token)
+                .put(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Room type updated successfully!");
+        else
+            throw new RuntimeException("ERROR while updating room types!");
+    }
+
+    public void removeRoomType(String id) throws IOException {
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
+
+        Request request = new Request.Builder()
+                .url(URL + "/roomTypes")
+                .addHeader("authorization", "token " + token)
+                .delete(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Room type deleted successfully!");
+        else
+            throw new RuntimeException("ERROR while deleting room type!");
     }
 
     public List getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{

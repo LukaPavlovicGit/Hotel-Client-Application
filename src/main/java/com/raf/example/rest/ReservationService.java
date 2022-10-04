@@ -3,8 +3,6 @@ package com.raf.example.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
-import com.raf.example.tokenDecoder.TokenDecoder;
-import com.raf.example.view.ManagerView;
 import okhttp3.*;
 
 import javax.swing.*;
@@ -218,7 +216,7 @@ public class ReservationService {
             throw new RuntimeException("Cannot make reservation!");
     }
 
-    public void cancelReservation(String reservationId) throws IOException {
+    public void deleteReservation(String reservationId) throws IOException {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, reservationId);
 

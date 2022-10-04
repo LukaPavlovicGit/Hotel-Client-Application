@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CancelReservationAction implements ActionListener {
+public class DeleteReservationAction implements ActionListener {
 
     private JTextArea ta;
 
-    public CancelReservationAction(JTextArea ta) {
+    public DeleteReservationAction(JTextArea ta) {
         this.ta = ta;
     }
 
@@ -18,7 +18,7 @@ public class CancelReservationAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             String[] str = ta.getText().split("[\n]");
-            MainFrame.getInstance().getReservationService().cancelReservation( str[0].split(":")[1].trim() );
+            MainFrame.getInstance().getReservationService().deleteReservation( str[0].split(":")[1].trim() );
         }
         catch (Exception exception) {
             exception.printStackTrace();

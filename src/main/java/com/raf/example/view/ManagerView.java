@@ -16,7 +16,7 @@ public class ManagerView extends JPanel {
     private JButton addRoomBtn = new JButton("ADD ROOM");
     private JButton updateRoomBtn = new JButton("UPDATE ROOM");
     private JButton listReservations = new JButton("LIST ALL RESERVATIONS");
-    private JButton cancelReservation = new JButton("CANCEL RESERVATION");
+    private JButton deleteReservation = new JButton("DELETE");
     private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS"); // NIJE IMPLEMENTIRANO
     private JButton updateManagerBtn = new JButton("UPDATE MANAGER");
     private JButton getNotificationsBtn = new JButton("GET NOTIFICATIONS"); // NIJE ODRANJENO, OVO JE ZA ADMINA SAMO????
@@ -24,6 +24,9 @@ public class ManagerView extends JPanel {
     private JButton updateRoomTypeBtn = new JButton("UPDATE TYPE");
     private JButton listReviewsBtn = new JButton("LIST");
     private JButton deleteReviewBtn = new JButton("REMOVE");
+    private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
+    private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
+
 
     private JTextArea addHotelTa = new JTextArea();
     private JTextArea updateHotelTa = new JTextArea();
@@ -31,13 +34,15 @@ public class ManagerView extends JPanel {
     private JTextArea addRoomTa = new JTextArea();
     private JTextArea updateRoomTa = new JTextArea();
     private JTextArea getAllReservationsTa = new JTextArea();
-    private JTextArea cancelReservationTa = new JTextArea();
+    private JTextArea deleteReservationTa = new JTextArea();
     private JTextArea updateManagerTa = new JTextArea();
     private JTextArea listNotificationsTa = new JTextArea();
     private JTextArea setRoomTypesTa = new JTextArea();
     private JTextArea updateRoomTypeTa = new JTextArea();
     private JTextArea listReviewsTa = new JTextArea();
     private JTextArea deleteReviewTa = new JTextArea();
+    private JTextArea listBestHotelsTa = new JTextArea();
+    private JTextArea listAvailableRoomsTa = new JTextArea();
 
     public ManagerView(){
 
@@ -46,13 +51,28 @@ public class ManagerView extends JPanel {
         deleteHotelBtn.addActionListener(new DeleteHotelAction());
         addRoomBtn.addActionListener(new AddRoomAction(addRoomTa));
         updateRoomBtn.addActionListener(new UpdateRoomAction(updateRoomTa));
-        cancelReservation.addActionListener(new CancelReservationAction(cancelReservationTa));
+        deleteReservation.addActionListener(new DeleteReservationAction(deleteReservationTa));
         updateManagerBtn.addActionListener(new UpdateRoomTypeAction(updateHotelTa));
         updateRoomTypeBtn.addActionListener(new UpdateManagerAction(updateRoomTypeTa));
         listNotificationsBtn.addActionListener(new ListNotificationsAction());
         listReservations.addActionListener(new ListReservationsBtn());
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
+        listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
+        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+
+        addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
+        addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
+        addNewTab("DELETE HOTEL", setDeleteHotelTa(), deleteHotelBtn);
+        addNewTab("ADD ROOM", setAddRoomTa(), addRoomBtn);
+        addNewTab("UPDATE ROOM", setUpdateRoomTa(), updateRoomBtn);
+        addNewTab("CANCEL RESERVATION", setDeleteReservationTa(), deleteReservation);
+        addNewTab("UPDATE MANAGER", setUpdateManagerTa(), updateManagerBtn);
+        addNewTab("ADD ROOM TYPES", setAddRoomTypesTa(), addRoomTypesBtn);
+        addNewTab("UPDATE ROOM TYPE", setUpdateRoomTa(), updateRoomTypeBtn);
+        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
+        addNewTab("DELETE REVIEW", setRemoveReviewTa(), deleteReviewBtn);
+        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -65,18 +85,7 @@ public class ManagerView extends JPanel {
 
         northPanel.add(listNotificationsBtn);
         northPanel.add(listReservations);
-
-        addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
-        addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
-        addNewTab("DELETE HOTEL", setDeleteHotelTa(), deleteHotelBtn);
-        addNewTab("ADD ROOM", setAddRoomTa(), addRoomBtn);
-        addNewTab("UPDATE ROOM", setUpdateRoomTa(), updateRoomBtn);
-        addNewTab("CANCEL RESERVATION", setCancelReservationTa(), cancelReservation);
-        addNewTab("UPDATE MANAGER", setUpdateManagerTa(), updateManagerBtn);
-        addNewTab("ADD ROOM TYPES", setAddRoomTypesTa(), addRoomTypesBtn);
-        addNewTab("UPDATE ROOM TYPE", setUpdateRoomTa(), updateRoomTypeBtn);
-        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
-        addNewTab("DELETE REVIEW", setRemoveReviewTa(), deleteReviewBtn);
+        northPanel.add(listBestHotelsBtn);
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);
@@ -135,11 +144,11 @@ public class ManagerView extends JPanel {
         updateRoomTa.setText(sb.toString());
         return updateRoomTa;
     }
-    public JTextArea setCancelReservationTa(){
+    public JTextArea setDeleteReservationTa(){
         sb.delete(0,sb.length());
         sb.append("reservation id : \n");
-        cancelReservationTa.setText(sb.toString());
-        return cancelReservationTa;
+        deleteReservationTa.setText(sb.toString());
+        return deleteReservationTa;
     }
     public JTextArea setUpdateManagerTa(){
         sb.delete(0,sb.length());
@@ -185,5 +194,15 @@ public class ManagerView extends JPanel {
         sb.append("review id : \n");
         deleteReviewTa.setText(sb.toString());
         return deleteReviewTa;
+    }
+    private JTextArea setListAvailableRoomsTa(){
+        sb.delete(0,sb.length());
+        sb.append("hotel name : \n");
+        sb.append("city : \n");
+        sb.append("start date (yyyy-MM-dd) : \n");
+        sb.append("end date (yyyy-MM-dd) : \n");
+        sb.append("sort (ASC/DESC) : \n");
+        listAvailableRoomsTa.setText(sb.toString());
+        return listAvailableRoomsTa;
     }
 }

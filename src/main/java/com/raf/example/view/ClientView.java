@@ -11,7 +11,7 @@ public class ClientView extends JPanel {
 
     private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
     private JButton reservationBtn = new JButton("RESERVATION");
-    private JButton cancelReservationBtn = new JButton("CANCEL");
+    private JButton deleteReservationBtn = new JButton("DELETE");
     private JButton addReviewBtn = new JButton("ADD");
     private JButton listReviewsBtn = new JButton("LIST");
     private JButton updateReviewBtn = new JButton("UPDATE");
@@ -22,7 +22,7 @@ public class ClientView extends JPanel {
 
     private JTextArea listAvailableRoomsTa = new JTextArea();
     private JTextArea reservationTa = new JTextArea();
-    private JTextArea cancelReservationTa = new JTextArea();
+    private JTextArea deleteReservationTa = new JTextArea();
     private JTextArea addReviewTa = new JTextArea();
     private JTextArea listReviewsTa = new JTextArea();
     private JTextArea updateReviewTa = new JTextArea();
@@ -35,7 +35,7 @@ public class ClientView extends JPanel {
 
         listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
         reservationBtn.addActionListener(new ReservationAction(reservationTa));
-        cancelReservationBtn.addActionListener(new CancelReservationAction(cancelReservationTa));
+        deleteReservationBtn.addActionListener(new DeleteReservationAction(deleteReservationTa));
         addReviewBtn.addActionListener(new AddReviewAction(addReviewTa));
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         updateReviewBtn.addActionListener(new UpdateReviewAction(updateReviewTa));
@@ -43,6 +43,15 @@ public class ClientView extends JPanel {
         updateClientBtn.addActionListener(new UpdateClientAction(updateClientTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         listNotificationsBtn.addActionListener(new ListNotificationsAction());
+
+        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
+        addNewTab("RESERVATION", setReservationTa(), reservationBtn);
+        addNewTab("DELETE RESERVATION", setDeleteReservationTa(), deleteReservationBtn);
+        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
+        addNewTab("UPDATE REVIEW", setUpdateReviewTa(), updateReviewBtn);
+        addNewTab("DELETE REVIEW", setDeleteReviewTa(), deleteReviewBtn);
+        addNewTab("UPDATE CLIENT", setUpdateClientTa(), updateClientBtn);
+        addNewTab("LIST NOTIFICATIONS", setListNotificationsTa(), listNotificationsBtn);
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -55,15 +64,6 @@ public class ClientView extends JPanel {
 
         northPanel.add(listBestHotelsBtn);
         northPanel.add(listNotificationsBtn);
-
-        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listNotificationsBtn);
-        addNewTab("RESERVATION", setReservationTa(), reservationBtn);
-        addNewTab("CANCEL RESERVATION", setCancelReservationTa(), cancelReservationBtn);
-        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
-        addNewTab("UPDATE REVIEW", setUpdateReviewTa(), updateReviewBtn);
-        addNewTab("DELETE REVIEW", setDeleteReviewTa(), deleteReviewBtn);
-        addNewTab("UPDATE CLIENT", setUpdateClientTa(), updateClientBtn);
-        addNewTab("LIST NOTIFICATIONS", setListNotificationsTa(), listNotificationsBtn);
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);
@@ -98,11 +98,11 @@ public class ClientView extends JPanel {
         reservationTa.setText(sb.toString());
         return reservationTa;
     }
-    private JTextArea setCancelReservationTa(){
+    private JTextArea setDeleteReservationTa(){
         sb.delete(0,sb.length());
         sb.append("reservation id : \n");
-        cancelReservationTa.setText(sb.toString());
-        return cancelReservationTa;
+        deleteReservationTa.setText(sb.toString());
+        return deleteReservationTa;
     }
     private JTextArea setListReviewsTa(){
         sb.delete(0,sb.length());

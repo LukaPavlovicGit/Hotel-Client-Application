@@ -28,6 +28,9 @@ public class AdminView extends JPanel {
     private JButton updateNotificationTypeBtn = new JButton("CHANGE");
     private JButton deleteNotificationTypeBtn = new JButton("DELETE");
     private JButton listReviewsBtn = new JButton("LIST");
+    private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
+    private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
+
 
     private JTextArea blockUserTa = new JTextArea();
     private JTextArea unBlockUserTa = new JTextArea();
@@ -38,6 +41,8 @@ public class AdminView extends JPanel {
     private JTextArea updateNotificationTypeTa = new JTextArea();
     private JTextArea deleteNotificationTypeTa = new JTextArea();
     private JTextArea listReviewsTa = new JTextArea();
+    private JTextArea listBestHotelsTa = new JTextArea();
+    private JTextArea listAvailableRoomsTa = new JTextArea();
 
 
     public AdminView(){
@@ -51,9 +56,12 @@ public class AdminView extends JPanel {
         updateNotificationTypeBtn.addActionListener(new UpdateNotificationTypeAction(updateNotificationTypeTa));
         deleteNotificationTypeBtn.addActionListener(new DeleteNotificationType(deleteNotificationTypeTa));
         getAllUsersBtn.addActionListener(new GetAllUsersAction());
+        listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         getAllNotificationsBtn.addActionListener(new GetAllNotificationsAction());
         getAllNotificationTypesBtn.addActionListener(new GetAllNotificationTypesAction());
-        listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
+        listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
+        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+
 
         addNewTab("BLOCK USER", setBlockUserTa(), blockUserBtn);
         addNewTab("UNBLOCK USER", setUnBlockUserTa(), unBlockUserBtn);
@@ -64,8 +72,7 @@ public class AdminView extends JPanel {
         addNewTab("notif type config", setUpdateNotificationTypeTa(), updateNotificationTypeBtn);
         addNewTab("delete notif type", setBlockUserTa(), blockUserBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
-
-
+        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -79,6 +86,14 @@ public class AdminView extends JPanel {
         northPanel.add(getAllNotificationsBtn);
         northPanel.add(getAllNotificationsBtn);
         northPanel.add(getAllNotificationTypesBtn);
+        northPanel.add(listBestHotelsBtn);
+
+        BorderLayout bl = new BorderLayout();
+        bl.setHgap(20);
+        bl.setVgap(20);
+        this.setLayout(bl);
+        this.add("North", northPanel);
+        this.add("Center",tabs);
     }
 
     private void addNewTab(String tabName, JTextArea ta, JButton button){
@@ -165,5 +180,16 @@ public class AdminView extends JPanel {
         sb.append("city (optional) : \n");
         listReviewsTa.setText(sb.toString());
         return listReviewsTa;
+    }
+
+    private JTextArea setListAvailableRoomsTa(){
+        sb.delete(0,sb.length());
+        sb.append("hotel name : \n");
+        sb.append("city : \n");
+        sb.append("start date (yyyy-MM-dd) : \n");
+        sb.append("end date (yyyy-MM-dd) : \n");
+        sb.append("sort (ASC/DESC) : \n");
+        listAvailableRoomsTa.setText(sb.toString());
+        return listAvailableRoomsTa;
     }
 }

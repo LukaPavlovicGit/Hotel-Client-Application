@@ -27,6 +27,7 @@ public class AdminView extends JPanel {
     private JButton getAllNotificationTypesBtn = new JButton("GET ALL NOTIFICATION TYPES");
     private JButton updateNotificationTypeBtn = new JButton("CHANGE");
     private JButton deleteNotificationTypeBtn = new JButton("DELETE");
+    private JButton listReviewsBtn = new JButton("LIST");
 
     private JTextArea blockUserTa = new JTextArea();
     private JTextArea unBlockUserTa = new JTextArea();
@@ -36,6 +37,7 @@ public class AdminView extends JPanel {
     private JTextArea updateAdminTa = new JTextArea();
     private JTextArea updateNotificationTypeTa = new JTextArea();
     private JTextArea deleteNotificationTypeTa = new JTextArea();
+    private JTextArea listReviewsTa = new JTextArea();
 
 
     public AdminView(){
@@ -51,6 +53,7 @@ public class AdminView extends JPanel {
         getAllUsersBtn.addActionListener(new GetAllUsersAction());
         getAllNotificationsBtn.addActionListener(new GetAllNotificationsAction());
         getAllNotificationTypesBtn.addActionListener(new GetAllNotificationTypesAction());
+        listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
 
         addNewTab("BLOCK USER", setBlockUserTa(), blockUserBtn);
         addNewTab("UNBLOCK USER", setUnBlockUserTa(), unBlockUserBtn);
@@ -60,6 +63,8 @@ public class AdminView extends JPanel {
         addNewTab("UPDATE ADMIN", setUpdateAdminTa(), updateAdminBtn);
         addNewTab("notif type config", setUpdateNotificationTypeTa(), updateNotificationTypeBtn);
         addNewTab("delete notif type", setBlockUserTa(), blockUserBtn);
+        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
+
 
 
         JPanel jContentPane = new JPanel();
@@ -152,5 +157,13 @@ public class AdminView extends JPanel {
         sb.append("notification id : \n");
         deleteNotificationTypeTa.setText(sb.toString());
         return deleteNotificationTypeTa;
+    }
+
+    private JTextArea setListReviewsTa(){
+        sb.delete(0,sb.length());
+        sb.append("hotel name (optional) : \n");
+        sb.append("city (optional) : \n");
+        listReviewsTa.setText(sb.toString());
+        return listReviewsTa;
     }
 }

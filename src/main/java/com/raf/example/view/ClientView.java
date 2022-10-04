@@ -1,14 +1,9 @@
 package com.raf.example.view;
 
-import com.raf.example.MainFrame;
 import com.raf.example.controller.*;
-import com.raf.example.dto.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
 
 public class ClientView extends JPanel {
     private StringBuilder sb = new StringBuilder();

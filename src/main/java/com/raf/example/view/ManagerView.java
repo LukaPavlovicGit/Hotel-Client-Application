@@ -12,6 +12,7 @@ public class ManagerView extends JPanel {
 
     private JButton addHotelBtn = new JButton("ADD HOTEL");
     private JButton updateHotelBtn = new JButton("UPDATE HOTEL");
+    private JButton deleteHotelBtn = new JButton("DELETE");
     private JButton addRoomBtn = new JButton("ADD ROOM");
     private JButton updateRoomBtn = new JButton("UPDATE ROOM");
     private JButton listReservations = new JButton("LIST ALL RESERVATIONS");
@@ -21,9 +22,12 @@ public class ManagerView extends JPanel {
     private JButton getNotificationsBtn = new JButton("GET NOTIFICATIONS"); // NIJE ODRANJENO, OVO JE ZA ADMINA SAMO????
     private JButton addRoomTypesBtn = new JButton("SET ROOM TYPES"); // NIJE IMPLEMENTIRANO
     private JButton updateRoomTypeBtn = new JButton("UPDATE TYPE");
+    private JButton listReviewsBtn = new JButton("LIST");
+    private JButton deleteReviewBtn = new JButton("REMOVE");
 
     private JTextArea addHotelTa = new JTextArea();
     private JTextArea updateHotelTa = new JTextArea();
+    private JTextArea deleteHotelTa = new JTextArea();
     private JTextArea addRoomTa = new JTextArea();
     private JTextArea updateRoomTa = new JTextArea();
     private JTextArea getAllReservationsTa = new JTextArea();
@@ -32,11 +36,14 @@ public class ManagerView extends JPanel {
     private JTextArea listNotificationsTa = new JTextArea();
     private JTextArea setRoomTypesTa = new JTextArea();
     private JTextArea updateRoomTypeTa = new JTextArea();
+    private JTextArea listReviewsTa = new JTextArea();
+    private JTextArea deleteReviewTa = new JTextArea();
 
     public ManagerView(){
 
         addHotelBtn.addActionListener(new AddHotelAction(addHotelTa));
         updateHotelBtn.addActionListener(new UpdateHotelAction(updateHotelTa));
+        deleteHotelBtn.addActionListener(new DeleteHotelAction());
         addRoomBtn.addActionListener(new AddRoomAction(addRoomTa));
         updateRoomBtn.addActionListener(new UpdateRoomAction(updateRoomTa));
         cancelReservation.addActionListener(new CancelReservationAction(cancelReservationTa));
@@ -44,6 +51,8 @@ public class ManagerView extends JPanel {
         updateRoomTypeBtn.addActionListener(new UpdateManagerAction(updateRoomTypeTa));
         listNotificationsBtn.addActionListener(new ListNotificationsAction());
         listReservations.addActionListener(new ListReservationsBtn());
+        listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
+        deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -59,12 +68,15 @@ public class ManagerView extends JPanel {
 
         addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
         addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
+        addNewTab("DELETE HOTEL", setDeleteHotelTa(), deleteHotelBtn);
         addNewTab("ADD ROOM", setAddRoomTa(), addRoomBtn);
         addNewTab("UPDATE ROOM", setUpdateRoomTa(), updateRoomBtn);
         addNewTab("CANCEL RESERVATION", setCancelReservationTa(), cancelReservation);
         addNewTab("UPDATE MANAGER", setUpdateManagerTa(), updateManagerBtn);
         addNewTab("ADD ROOM TYPES", setAddRoomTypesTa(), addRoomTypesBtn);
         addNewTab("UPDATE ROOM TYPE", setUpdateRoomTa(), updateRoomTypeBtn);
+        addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
+        addNewTab("DELETE REVIEW", setRemoveReviewTa(), deleteReviewBtn);
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);
@@ -99,6 +111,13 @@ public class ManagerView extends JPanel {
         sb.append("description : \n");
         updateHotelTa.setText(sb.toString());
         return updateHotelTa;
+    }
+
+    public JTextArea setDeleteHotelTa(){
+        sb.delete(0,sb.length());
+        sb.append("Hotel whose manager is currently connected will be deleted!\n");
+        deleteHotelTa.setText(sb.toString());
+        return deleteHotelTa;
     }
 
     public JTextArea setAddRoomTa(){
@@ -153,5 +172,18 @@ public class ManagerView extends JPanel {
         sb.append("price per day : ");
         listNotificationsTa.setText(sb.toString());
         return listNotificationsTa;
+    }
+    private JTextArea setListReviewsTa(){
+        sb.delete(0,sb.length());
+        sb.append("hotel name (optional) : \n");
+        sb.append("city (optional) : \n");
+        listReviewsTa.setText(sb.toString());
+        return listReviewsTa;
+    }
+    private JTextArea setRemoveReviewTa(){
+        sb.delete(0,sb.length());
+        sb.append("review id : \n");
+        deleteReviewTa.setText(sb.toString());
+        return deleteReviewTa;
     }
 }

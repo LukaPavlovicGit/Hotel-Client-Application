@@ -39,8 +39,6 @@ public class ReservationService {
 
     public void updateHotel(HotelDto hotelDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
-        Long managerId = TokenDecoder.getId(token);
-
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(hotelDto));
 
         Request request = new Request.Builder()
@@ -57,6 +55,25 @@ public class ReservationService {
         else
             throw new RuntimeException("Cannot update a hotel!");
     }
+
+    public void deleteHotel() throws IOException {
+        String token = MainFrame.getInstance().getToken();
+
+        Request request = new Request.Builder()
+                .url(URL + "/hotels")
+                .addHeader("authorization", "token " + token)
+                .delete()
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Hotel deleted successfully!");
+        else
+            throw new RuntimeException("Cannot delete a hotel!");
+    }
+
 
     public void addRoom(String roomType, String roomNumber) throws IOException{
         String token = MainFrame.getInstance().getToken();

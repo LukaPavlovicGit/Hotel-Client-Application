@@ -28,7 +28,6 @@ public class ClientView extends JPanel {
     private JTextArea updateReviewTa = new JTextArea();
     private JTextArea deleteReviewTa = new JTextArea();
     private JTextArea updateClientTa = new JTextArea();
-    private JTextArea listBestHotelsTa = new JTextArea();
     private JTextArea listNotificationsTa = new JTextArea();
 
     public ClientView(){
@@ -146,11 +145,6 @@ public class ClientView extends JPanel {
         sb.append("numOfPassport : \n");
         updateClientTa.setText(sb.toString());
         return updateClientTa;
-    }
-    private JTextArea setBestHotelsTa(){
-        sb.delete(0,sb.length());
-        listBestHotelsTa.setText(sb.toString());
-        return listBestHotelsTa;
     }
     private JTextArea setListNotificationsTa(){
         sb.delete(0,sb.length());

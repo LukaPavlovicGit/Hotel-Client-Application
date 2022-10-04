@@ -2,6 +2,7 @@ package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
 import com.raf.example.dto.HotelDto;
+import com.raf.example.dto.RoomDto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,9 @@ public class AddRoomAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             String[] str = ta.getText().split("[\n]");
-            MainFrame.getInstance().getReservationService().addRoom( str[0].split(":")[1].trim(), str[1].split(":")[1].trim() );
+            MainFrame.getInstance().getReservationService().addRoom( new RoomDto(
+                                                        Integer.valueOf(str[0].split(":")[1].trim()) ,
+                                                        str[1].split(":")[1].trim()) );
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

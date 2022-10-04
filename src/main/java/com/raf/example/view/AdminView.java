@@ -43,7 +43,6 @@ public class AdminView extends JPanel {
     private JTextArea updateNotificationTypeTa = new JTextArea();
     private JTextArea deleteNotificationTypeTa = new JTextArea();
     private JTextArea listReviewsTa = new JTextArea();
-    private JTextArea listBestHotelsTa = new JTextArea();
     private JTextArea listAvailableRoomsTa = new JTextArea();
 
 

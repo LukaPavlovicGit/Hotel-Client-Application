@@ -8,6 +8,8 @@ import okhttp3.*;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReservationService {
     public static final String URL = "http://localhost:9081/api";
@@ -15,6 +17,10 @@ public class ReservationService {
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
     ObjectMapper objectMapper = new ObjectMapper();
+
+    public ReservationService(){
+        Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
+    }
 
     public void addNewHotel(HotelDto hotelDto) throws IOException  {
         String token = MainFrame.getInstance().getToken();
@@ -73,17 +79,14 @@ public class ReservationService {
     }
 
 
-    public void addRoom(String roomType, String roomNumber) throws IOException{
+    public void addRoom(RoomDto roomDto) throws IOException{
         String token = MainFrame.getInstance().getToken();
-
-        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/rooms").newBuilder();
-        httpBuilder.addQueryParameter("roomType", roomType);
-        httpBuilder.addQueryParameter("roomNumber", roomNumber); // na ruti na prihvata kao integer !!!!!!
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomDto));
 
         Request request = new Request.Builder()
-                .url(httpBuilder.build())
+                .url(URL + "/rooms")
                 .addHeader("authorization", "token " + token)
-                .get()
+                .post(body)
                 .build();
 
         Call call = client.newCall(request);

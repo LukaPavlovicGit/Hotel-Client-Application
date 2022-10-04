@@ -114,6 +114,25 @@ public class ReservationService {
             throw new RuntimeException("Cannot add a new hotel!");
     }
 
+    public void addRoomType(RoomTypeDto roomTypeDto) throws IOException{
+        String token = MainFrame.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomTypeDto));
+
+        Request request = new Request.Builder()
+                .url(URL + "/roomTypes")
+                .addHeader("authorization", "token " + token)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        Response response = call.execute();
+
+        if (response.isSuccessful())
+            JOptionPane.showMessageDialog(null, "Room type added successfully!");
+        else
+            throw new RuntimeException("ERROR while adding room type!");
+    }
+
     public void addAllRoomTypes(List<RoomTypeDto> roomTypeDtos) throws IOException {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomTypeDtos));
@@ -152,7 +171,7 @@ public class ReservationService {
             throw new RuntimeException("ERROR while updating room types!");
     }
 
-    public void removeRoomType(String id) throws IOException {
+    public void deleteRoomType(String id) throws IOException {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
 

@@ -22,6 +22,7 @@ public class AdminView extends JPanel {
     private JButton addAllRanksBtn = new JButton("ADD ALL");
     private JButton rankConfigurationBtn = new JButton("CONFIGURE");
     private JButton getAllUsersBtn = new JButton("GET ALL USERS");
+    private JButton getUserByIdBtn = new JButton("GET");
     private JButton updateAdminBtn = new JButton("UPDATE");
     private JButton getAllNotificationsBtn = new JButton("GET ALL NOTIFICATION");
     private JButton getAllNotificationTypesBtn = new JButton("GET ALL NOTIFICATION TYPES");
@@ -37,6 +38,7 @@ public class AdminView extends JPanel {
     private JTextArea addRankTa = new JTextArea();
     private JTextArea addAllRanksTa = new JTextArea();
     private JTextArea rankConfigurationTa = new JTextArea();
+    private JTextArea getUserByIdTa = new JTextArea();
     private JTextArea updateAdminTa = new JTextArea();
     private JTextArea updateNotificationTypeTa = new JTextArea();
     private JTextArea deleteNotificationTypeTa = new JTextArea();
@@ -61,7 +63,7 @@ public class AdminView extends JPanel {
         getAllNotificationTypesBtn.addActionListener(new GetAllNotificationTypesAction());
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
-
+        getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
 
         addNewTab("BLOCK USER", setBlockUserTa(), blockUserBtn);
         addNewTab("UNBLOCK USER", setUnBlockUserTa(), unBlockUserBtn);
@@ -73,6 +75,7 @@ public class AdminView extends JPanel {
         addNewTab("delete notif type", setBlockUserTa(), blockUserBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
+        addNewTab("GET USER", setGetUserByIdTa(), getUserByIdBtn);
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -191,5 +194,11 @@ public class AdminView extends JPanel {
         sb.append("sort (ASC/DESC) : \n");
         listAvailableRoomsTa.setText(sb.toString());
         return listAvailableRoomsTa;
+    }
+    public JTextArea setGetUserByIdTa(){
+        sb.delete(0,sb.length());
+        sb.append("room type id : \n");
+        getUserByIdTa.setText(sb.toString());
+        return getUserByIdTa;
     }
 }

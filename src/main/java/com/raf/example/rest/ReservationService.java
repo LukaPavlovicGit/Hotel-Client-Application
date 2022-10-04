@@ -205,11 +205,10 @@ public class ReservationService {
         Response response = call.execute();
 
         if (response.isSuccessful())
-            availableRooms = objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(response.body().string(), List.class);
         else
             throw new RuntimeException("Cannot get rooms!");
 
-        return availableRooms;
     }
 
     public void createReservation(String roomId, String startDate, String endDate) throws IOException {
@@ -330,11 +329,9 @@ public class ReservationService {
         Response response = call.execute();
 
         if (response.isSuccessful())
-            reviews = objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(response.body().string(), List.class);
         else
             throw new RuntimeException("ERROR");
-
-        return reviews;
     }
 
     public List getAllReservations() throws IOException {
@@ -370,10 +367,8 @@ public class ReservationService {
         Response response = call.execute();
 
         if (response.isSuccessful())
-            reviews = objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(response.body().string(), List.class);
         else
             throw new RuntimeException("ERROR");
-
-        return reviews;
     }
 }

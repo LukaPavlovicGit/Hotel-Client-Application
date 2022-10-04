@@ -28,6 +28,8 @@ public class ManagerView extends JPanel {
     private JButton deleteReviewBtn = new JButton("REMOVE");
     private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
     private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
+    private JButton getAllUsersBtn = new JButton("GET ALL USERS");
+    private JButton getUserByIdBtn = new JButton("GET");
 
     private JTextArea addHotelTa = new JTextArea();
     private JTextArea updateHotelTa = new JTextArea();
@@ -46,6 +48,7 @@ public class ManagerView extends JPanel {
     private JTextArea deleteReviewTa = new JTextArea();
     private JTextArea listBestHotelsTa = new JTextArea();
     private JTextArea listAvailableRoomsTa = new JTextArea();
+    private JTextArea getUserByIdTa = new JTextArea();
 
     public ManagerView(){
 
@@ -59,12 +62,16 @@ public class ManagerView extends JPanel {
         addRoomTypeBtn.addActionListener(new AddRoomTypeAction(addRoomTypeTa));
         addAllRoomTypesBtn.addActionListener(new AddAllRoomTypesAction(addAllRoomTypesTa));
         updateRoomTypeBtn.addActionListener(new UpdateManagerAction(updateRoomTypeTa));
+        deleteHotelBtn.addActionListener(new DeleteRoomTypeAction(deleteHotelTa));
         listNotificationsBtn.addActionListener(new ListNotificationsAction());
         listReservations.addActionListener(new ListReservationsBtn());
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
-        listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+        getAllUsersBtn.addActionListener(new GetAllUsersAction());
+        getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
+        listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
+
 
         addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
         addNewTab("UPDATE HOTEL", setUpdateHotelTa(), updateHotelBtn);
@@ -76,9 +83,12 @@ public class ManagerView extends JPanel {
         addNewTab("ADD ROOM TYPE", setAddRoomTypeTa(), addRoomTypeBtn);
         addNewTab("ADD ALL ROOM TYPES", setAddAllRoomTypesTa(), addAllRoomTypesBtn);
         addNewTab("UPDATE ROOM TYPE", setUpdateRoomTa(), updateRoomTypeBtn);
+        addNewTab("DELETE ROOM TYPE", setDeleteHotelTa(), deleteRoomTypeBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
         addNewTab("DELETE REVIEW", setRemoveReviewTa(), deleteReviewBtn);
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
+        addNewTab("GET USER", setGetUserByIdTa(), getUserByIdBtn);
+
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -203,6 +213,12 @@ public class ManagerView extends JPanel {
         listNotificationsTa.setText(sb.toString());
         return listNotificationsTa;
     }
+    public JTextArea deleteRoomTypeTa(){
+        sb.delete(0,sb.length());
+        sb.append("room type id : ");
+        deleteRoomTypeTa.setText(sb.toString());
+        return deleteRoomTypeTa;
+    }
     private JTextArea setListReviewsTa(){
         sb.delete(0,sb.length());
         sb.append("hotel name (optional) : \n");
@@ -225,5 +241,12 @@ public class ManagerView extends JPanel {
         sb.append("sort (ASC/DESC) : \n");
         listAvailableRoomsTa.setText(sb.toString());
         return listAvailableRoomsTa;
+    }
+
+    public JTextArea setGetUserByIdTa(){
+        sb.delete(0,sb.length());
+        sb.append("room type id : \n");
+        getUserByIdTa.setText(sb.toString());
+        return getUserByIdTa;
     }
 }

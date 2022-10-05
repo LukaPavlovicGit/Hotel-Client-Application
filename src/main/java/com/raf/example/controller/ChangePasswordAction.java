@@ -13,7 +13,7 @@ public class ChangePasswordAction implements ActionListener {
         try{
             MainFrame.getInstance().showForgotPasswordView();
         }catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while changing password!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

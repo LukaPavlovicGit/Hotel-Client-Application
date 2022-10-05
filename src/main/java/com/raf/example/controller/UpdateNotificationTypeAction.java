@@ -24,7 +24,7 @@ public class UpdateNotificationTypeAction implements ActionListener {
                             str[2].split(":")[1].trim()) );
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while updating notification type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

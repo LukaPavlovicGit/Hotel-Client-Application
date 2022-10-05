@@ -38,7 +38,7 @@ public class ReservationService {
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel added successfully!");
         else
-            throw new RuntimeException("Cannot add a new hotel!");
+            throw new RuntimeException();
     }
 
     public void updateHotel(HotelDto hotelDto) throws IOException {
@@ -57,7 +57,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel updated successfully!");
         else
-            throw new RuntimeException("Cannot update a hotel!");
+            throw new RuntimeException();
     }
 
     public void deleteHotel() throws IOException {
@@ -75,7 +75,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel deleted successfully!");
         else
-            throw new RuntimeException("Cannot delete a hotel!");
+            throw new RuntimeException();
     }
 
 
@@ -95,7 +95,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room added successfully!");
         else
-            throw new RuntimeException("Cannot add a new room!");
+            throw new RuntimeException();
     }
 
     public void editRoom(RoomDto roomDto) throws IOException{ // DODAJ RUTU ZA UPDATE
@@ -114,7 +114,7 @@ public class ReservationService {
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room added successfully!");
         else
-            throw new RuntimeException("Cannot add a new hotel!");
+            throw new RuntimeException();
     }
 
     public void addRoomType(RoomTypeDto roomTypeDto) throws IOException{
@@ -133,7 +133,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type added successfully!");
         else
-            throw new RuntimeException("ERROR while adding room type!");
+            throw new RuntimeException();
     }
 
     public void addAllRoomTypes(List<RoomTypeDto> roomTypeDtos) throws IOException {
@@ -152,7 +152,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "All room types made successfully!");
         else
-            throw new RuntimeException("ERROR while adding all room types!");
+            throw new RuntimeException();
     }
 
     public void updateRoomType(RoomTypeDto roomTypeDto) throws IOException {
@@ -171,7 +171,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type updated successfully!");
         else
-            throw new RuntimeException("ERROR while updating room types!");
+            throw new RuntimeException();
     }
 
     public void deleteRoomType(String id) throws IOException {
@@ -190,7 +190,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type deleted successfully!");
         else
-            throw new RuntimeException("ERROR while deleting room type!");
+            throw new RuntimeException();
     }
 
     public List getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
@@ -210,8 +210,7 @@ public class ReservationService {
         if (response.isSuccessful())
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Cannot get rooms!");
-
+            throw new RuntimeException();
     }
 
     public void createReservation(String roomId, String startDate, String endDate) throws IOException {
@@ -234,7 +233,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
         else
-            throw new RuntimeException("Cannot make reservation!");
+            throw new RuntimeException();
     }
 
     public void deleteReservation(String reservationId) throws IOException {
@@ -253,7 +252,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation canceled!");
         else
-            throw new RuntimeException("ERROR");
+            throw new RuntimeException();
     }
 
     public void addReview(ReviewDto reviewDto) throws IOException{
@@ -272,7 +271,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review added successfully!");
         else
-            throw new RuntimeException("Error while adding review");
+            throw new RuntimeException();
 
     }
     public void updateReview(String id, ReviewDto reviewDto) throws IOException {
@@ -291,7 +290,8 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review updated successfully!");
         else
-            throw new RuntimeException("Error while updating review");
+            throw new RuntimeException();
+
     }
     public void deleteReview(String reviewId) throws IOException {
         String token = MainFrame.getInstance().getToken();
@@ -311,7 +311,8 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review removed!");
         else
-            throw new RuntimeException("Cannot remove review!");
+            throw new RuntimeException();
+
     }
 
     public List getAllReviews(String hotelName, String city) throws IOException {
@@ -334,7 +335,7 @@ public class ReservationService {
         if (response.isSuccessful())
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("ERROR");
+            throw new RuntimeException();
     }
 
     public List getAllReservations() throws IOException {
@@ -352,7 +353,7 @@ public class ReservationService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("ERROR while getting all reservations!");
+            throw new RuntimeException();
 
     }
 
@@ -372,6 +373,6 @@ public class ReservationService {
         if (response.isSuccessful())
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("ERROR");
+            throw new RuntimeException();
     }
 }

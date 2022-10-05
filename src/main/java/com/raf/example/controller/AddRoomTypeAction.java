@@ -24,7 +24,7 @@ public class AddRoomTypeAction implements ActionListener {
                                                     str[0].split(":")[1].trim(),
                                                     Double.valueOf(str[1].split(":")[1].trim())) );
         }catch(Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while adding room type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

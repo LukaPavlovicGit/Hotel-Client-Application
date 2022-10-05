@@ -16,7 +16,7 @@ public class ListBestHotelsAction implements ActionListener {
             JOptionPane.showMessageDialog(null, list);
         }
         catch (IOException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting best hotels!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

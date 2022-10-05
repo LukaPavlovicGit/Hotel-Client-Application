@@ -30,8 +30,7 @@ public class UpdateManagerAction  implements ActionListener {
                             Date.valueOf(str[6].split(":")[1].trim())   ));
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(
-                    null, "Error while updating manager in managerView", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while updating manager!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

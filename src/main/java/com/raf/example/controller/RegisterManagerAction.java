@@ -32,8 +32,7 @@ public class RegisterManagerAction implements ActionListener {
                             Date.valueOf(str[7].split(":")[1].trim())) );
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(
-                    null, "Error while creating manager", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while creating manager", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -31,7 +31,7 @@ public class AddAllRanksAction implements ActionListener {
             MainFrame.getInstance().getUserService().addAllRanks(list);
         }
         catch(Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Adding all ranks!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

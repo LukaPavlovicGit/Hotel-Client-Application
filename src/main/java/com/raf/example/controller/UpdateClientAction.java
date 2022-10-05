@@ -30,8 +30,7 @@ public class UpdateClientAction implements ActionListener {
                             str[6].split(":")[1].trim() ));
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(
-                    null, "Error while updating manager in managerView", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while updating client!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

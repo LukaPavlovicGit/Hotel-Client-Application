@@ -31,7 +31,7 @@ public class ListAvailableRoomsAction implements ActionListener {
             JOptionPane.showMessageDialog(null, list);
         }
         catch (Exception exception) {
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting available rooms!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

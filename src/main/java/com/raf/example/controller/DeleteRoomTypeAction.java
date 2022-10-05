@@ -20,7 +20,7 @@ public class DeleteRoomTypeAction implements ActionListener {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getReservationService().deleteRoomType( str[0].split(":")[1].trim() );
         }catch(Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while deleting room type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

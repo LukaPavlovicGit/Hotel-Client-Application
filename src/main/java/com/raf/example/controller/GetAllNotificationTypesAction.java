@@ -15,7 +15,7 @@ public class GetAllNotificationTypesAction implements ActionListener {
             JOptionPane.showMessageDialog(null, list);
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting all notification types!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

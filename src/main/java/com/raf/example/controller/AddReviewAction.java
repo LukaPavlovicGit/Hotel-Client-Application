@@ -25,7 +25,7 @@ public class AddReviewAction implements ActionListener {
                             Integer.valueOf(str[2].split(":")[1].trim()),
                             str[3].split(":")[1].trim()) );
         }catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while adding review!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

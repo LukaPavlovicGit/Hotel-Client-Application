@@ -23,7 +23,7 @@ public class GetUserByIdAction implements ActionListener {
             JOptionPane.showMessageDialog(null, userDto);
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting user by id!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

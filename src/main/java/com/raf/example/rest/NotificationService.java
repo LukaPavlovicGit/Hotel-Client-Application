@@ -33,7 +33,7 @@ public class NotificationService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error getting all sent notifications");
+            throw new RuntimeException();
     }
 
     public List<SentEmailDto> getAllNotificationsByCurrentUserEmail() throws IOException {
@@ -50,7 +50,7 @@ public class NotificationService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error getting all sent notifications by email!");
+            throw new RuntimeException();
     }
 
     public List<EmailNotificationDto> getAllNotificationTypes() throws IOException{
@@ -67,7 +67,7 @@ public class NotificationService {
         if (response.code() == 200)
             return  objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error getting all notifications types!");
+            throw new RuntimeException();
     }
 
     public void changeNotificationType(EmailNotificationDto emailNotificationDto) throws IOException {
@@ -84,7 +84,7 @@ public class NotificationService {
         if (response.code() == 200)
             System.out.println("Notification type changed successfully!");
         else
-            throw new RuntimeException("Error while changing notification type!");
+            throw new RuntimeException();
     }
 
     public void deleteNotificationType(Long id) throws IOException {
@@ -99,7 +99,7 @@ public class NotificationService {
         if (response.code() == 200)
             System.out.println("Notification type deleted successfully!");
         else
-            throw new RuntimeException("Error while deleting notification type");
+            throw new RuntimeException();
     }
 
 }

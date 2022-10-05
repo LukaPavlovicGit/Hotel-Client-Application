@@ -15,7 +15,7 @@ public class GetAllUsersAction implements ActionListener {
             JOptionPane.showMessageDialog(null, list);
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting all users!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

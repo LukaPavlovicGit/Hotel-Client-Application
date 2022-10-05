@@ -20,7 +20,7 @@ public class DeleteReviewAction implements ActionListener {
             MainFrame.getInstance().getReservationService().deleteReview( str[0].split(":")[1].trim() );
 
         } catch(Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while deleting review!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

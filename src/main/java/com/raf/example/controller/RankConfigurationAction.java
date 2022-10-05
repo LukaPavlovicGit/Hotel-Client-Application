@@ -24,7 +24,7 @@ public class RankConfigurationAction implements ActionListener {
                             Integer.valueOf(str[2].split(":")[1].trim())) );
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while rank configuration!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

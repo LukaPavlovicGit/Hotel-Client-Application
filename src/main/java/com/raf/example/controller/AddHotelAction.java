@@ -25,7 +25,7 @@ public class AddHotelAction implements ActionListener {
                     str[2].split(":")[1].trim()
             ));
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(null, "Error while adding hotel!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

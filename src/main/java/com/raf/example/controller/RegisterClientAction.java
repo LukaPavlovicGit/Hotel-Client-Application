@@ -32,8 +32,7 @@ public class RegisterClientAction implements ActionListener {
                             str[7].split(":")[1].trim()) );
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(
-                    null, "Error while creating client", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while creating client", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

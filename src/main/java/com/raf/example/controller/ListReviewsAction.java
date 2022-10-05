@@ -24,7 +24,7 @@ public class ListReviewsAction implements ActionListener {
 
             JOptionPane.showMessageDialog(null, reviews);
         }catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while getting reviews!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

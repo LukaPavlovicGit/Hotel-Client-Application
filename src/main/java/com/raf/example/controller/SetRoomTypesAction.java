@@ -30,7 +30,7 @@ public class SetRoomTypesAction implements ActionListener {
             MainFrame.getInstance().getReservationService().addAllRoomTypes(list);
         }
         catch(Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while setting room types!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -21,7 +21,7 @@ public class DeleteReservationAction implements ActionListener {
             MainFrame.getInstance().getReservationService().deleteReservation( str[0].split(":")[1].trim() );
         }
         catch (Exception exception) {
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while deleting reservation!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

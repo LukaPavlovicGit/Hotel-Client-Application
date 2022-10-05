@@ -12,7 +12,7 @@ public class BackAction implements ActionListener {
         try{
             MainFrame.getInstance().showMainView();
         }catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while doing back action!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

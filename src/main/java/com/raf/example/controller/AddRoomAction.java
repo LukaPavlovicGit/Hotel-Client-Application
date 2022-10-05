@@ -24,7 +24,7 @@ public class AddRoomAction implements ActionListener {
                                                         Integer.valueOf(str[0].split(":")[1].trim()) ,
                                                         str[1].split(":")[1].trim()) );
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            JOptionPane.showMessageDialog(null, "Error while adding room!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

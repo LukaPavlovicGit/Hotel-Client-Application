@@ -24,7 +24,7 @@ public class UpdateRoomAction  implements ActionListener {
 
         }
         catch (IOException ioException) {
-            ioException.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while updating room!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

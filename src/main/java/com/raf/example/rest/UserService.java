@@ -33,8 +33,7 @@ public class UserService {
             TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);
             return dto.getToken();
         }
-
-        throw new RuntimeException("Invalid username or password");
+        throw new IOException();
     }
 
     public void registerClient(ClientCreateDto clientCreateDto) throws IOException {
@@ -51,7 +50,7 @@ public class UserService {
         if (response.isSuccessful())
             System.out.println("Registration successful!");
         else
-            throw new RuntimeException("Username or email already in use");
+            throw new IOException();
     }
 
     public void registerManager(ManagerCreateDto managerCreateDto) throws IOException {
@@ -68,7 +67,7 @@ public class UserService {
         if (response.isSuccessful())
             System.out.println("Registration successful!");
         else
-            throw new RuntimeException("Username or email already in use");
+            throw new IOException();
     }
 
     public void updateManager(ManagerDto managerDto) throws IOException {
@@ -86,7 +85,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("here");
         else
-            throw new RuntimeException("Error while updating manager!");
+            throw new IOException();
     }
     public void updateClient(ClientDto clientDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
@@ -103,7 +102,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("here");
         else
-            throw new RuntimeException("Error while updating client!");
+            throw new IOException();
     }
     public void updateAdmin(UserDto userDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
@@ -120,7 +119,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("here");
         else
-            throw new RuntimeException("Error while updating admin!");
+            throw new IOException();
     }
     public List<UserDto> getAllUsers() throws IOException{
         String token = MainFrame.getInstance().getToken();
@@ -136,7 +135,7 @@ public class UserService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error while getting all users");
+            throw new IOException();
     }
 
     public UserDto getUserById(String userId) throws IOException {
@@ -153,7 +152,7 @@ public class UserService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), UserDto.class);
         else
-            throw new RuntimeException("Error while getting users by id!");
+            throw new IOException();
 
     }
 
@@ -171,7 +170,7 @@ public class UserService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error while getting all clients!");
+            throw new IOException();
     }
 
     public List<ManagerDto> getAllManagers() throws IOException{
@@ -188,7 +187,7 @@ public class UserService {
         if (response.code() == 200)
             return objectMapper.readValue(response.body().string(), List.class);
         else
-            throw new RuntimeException("Error while getting all clients!");
+            throw new IOException();
     }
 
     public void blockUser(String userId) throws IOException{
@@ -205,7 +204,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("User has been blocked!");
         else
-            throw new RuntimeException("Error while blocking the user");
+            throw new IOException();
     }
 
     public void unblockUser(String userId) throws IOException{
@@ -222,7 +221,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("User has been given the access!");
         else
-            throw new RuntimeException("Error while blocking the user");
+            throw new IOException();
     }
 
     public void rankConfiguration(RankDto rankDto) throws IOException{
@@ -239,7 +238,7 @@ public class UserService {
         if (response.code() == 200)
             System.out.println("Rank changed successfully!");
         else
-            throw new RuntimeException("Error while changing rank");
+            throw new IOException();
     }
     public void addRank(RankDto rankDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
@@ -257,7 +256,7 @@ public class UserService {
         if (response.isSuccessful())
             System.out.println("Rank created successfully!");
         else
-            throw new RuntimeException("Error while creating rank");
+            throw new IOException();
     }
     public void addAllRanks(List<RankDto> ranksDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
@@ -275,6 +274,6 @@ public class UserService {
         if (response.isSuccessful())
             System.out.println("All ranks created successfully!");
         else
-            throw new RuntimeException("Error while creating all ranks");
+            throw new IOException();
     }
 }

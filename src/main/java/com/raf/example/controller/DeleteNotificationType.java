@@ -20,7 +20,7 @@ public class DeleteNotificationType implements ActionListener {
                     .deleteNotificationType( Long.valueOf(str[0].split(":")[1].trim()) );
         }
         catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while deleting notification type!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

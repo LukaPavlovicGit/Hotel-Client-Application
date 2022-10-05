@@ -21,7 +21,7 @@ public class AddRankAction implements ActionListener {
                                                                 str[0].split(":")[1].trim(),
                                                                 Integer.valueOf(str[1].split(":")[1].trim())) );
         }catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while adding rank!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

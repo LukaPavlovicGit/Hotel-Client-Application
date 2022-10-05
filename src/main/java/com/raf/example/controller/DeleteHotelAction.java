@@ -2,6 +2,7 @@ package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +13,7 @@ public class DeleteHotelAction implements ActionListener {
         try{
             MainFrame.getInstance().getReservationService().deleteHotel();
         } catch (Exception exception){
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error while deleting hotel!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

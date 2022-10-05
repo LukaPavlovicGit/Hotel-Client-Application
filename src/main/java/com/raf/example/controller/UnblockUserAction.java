@@ -18,7 +18,12 @@ public class UnblockUserAction implements ActionListener {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getUserService().unblockUser(str[0].split(":")[1].trim());
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while unblocking user!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Error while unblocking user! \n" +
+                            "Possible causes: \n" +
+                            "- user does not exist.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

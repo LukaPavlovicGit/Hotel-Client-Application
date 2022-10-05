@@ -30,6 +30,7 @@ public class ManagerView extends JPanel {
     private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
     private JButton getAllUsersBtn = new JButton("GET ALL USERS");
     private JButton getUserByIdBtn = new JButton("GET");
+    private JButton backBtn = new JButton("BACK");
 
     private JTextArea addHotelTa = new JTextArea();
     private JTextArea updateHotelTa = new JTextArea();
@@ -70,6 +71,7 @@ public class ManagerView extends JPanel {
         getAllUsersBtn.addActionListener(new GetAllUsersAction());
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
+        backBtn.addActionListener(new Back1Action());
 
 
         addNewTab("ADD HOTEL", setAddHotelTextArea(), addHotelBtn);
@@ -101,6 +103,7 @@ public class ManagerView extends JPanel {
         northPanel.add(listNotificationsBtn);
         northPanel.add(listReservations);
         northPanel.add(listBestHotelsBtn);
+        northPanel.add(backBtn);
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);

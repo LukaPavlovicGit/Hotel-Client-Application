@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
-    private String token;
+    private String token; // "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwicm9sZSI6IlJPTEVfQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSJ9.vXa85a1bQXs7DWdYjyDedSo3iKFwIBuIMDV3JwqB-iol7wc5iCDQzywzb7Uyev3Te5nVeTmDR8wZyymlDv4xTA"
     private UserDto currentUser;
     private StartView startView;
     private RegisterClientView registerClientView;
@@ -19,6 +19,7 @@ public class MainFrame extends JFrame {
     private LoginView loginView;
     private ManagerView managerView;
     private ClientView clientView;
+    private AdminView adminView;
 
     private UserService userService;
     private ReservationService reservationService;
@@ -44,6 +45,7 @@ public class MainFrame extends JFrame {
         loginView = new LoginView();
         managerView = new ManagerView();
         clientView = new ClientView();
+        adminView = new AdminView();
 
         userService = new UserService();
         reservationService = new ReservationService();
@@ -99,6 +101,10 @@ public class MainFrame extends JFrame {
     }
 
     public void showAdminView() {
+        this.getContentPane().setVisible(false);
+        this.getContentPane().removeAll();
+        this.getContentPane().add(adminView);
+        this.getContentPane().setVisible(true);
     }
 
 

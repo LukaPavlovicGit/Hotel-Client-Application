@@ -96,4 +96,17 @@ public class ClientCreateDto {
         this.numOfPassport = numOfPassport;
     }
 
+    @Override
+    public String toString() {
+        return "ClientCreateDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fistName='" + fistName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthdate=" + birthdate +
+                ", numOfPassport='" + numOfPassport + '\'' +
+                '}';
+    }
 }

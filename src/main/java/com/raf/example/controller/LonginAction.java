@@ -23,9 +23,9 @@ public class LonginAction implements ActionListener {
             String token = MainFrame.getInstance().getUserService().login(new TokenRequestDto(
                                                                             str[0].split(":")[1].trim(),
                                                                             str[1].split(":")[1].trim())    );
-
             MainFrame.getInstance().setToken(token);
             MainFrame.getInstance().setCurrentUser(TokenDecoder.decodeToken(token));
+
             String role = MainFrame.getInstance().getCurrentUser().getRole();
 
             if (role.equals("ROLE_MANAGER"))
@@ -36,6 +36,7 @@ public class LonginAction implements ActionListener {
                 MainFrame.getInstance().showAdminView();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Incorrect email or password", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

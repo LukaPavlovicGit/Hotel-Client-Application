@@ -18,7 +18,12 @@ public class BlockUserAction implements ActionListener {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getUserService().blockUser(str[0].split(":")[1].trim());
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while blocking user!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Error while blocking user! \n" +
+                            "Possible causes: \n" +
+                            "- user does not exist.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

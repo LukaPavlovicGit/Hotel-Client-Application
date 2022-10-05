@@ -98,6 +98,7 @@ public class UserDto {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthdate=" + birthdate +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

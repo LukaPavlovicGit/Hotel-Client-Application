@@ -20,18 +20,23 @@ public class AddAllRanksAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            String text = ta.getText().split("[+]")[1];
-            String[] str = text.split("#");
+            String text = ta.getText().trim().split("[+]")[1];
+            String[] str = text.split("[#]");
             List<RankDto> list = new ArrayList<>();
             for(String line : str) {
+                String decomposeLine[] = line.split(",");
                 list.add(new RankDto(
-                        str[0].split(":")[1].trim(),
-                        Integer.valueOf(str[1].split(":")[1].trim())) );
+                        decomposeLine[0].split(":")[1].trim(),
+                        Integer.valueOf(decomposeLine[1].split(":")[1].trim())) );
             }
             MainFrame.getInstance().getUserService().addAllRanks(list);
         }
         catch(Exception exception){
-            JOptionPane.showMessageDialog(null, "Adding all ranks!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while adding all ranks! \n" +
+                    "Possible causes: \n" +
+                    "-Some rank name is already in use.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

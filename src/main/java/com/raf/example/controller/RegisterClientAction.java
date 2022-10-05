@@ -30,9 +30,14 @@ public class RegisterClientAction implements ActionListener {
                             str[5].split(":")[1].trim(),
                             Date.valueOf(str[6].split(":")[1].trim()),
                             str[7].split(":")[1].trim()) );
+            MainFrame.getInstance().showLogin();
         }
         catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error while creating client", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while creating client.\n" +
+                    " Possible causes:\n" +
+                    " - username or email is already in use. \n" +
+                    " - wrong date input.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

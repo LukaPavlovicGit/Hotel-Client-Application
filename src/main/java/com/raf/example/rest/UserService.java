@@ -27,18 +27,19 @@ public class UserService {
         Call call = client.newCall(request);
 
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200) {
-            String json = response.body().string();
             TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);
             return dto.getToken();
         }
-        throw new IOException();
+        else
+            throw new IOException();
     }
 
     public void registerClient(ClientCreateDto clientCreateDto) throws IOException {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientCreateDto));
-
         Request request = new Request.Builder()
                 .url(URL + "/users/registration/client")
                 .post(body)
@@ -46,6 +47,7 @@ public class UserService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             System.out.println("Registration successful!");
@@ -63,6 +65,7 @@ public class UserService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             System.out.println("Registration successful!");
@@ -81,9 +84,10 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.code() == 200)
-            System.out.println("here");
+            System.out.println("Manager updated successfully!");
         else
             throw new IOException();
     }
@@ -98,9 +102,10 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.code() == 200)
-            System.out.println("here");
+            System.out.println("Client updated successfully!");
         else
             throw new IOException();
     }
@@ -115,9 +120,10 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.code() == 200)
-            System.out.println("here");
+            System.out.println("Admin updated successfully!");
         else
             throw new IOException();
     }
@@ -131,9 +137,11 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new IOException();
     }
@@ -148,12 +156,13 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), UserDto.class);
+            return objectMapper.readValue(json, UserDto.class);
         else
             throw new IOException();
-
     }
 
     public List<ClientDto> getAllClients() throws IOException{
@@ -166,9 +175,11 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new IOException();
     }
@@ -183,9 +194,11 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new IOException();
     }
@@ -201,6 +214,8 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
         if (response.code() == 200)
             System.out.println("User has been blocked!");
         else
@@ -218,6 +233,8 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
         if (response.code() == 200)
             System.out.println("User has been given the access!");
         else
@@ -235,6 +252,8 @@ public class UserService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
         if (response.code() == 200)
             System.out.println("Rank changed successfully!");
         else
@@ -252,6 +271,7 @@ public class UserService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             System.out.println("Rank created successfully!");
@@ -270,6 +290,7 @@ public class UserService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             System.out.println("All ranks created successfully!");

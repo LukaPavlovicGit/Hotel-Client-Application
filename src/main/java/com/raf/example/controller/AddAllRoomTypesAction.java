@@ -22,14 +22,16 @@ public class AddAllRoomTypesAction implements ActionListener {
             String text = ta.getText().split("[+]")[1];
             String[] str = text.split("#");
             List<RoomTypeDto> list = new ArrayList<>();
-            for(String line : str) {//String typeName, Double pricePerDay
+            for(String line : str) {
+                String decomposeLine[] = line.split(",");
                 list.add(new RoomTypeDto(
-                        str[0].split(":")[1].trim(),
-                        Double.valueOf(str[1].split(":")[1].trim())) );
+                        decomposeLine[0].split(":")[1].trim(),
+                        Double.valueOf(decomposeLine[1].split(":")[1].trim())) );
             }
             MainFrame.getInstance().getReservationService().addAllRoomTypes(list);
 
         }catch(Exception exception){
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while adding all room types", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

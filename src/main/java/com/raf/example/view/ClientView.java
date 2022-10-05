@@ -19,6 +19,7 @@ public class ClientView extends JPanel {
     private JButton updateClientBtn = new JButton("UPDATE");
     private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
     private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS");
+    private JButton backBtn = new JButton("BACK");
 
     private JTextArea listAvailableRoomsTa = new JTextArea();
     private JTextArea reservationTa = new JTextArea();
@@ -42,6 +43,7 @@ public class ClientView extends JPanel {
         updateClientBtn.addActionListener(new UpdateClientAction(updateClientTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         listNotificationsBtn.addActionListener(new ListNotificationsAction());
+        backBtn.addActionListener(new Back1Action());
 
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
         addNewTab("RESERVATION", setReservationTa(), reservationBtn);
@@ -63,6 +65,7 @@ public class ClientView extends JPanel {
 
         northPanel.add(listBestHotelsBtn);
         northPanel.add(listNotificationsBtn);
+        northPanel.add(backBtn);
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);

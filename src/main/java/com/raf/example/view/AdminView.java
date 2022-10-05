@@ -31,7 +31,7 @@ public class AdminView extends JPanel {
     private JButton listReviewsBtn = new JButton("LIST");
     private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
     private JButton listAvailableRoomsBtn = new JButton("LIST AVAILABLE ROOMS");
-
+    private JButton backBtn = new JButton("BACK");
 
     private JTextArea blockUserTa = new JTextArea();
     private JTextArea unBlockUserTa = new JTextArea();
@@ -63,15 +63,16 @@ public class AdminView extends JPanel {
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
+        backBtn.addActionListener(new Back1Action());
 
         addNewTab("BLOCK USER", setBlockUserTa(), blockUserBtn);
         addNewTab("UNBLOCK USER", setUnBlockUserTa(), unBlockUserBtn);
         addNewTab("ADD RANK", setAddRankTa(), addRankBtn);
-        addNewTab("add all ranks", setAddAllRanksTa(), addAllRanksBtn);
+        addNewTab("ADD ALL RANKS", setAddAllRanksTa(), addAllRanksBtn);
         addNewTab("RANK CONFIG", setRankConfigurationTa(), rankConfigurationBtn);
         addNewTab("UPDATE ADMIN", setUpdateAdminTa(), updateAdminBtn);
-        addNewTab("notif type config", setUpdateNotificationTypeTa(), updateNotificationTypeBtn);
-        addNewTab("delete notif type", setBlockUserTa(), blockUserBtn);
+        addNewTab("NOTIF TYPE CONFIG", setUpdateNotificationTypeTa(), updateNotificationTypeBtn);
+        addNewTab("DELETE NOTIF TYPE", setDeleteNotificationTypeTa(), deleteNotificationTypeBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
         addNewTab("GET USER", setGetUserByIdTa(), getUserByIdBtn);
@@ -89,6 +90,8 @@ public class AdminView extends JPanel {
         northPanel.add(getAllNotificationsBtn);
         northPanel.add(getAllNotificationTypesBtn);
         northPanel.add(listBestHotelsBtn);
+        northPanel.add(backBtn);
+
 
         BorderLayout bl = new BorderLayout();
         bl.setHgap(20);
@@ -136,7 +139,7 @@ public class AdminView extends JPanel {
         sb.append("name: GOLD, reach: 20 #\n");
         sb.append("name: GOLDPREMIUM, reach: 40 #\n");
         sb.append("=================================+\n");
-        addRankTa.setText(sb.toString());
+        addAllRanksTa.setText(sb.toString());
         return addAllRanksTa;
     }
 

@@ -21,7 +21,12 @@ public class AddRankAction implements ActionListener {
                                                                 str[0].split(":")[1].trim(),
                                                                 Integer.valueOf(str[1].split(":")[1].trim())) );
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while adding rank!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Error while adding rank! \n" +
+                            "Possible causes: \n" +
+                            "-Some rank name is already in use.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

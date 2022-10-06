@@ -34,6 +34,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel added successfully!");
@@ -53,6 +54,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel updated successfully!");
@@ -71,6 +73,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel deleted successfully!");
@@ -91,6 +94,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room added successfully!");
@@ -110,6 +114,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room added successfully!");
@@ -129,6 +134,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type added successfully!");
@@ -148,6 +154,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "All room types made successfully!");
@@ -167,6 +174,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type updated successfully!");
@@ -186,6 +194,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type deleted successfully!");
@@ -206,9 +215,11 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
     }
@@ -229,6 +240,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
@@ -248,6 +260,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation canceled!");
@@ -267,6 +280,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review added successfully!");
@@ -286,6 +300,7 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review updated successfully!");
@@ -307,6 +322,8 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
 
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review removed!");
@@ -331,9 +348,11 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
     }
@@ -349,9 +368,11 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
 
@@ -369,9 +390,11 @@ public class ReservationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
     }

@@ -31,9 +31,11 @@ public class NotificationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
     }
@@ -48,9 +50,11 @@ public class NotificationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(response.body().string(), List.class);
+            return objectMapper.readValue(json, List.class);
         else
             throw new RuntimeException();
     }
@@ -68,9 +72,12 @@ public class NotificationService {
 
         Call call = client.newCall(request);
         Response response = call.execute();
+        String json = response.body().string();
+        response.body().close();
+
 
         if (response.code() == 200)
-            return  objectMapper.readValue(response.body().string(), AllNotificationTypesListDto.class);
+            return  objectMapper.readValue(json, AllNotificationTypesListDto.class);
         else
             throw new RuntimeException();
     }
@@ -86,6 +93,8 @@ public class NotificationService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
         if (response.code() == 200)
             System.out.println("Notification type changed successfully!");
         else
@@ -101,6 +110,8 @@ public class NotificationService {
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
+        response.body().close();
+
         if (response.code() == 200)
             System.out.println("Notification type deleted successfully!");
         else

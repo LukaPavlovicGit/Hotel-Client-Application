@@ -362,7 +362,7 @@ public class ReservationService {
         List reviews;
 
         Request request = new Request.Builder()
-                .url(URL + "/reviews")
+                .url(URL + "/hotels")
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();

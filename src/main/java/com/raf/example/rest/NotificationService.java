@@ -1,7 +1,9 @@
 package com.raf.example.rest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
+import com.raf.example.dto.AllNotificationTypesListDto;
 import com.raf.example.dto.EmailNotificationDto;
 import com.raf.example.dto.SentEmailDto;
 import okhttp3.*;
@@ -53,7 +55,10 @@ public class NotificationService {
             throw new RuntimeException();
     }
 
-    public List<EmailNotificationDto> getAllNotificationTypes() throws IOException{
+    public AllNotificationTypesListDto getAllNotificationTypes() throws IOException{
+
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/all/type")
@@ -65,7 +70,7 @@ public class NotificationService {
         Response response = call.execute();
 
         if (response.code() == 200)
-            return  objectMapper.readValue(response.body().string(), List.class);
+            return  objectMapper.readValue(response.body().string(), AllNotificationTypesListDto.class);
         else
             throw new RuntimeException();
     }

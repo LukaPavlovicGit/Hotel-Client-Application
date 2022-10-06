@@ -3,13 +3,13 @@ package com.raf.example.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllNotificationTypesListDto {
+public class NotificationsListDto {
     private List<EmailNotificationDto> content = new ArrayList<>();
 
-    public AllNotificationTypesListDto() {
+    public NotificationsListDto() {
     }
 
-    public AllNotificationTypesListDto(List<EmailNotificationDto> content) {
+    public NotificationsListDto(List<EmailNotificationDto> content) {
         this.content = content;
     }
 
@@ -21,4 +21,3 @@ public class AllNotificationTypesListDto {
         this.content = content;
     }
 }
-

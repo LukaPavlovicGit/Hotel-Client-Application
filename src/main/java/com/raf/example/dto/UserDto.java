@@ -3,6 +3,8 @@ import java.util.Date;
 
 public class UserDto {
 
+    private Long id;
+
     private String username;
 
     private String firstName;
@@ -15,7 +17,9 @@ public class UserDto {
 
     private Date birthdate;
 
-    private String role;
+    private String roleName;
+
+    private boolean blocked;
 
     public UserDto(){}
 
@@ -28,9 +32,17 @@ public class UserDto {
         this.birthdate = birthdate;
     }
 
-    public UserDto(Long id, String role, String email){
-        this.role = role;
+    public UserDto(Long id, String roleName, String email){
+        this.roleName = roleName;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -81,12 +93,12 @@ public class UserDto {
         this.birthdate = birthdate;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
@@ -98,7 +110,7 @@ public class UserDto {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthdate=" + birthdate +
-                ", role='" + role + '\'' +
+                ", role='" + roleName + '\'' +
                 '}';
     }
 }

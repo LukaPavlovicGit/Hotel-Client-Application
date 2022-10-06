@@ -2,7 +2,7 @@ package com.raf.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
-import com.raf.example.dto.AllNotificationTypesListDto;
+import com.raf.example.dto.NotificationTypesListDto;
 import com.raf.example.dto.EmailNotificationDto;
 import com.raf.example.model.NotificationTypeTableModel;
 
@@ -13,18 +13,17 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class GetAllNotificationTypesAction implements ActionListener {
-    private NotificationTypeTableModel tableModel = new NotificationTypeTableModel();
-    private JTable table;
-    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            AllNotificationTypesListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationTypes();
+            NotificationTypeTableModel tableModel = new NotificationTypeTableModel();
+            JTable table;
+            NotificationTypesListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationTypes();
             List<EmailNotificationDto> content = list.getContent();
 
-            for(EmailNotificationDto type : content){
+            for(EmailNotificationDto type : content)
                 tableModel.addRow(new Object[]{type.getId(), type.getType(), type.getText()});
-            }
 
             table = new JTable(tableModel);
             JDialog jDialog = new JDialog();
@@ -32,7 +31,6 @@ public class GetAllNotificationTypesAction implements ActionListener {
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
             jDialog.add(table);
             jDialog.setVisible(true);
-
 
         }
         catch (Exception exception){

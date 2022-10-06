@@ -19,8 +19,7 @@ public class ListReviewsAction implements ActionListener {
         try { // String hotelName, String city
             String[] str = ta.getText().split("[\n]");
             List reviews = (List) MainFrame.getInstance().getReservationService()
-                    .getAllReviews(str[0].split(":")[1].trim(),
-                            str[1].split(":")[1].trim() );
+                    .getAllReviews( str[0].split(":")[1].trim(), str[1].split(":")[1].trim() );
 
             JOptionPane.showMessageDialog(null, reviews);
         }catch (Exception exception){

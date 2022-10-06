@@ -24,6 +24,7 @@ public class UpdateReviewAction implements ActionListener {
                             Long.valueOf(str[2].split(":")[1].trim()),
                             Integer.valueOf(str[3].split(":")[1].trim()),
                             str[4].split(":")[1].trim()));
+            JOptionPane.showMessageDialog(null, "Review updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
         } catch(Exception exception){
             JOptionPane.showMessageDialog(null, "Error while updating review!", "Error", JOptionPane.ERROR_MESSAGE);
         }

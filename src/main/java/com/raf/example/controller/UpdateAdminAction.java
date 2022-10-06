@@ -26,6 +26,7 @@ public class UpdateAdminAction implements ActionListener {
                             str[3].split(":")[1].trim(),
                             str[4].split(":")[1].trim(),
                             Date.valueOf(str[5].split(":")[1].trim())) );
+            JOptionPane.showMessageDialog(null, "Admin updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (Exception exception){
             JOptionPane.showMessageDialog(null, "Error while updating admin!", "Error", JOptionPane.ERROR_MESSAGE);

@@ -21,6 +21,7 @@ public class UpdateRoomAction  implements ActionListener {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getReservationService()
                     .editRoom(new RoomDto(Integer.valueOf(str[0].split(":")[1].trim()),str[1].split(":")[1].trim()));
+            JOptionPane.showMessageDialog(null, "Room updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
 
         }
         catch (IOException ioException) {

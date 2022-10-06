@@ -34,4 +34,17 @@ public class EmailNotificationDto {
     public void setText(String text) {
         this.text = text;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "EmailNotificationDto{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

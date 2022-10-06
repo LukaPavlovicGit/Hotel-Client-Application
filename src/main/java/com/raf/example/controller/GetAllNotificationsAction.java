@@ -13,7 +13,10 @@ public class GetAllNotificationsAction implements ActionListener {
         try{
             List list = MainFrame.getInstance().getNotificationService()
                     .getAllNotifications();
-            JOptionPane.showMessageDialog(null, list);
+            if(list.isEmpty())
+                JOptionPane.showMessageDialog(null, "There are no notifications yet!","",JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, list);
         }
         catch (Exception exception){
             JOptionPane.showMessageDialog(null, "Error while getting all notifications!", "Error", JOptionPane.ERROR_MESSAGE);

@@ -22,6 +22,7 @@ public class UpdateHotelAction  implements ActionListener {
                                                                     str[0].split(":")[1].trim(),
                                                                     str[1].split(":")[1].trim(),
                                                                     str[2].split(":")[1].trim()) );
+            JOptionPane.showMessageDialog(null, "Hotel updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (Exception exception) {
             JOptionPane.showMessageDialog(null, "Error while updating hotel!", "Error", JOptionPane.ERROR_MESSAGE);

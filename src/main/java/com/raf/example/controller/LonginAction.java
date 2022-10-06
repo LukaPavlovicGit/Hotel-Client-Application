@@ -36,7 +36,6 @@ public class LonginAction implements ActionListener {
                 MainFrame.getInstance().showAdminView();
 
         } catch (IOException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Incorrect email or password", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -25,6 +25,7 @@ public class UpdateRoomTypeAction implements ActionListener {
                                                 str[0].split(":")[1].trim(),
                                                 Double.valueOf(str[1].split(":")[1].trim())) );
 
+            JOptionPane.showMessageDialog(null, "Room type updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (IOException ioException) {
             JOptionPane.showMessageDialog(null, "Error while updating room type!", "Error", JOptionPane.ERROR_MESSAGE);

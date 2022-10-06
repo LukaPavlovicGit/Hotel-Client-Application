@@ -3,9 +3,10 @@ package com.raf.example.rest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
-import com.raf.example.dto.AllNotificationTypesListDto;
+import com.raf.example.dto.NotificationTypesListDto;
 import com.raf.example.dto.EmailNotificationDto;
 import com.raf.example.dto.SentEmailDto;
+import com.raf.example.dto.SentEmailsListDto;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class NotificationService {
             throw new RuntimeException();
     }
 
-    public List<SentEmailDto> getAllNotificationsByCurrentUserEmail() throws IOException {
+    public SentEmailsListDto getAllNotificationsByCurrentUserEmail() throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/allByEmail")
@@ -54,12 +55,12 @@ public class NotificationService {
         response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, SentEmailsListDto.class);
         else
             throw new RuntimeException();
     }
 
-    public AllNotificationTypesListDto getAllNotificationTypes() throws IOException{
+    public NotificationTypesListDto getAllNotificationTypes() throws IOException{
 
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -77,7 +78,7 @@ public class NotificationService {
 
 
         if (response.code() == 200)
-            return  objectMapper.readValue(json, AllNotificationTypesListDto.class);
+            return  objectMapper.readValue(json, NotificationTypesListDto.class);
         else
             throw new RuntimeException();
     }

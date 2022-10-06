@@ -1,5 +1,6 @@
 package com.raf.example.rest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
@@ -127,7 +128,8 @@ public class UserService {
         else
             throw new IOException();
     }
-    public List<UserDto> getAllUsers() throws IOException{
+    public UsersListDto getAllUsers() throws IOException{
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()
@@ -141,7 +143,7 @@ public class UserService {
         response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, UsersListDto.class);
         else
             throw new IOException();
     }

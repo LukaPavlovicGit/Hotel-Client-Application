@@ -202,7 +202,7 @@ public class ReservationService {
             throw new RuntimeException();
     }
 
-    public List getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
+    public AvailableRoomsListDto getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(availableRoomsFilterDto));
         List availableRooms;
@@ -219,7 +219,7 @@ public class ReservationService {
         response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, AvailableRoomsListDto.class);
         else
             throw new RuntimeException();
     }
@@ -332,7 +332,7 @@ public class ReservationService {
 
     }
 
-    public List getAllReviews(String hotelName, String city) throws IOException {
+    public ReviewsListDto getAllReviews(String hotelName, String city) throws IOException {
         List reviews;
         String token = MainFrame.getInstance().getToken();
 
@@ -352,12 +352,12 @@ public class ReservationService {
         response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, ReviewsListDto.class);
         else
             throw new RuntimeException();
     }
 
-    public List getAllReservations() throws IOException {
+    public ReservationsListDto getAllReservations() throws IOException {
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()
@@ -372,13 +372,13 @@ public class ReservationService {
         response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, ReservationsListDto.class);
         else
             throw new RuntimeException();
 
     }
 
-    public List getTopRatedHotels() throws IOException {
+    public BestHotelsListDto getTopRatedHotels() throws IOException {
         String token = MainFrame.getInstance().getToken();
         List reviews;
 
@@ -394,7 +394,7 @@ public class ReservationService {
         response.body().close();
 
         if (response.isSuccessful())
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, BestHotelsListDto.class);
         else
             throw new RuntimeException();
     }

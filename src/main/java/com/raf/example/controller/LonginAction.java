@@ -26,7 +26,7 @@ public class LonginAction implements ActionListener {
             MainFrame.getInstance().setToken(token);
             MainFrame.getInstance().setCurrentUser(TokenDecoder.decodeToken(token));
 
-            String role = MainFrame.getInstance().getCurrentUser().getRole();
+            String role = MainFrame.getInstance().getCurrentUser().getRoleName();
 
             if (role.equals("ROLE_MANAGER"))
                 MainFrame.getInstance().showManagerView();

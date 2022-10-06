@@ -103,6 +103,7 @@ public class ManagerView extends JPanel {
         northPanel.add(listNotificationsBtn);
         northPanel.add(listReservations);
         northPanel.add(listBestHotelsBtn);
+        northPanel.add(getAllUsersBtn);
         northPanel.add(backBtn);
 
         BorderLayout bl = new BorderLayout();

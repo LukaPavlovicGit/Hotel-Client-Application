@@ -90,6 +90,7 @@ public class AdminView extends JPanel {
         northPanel.add(getAllNotificationsBtn);
         northPanel.add(getAllNotificationTypesBtn);
         northPanel.add(listBestHotelsBtn);
+        northPanel.add(getAllUsersBtn);
         northPanel.add(backBtn);
 
 

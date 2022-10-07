@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationsListDto {
-    private List<EmailNotificationDto> content = new ArrayList<>();
+    private List<NotificationTypeDto> content = new ArrayList<>();
 
     public NotificationsListDto() {
     }
 
-    public NotificationsListDto(List<EmailNotificationDto> content) {
+    public NotificationsListDto(List<NotificationTypeDto> content) {
         this.content = content;
     }
 
-    public List<EmailNotificationDto> getContent() {
+    public List<NotificationTypeDto> getContent() {
         return content;
     }
 
-    public void setContent(List<EmailNotificationDto> content) {
+    public void setContent(List<NotificationTypeDto> content) {
         this.content = content;
     }
 }

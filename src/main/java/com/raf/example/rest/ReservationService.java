@@ -1,5 +1,6 @@
 package com.raf.example.rest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
@@ -106,10 +107,11 @@ public class ReservationService {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomDto));
 
+
         Request request = new Request.Builder()
                 .url(URL + "/rooms")
                 .addHeader("authorization", "token " + token)
-                .post(body)
+                .put(body)
                 .build();
 
         Call call = client.newCall(request);
@@ -117,7 +119,7 @@ public class ReservationService {
         response.body().close();
 
         if(response.isSuccessful())
-            JOptionPane.showMessageDialog(null, "Room added successfully!");
+            JOptionPane.showMessageDialog(null, "Room updated successfully!");
         else
             throw new RuntimeException();
     }
@@ -203,14 +205,20 @@ public class ReservationService {
     }
 
     public AvailableRoomsListDto getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
-        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(availableRoomsFilterDto));
-        List availableRooms;
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/rooms").newBuilder();
+        httpBuilder.addQueryParameter("hotelName", availableRoomsFilterDto.getHotelName());
+        httpBuilder.addQueryParameter("city", availableRoomsFilterDto.getCity());
+        httpBuilder.addQueryParameter("startDate", String.valueOf(availableRoomsFilterDto.getStartDate()));
+        httpBuilder.addQueryParameter("endDate", String.valueOf(availableRoomsFilterDto.getEndDate()));
+        httpBuilder.addQueryParameter("sort", availableRoomsFilterDto.getSort());
 
         Request request = new Request.Builder()
-                .url(URL + "/rooms")
+                .url(httpBuilder.build())
                 .addHeader("authorization", "token " + token)
-                .post(body)
+                .get()
                 .build();
 
         Call call = client.newCall(request);
@@ -228,9 +236,9 @@ public class ReservationService {
         String token = MainFrame.getInstance().getToken();
 
         HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reservations").newBuilder();
-        httpBuilder.addQueryParameter("roomId", roomId); // na ruti na prihvata Interger nteger !!!!!!
-        httpBuilder.addQueryParameter("startDate", startDate);  // na ruti na prihvata Date !!!!!!
-        httpBuilder.addQueryParameter("endDate", endDate);  // na ruti na prihvata Date !!!!!!
+        httpBuilder.addQueryParameter("roomId", roomId);
+        httpBuilder.addQueryParameter("startDate", startDate);
+        httpBuilder.addQueryParameter("endDate", endDate);
 
         Request request = new Request.Builder()
                 .url(httpBuilder.build())
@@ -333,7 +341,7 @@ public class ReservationService {
     }
 
     public ReviewsListDto getAllReviews(String hotelName, String city) throws IOException {
-        List reviews;
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reviews/all").newBuilder();
@@ -351,13 +359,16 @@ public class ReservationService {
         String json = response.body().string();
         response.body().close();
 
-        if (response.isSuccessful())
+        if (response.isSuccessful()) {
+            //if(json.isEmpty()) return new ReviewsListDto();
             return objectMapper.readValue(json, ReviewsListDto.class);
+        }
         else
             throw new RuntimeException();
     }
 
     public ReservationsListDto getAllReservations() throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()
@@ -379,6 +390,7 @@ public class ReservationService {
     }
 
     public BestHotelsListDto getTopRatedHotels() throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
         List reviews;
 
@@ -387,7 +399,6 @@ public class ReservationService {
                 .addHeader("authorization", "token " + token)
                 .get()
                 .build();
-
         Call call = client.newCall(request);
         Response response = call.execute();
         String json = response.body().string();

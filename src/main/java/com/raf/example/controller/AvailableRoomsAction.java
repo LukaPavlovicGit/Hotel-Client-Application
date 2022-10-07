@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ListAvailableRoomsAction implements ActionListener {
+public class AvailableRoomsAction implements ActionListener {
     private JTextArea ta;
 
-    public ListAvailableRoomsAction(JTextArea ta) {
+    public AvailableRoomsAction(JTextArea ta) {
         this.ta = ta;
     }
 
@@ -24,6 +24,7 @@ public class ListAvailableRoomsAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             String[] str = ta.getText().split("[\n]");
+
             AvailableRoomsListDto list = MainFrame.getInstance().getReservationService()
                     .getAvailableRooms(new AvailableRoomsFilterDto(
                             str[0].split(":")[1].trim(),
@@ -35,7 +36,7 @@ public class ListAvailableRoomsAction implements ActionListener {
             UserTableModel tableModel = new UserTableModel();
             List<RoomDto> content = list.getContent();
             for (RoomDto dto : content)
-                tableModel.addRow(new Object[]{dto.getHotelId(), dto.getRoomNumber(), dto.getType()});
+                tableModel.addRow(new Object[]{dto.getHotelId(), dto.getRoomNumber(), dto.getTypeName()});
 
             JTable table = new JTable(tableModel);;
             JDialog jDialog = new JDialog();
@@ -46,6 +47,7 @@ public class ListAvailableRoomsAction implements ActionListener {
 
         }
         catch (Exception exception) {
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while getting available rooms!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -67,8 +67,8 @@ public class ManagerView extends JPanel {
         listReservations.addActionListener(new ListReservationsBtn());
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
-        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
-        getAllUsersBtn.addActionListener(new GetAllUsersAction());
+        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
+        getAllUsersBtn.addActionListener(new GetUsersAction());
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
         backBtn.addActionListener(new Back1Action());
@@ -150,6 +150,7 @@ public class ManagerView extends JPanel {
 
     public JTextArea setAddRoomTa(){
         sb.delete(0,sb.length());
+        sb.append("Before you add any room make sure that you've created room types +\n\n");
         sb.append("room number : \n");
         sb.append("room type name (must exist in database): \n");
         addRoomTa.setText(sb.toString());
@@ -157,9 +158,10 @@ public class ManagerView extends JPanel {
     }
     public JTextArea setUpdateRoomTa(){
         sb.delete(0,sb.length());
+        sb.append("room id (to which to apply changes): \n");
+        sb.append("hotel id : \n");
         sb.append("room number : \n");
         sb.append("room type : \n");
-        sb.append("price : \n");
         updateRoomTa.setText(sb.toString());
         return updateRoomTa;
     }

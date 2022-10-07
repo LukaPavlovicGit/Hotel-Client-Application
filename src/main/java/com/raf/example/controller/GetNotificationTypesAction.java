@@ -1,9 +1,8 @@
 package com.raf.example.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.NotificationTypesListDto;
-import com.raf.example.dto.EmailNotificationDto;
+import com.raf.example.dto.NotificationTypeDto;
 import com.raf.example.model.NotificationTypeTableModel;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class GetAllNotificationTypesAction implements ActionListener {
+public class GetNotificationTypesAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -20,9 +19,9 @@ public class GetAllNotificationTypesAction implements ActionListener {
             NotificationTypeTableModel tableModel = new NotificationTypeTableModel();
             JTable table;
             NotificationTypesListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationTypes();
-            List<EmailNotificationDto> content = list.getContent();
+            List<NotificationTypeDto> content = list.getContent();
 
-            for(EmailNotificationDto type : content)
+            for(NotificationTypeDto type : content)
                 tableModel.addRow(new Object[]{type.getId(), type.getType(), type.getText()});
 
             table = new JTable(tableModel);

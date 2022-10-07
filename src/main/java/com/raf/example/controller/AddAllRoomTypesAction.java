@@ -19,11 +19,12 @@ public class AddAllRoomTypesAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            String text = ta.getText().split("[+]")[1];
+            String text = ta.getText().split("[+]")[1].trim();
             String[] str = text.split("#");
             List<RoomTypeDto> list = new ArrayList<>();
             for(String line : str) {
                 String decomposeLine[] = line.split(",");
+                System.out.println(decomposeLine);
                 list.add(new RoomTypeDto(
                         decomposeLine[0].split(":")[1].trim(),
                         Double.valueOf(decomposeLine[1].split(":")[1].trim())) );

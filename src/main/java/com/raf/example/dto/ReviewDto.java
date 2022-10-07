@@ -8,10 +8,10 @@ public class ReviewDto {
 
     public ReviewDto(){}
 
-    public ReviewDto(Long reservationId, Long clientId, Integer rate, String comment) {
+    public ReviewDto(Long reservationId, Long clientId, Integer rating, String comment) {
         this.reservationId = reservationId;
         this.clientId = clientId;
-        this.rating = rate;
+        this.rating = rating;
         this.comment = comment;
     }
 
@@ -46,4 +46,7 @@ public class ReviewDto {
     public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
+
 }
+
+

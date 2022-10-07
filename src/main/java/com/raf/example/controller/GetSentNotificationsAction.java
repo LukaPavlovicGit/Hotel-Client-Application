@@ -1,8 +1,7 @@
 package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
-import com.raf.example.dto.ReservationDto;
-import com.raf.example.dto.ReservationsListDto;
+import com.raf.example.dto.SentNotificationDto;
 import com.raf.example.model.SentNotificationTableModel;
 
 import javax.swing.*;
@@ -11,19 +10,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ListReservationsBtn implements ActionListener {
-
+public class GetSentNotificationsAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            ReservationsListDto list = MainFrame.getInstance().getReservationService().getAllReservations();
-            List<ReservationDto> content = list.getContent();
+            List list = MainFrame.getInstance().getNotificationService()
+                    .getSentNotifications();
 
             SentNotificationTableModel tableModel = new SentNotificationTableModel();
-            for (ReservationDto dto : content)
-                tableModel.addRow(new Object[]{dto.getClientEmail(), dto.getStartDate(), dto.getEndDate(), dto.getPrice()});
+            List<SentNotificationDto> content = tableModel.getContent();
+            for(SentNotificationDto dto : content)
+                tableModel.addRow(new Object[]{dto.getEmail(), dto.getText(), dto.getType(), dto.getDateSent()});
 
-            JTable table = new JTable(tableModel);
+            JTable table = new JTable(tableModel);;
             JDialog jDialog = new JDialog();
             jDialog.setSize(new Dimension(1500, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
@@ -31,7 +30,7 @@ public class ListReservationsBtn implements ActionListener {
             jDialog.setVisible(true);
         }
         catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while getting reservations!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error while getting all notifications!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

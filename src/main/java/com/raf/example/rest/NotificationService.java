@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.NotificationTypesListDto;
-import com.raf.example.dto.EmailNotificationDto;
-import com.raf.example.dto.SentEmailDto;
-import com.raf.example.dto.SentEmailsListDto;
+import com.raf.example.dto.NotificationTypeDto;
+import com.raf.example.dto.SentNotificationDto;
+import com.raf.example.dto.SentNotificationListDto;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class NotificationService {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<SentEmailDto> getAllNotifications() throws IOException {
+    public List<SentNotificationDto> getSentNotifications() throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/all")
@@ -41,7 +41,7 @@ public class NotificationService {
             throw new RuntimeException();
     }
 
-    public SentEmailsListDto getAllNotificationsByCurrentUserEmail() throws IOException {
+    public SentNotificationListDto getAllNotificationsByCurrentUserEmail() throws IOException {
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/allByEmail")
@@ -55,13 +55,12 @@ public class NotificationService {
         response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(json, SentEmailsListDto.class);
+            return objectMapper.readValue(json, SentNotificationListDto.class);
         else
             throw new RuntimeException();
     }
 
     public NotificationTypesListDto getAllNotificationTypes() throws IOException{
-
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         String token = MainFrame.getInstance().getToken();
@@ -76,16 +75,15 @@ public class NotificationService {
         String json = response.body().string();
         response.body().close();
 
-
         if (response.code() == 200)
             return  objectMapper.readValue(json, NotificationTypesListDto.class);
         else
             throw new RuntimeException();
     }
 
-    public void changeNotificationType(EmailNotificationDto emailNotificationDto) throws IOException {
+    public void changeNotificationType(NotificationTypeDto notificationTypeDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
-        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(emailNotificationDto));
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(notificationTypeDto));
 
         Request request = new Request.Builder()
                 .url(URL + "/notifications/update")

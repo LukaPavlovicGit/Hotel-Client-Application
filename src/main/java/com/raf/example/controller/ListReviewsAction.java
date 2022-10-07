@@ -1,11 +1,8 @@
 package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
-import com.raf.example.dto.ReservationDto;
-import com.raf.example.dto.ReservationsListDto;
 import com.raf.example.dto.ReviewDto;
 import com.raf.example.dto.ReviewsListDto;
-import com.raf.example.model.NotificationTableModel;
 import com.raf.example.model.ReviewTableModel;
 
 import javax.swing.*;
@@ -29,7 +26,6 @@ public class ListReviewsAction implements ActionListener {
                     .getAllReviews( str[0].split(":")[1].trim(), str[1].split(":")[1].trim() );
 
             List<ReviewDto> content = reviews.getContent();
-
             ReviewTableModel tableModel = new ReviewTableModel();
             for (ReviewDto dto : content)
                 tableModel.addRow(new Object[]{dto.getReservationId(), dto.getClientId(), dto.getRating(), dto.getComment()});
@@ -42,7 +38,7 @@ public class ListReviewsAction implements ActionListener {
             jDialog.setVisible(true);
 
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while getting reviews!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "There could be no any review!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

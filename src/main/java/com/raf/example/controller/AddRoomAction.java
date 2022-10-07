@@ -19,12 +19,17 @@ public class AddRoomAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            String[] str = ta.getText().split("[\n]");
+            String tmp = ta.getText().split("[+]")[1].trim();
+            String[] str = tmp.split("[\n]");
             MainFrame.getInstance().getReservationService().addRoom( new RoomDto(
                                                         Integer.valueOf(str[0].split(":")[1].trim()) ,
                                                         str[1].split(":")[1].trim()) );
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error while adding room!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error while adding room!\n Possible causes:\n -Hotel is not created.\n-Room type is not created.\n",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

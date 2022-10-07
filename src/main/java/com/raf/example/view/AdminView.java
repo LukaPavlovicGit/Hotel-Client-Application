@@ -1,16 +1,9 @@
 package com.raf.example.view;
 
-import com.raf.example.MainFrame;
 import com.raf.example.controller.*;
-import com.raf.example.dto.EmailNotificationDto;
-import com.raf.example.dto.RankDto;
-import com.raf.example.dto.UserDto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminView extends JPanel {
     private StringBuilder sb = new StringBuilder();
@@ -24,7 +17,7 @@ public class AdminView extends JPanel {
     private JButton getAllUsersBtn = new JButton("GET ALL USERS");
     private JButton getUserByIdBtn = new JButton("GET");
     private JButton updateAdminBtn = new JButton("UPDATE");
-    private JButton getAllNotificationsBtn = new JButton("GET ALL NOTIFICATION");
+    private JButton getAllNotificationsBtn = new JButton("GET SENT NOTIFICATION");
     private JButton getAllNotificationTypesBtn = new JButton("GET ALL NOTIFICATION TYPES");
     private JButton updateNotificationTypeBtn = new JButton("CHANGE");
     private JButton deleteNotificationTypeBtn = new JButton("DELETE");
@@ -56,12 +49,12 @@ public class AdminView extends JPanel {
         updateAdminBtn.addActionListener(new UpdateAdminAction(updateAdminTa));
         updateNotificationTypeBtn.addActionListener(new UpdateNotificationTypeAction(updateNotificationTypeTa));
         deleteNotificationTypeBtn.addActionListener(new DeleteNotificationType(deleteNotificationTypeTa));
-        getAllUsersBtn.addActionListener(new GetAllUsersAction());
+        getAllUsersBtn.addActionListener(new GetUsersAction());
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
-        getAllNotificationsBtn.addActionListener(new GetAllNotificationsAction());
-        getAllNotificationTypesBtn.addActionListener(new GetAllNotificationTypesAction());
+        getAllNotificationsBtn.addActionListener(new GetSentNotificationsAction());
+        getAllNotificationTypesBtn.addActionListener(new GetNotificationTypesAction());
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
-        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
         backBtn.addActionListener(new Back1Action());
 

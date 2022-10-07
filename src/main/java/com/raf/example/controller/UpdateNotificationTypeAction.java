@@ -1,7 +1,7 @@
 package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
-import com.raf.example.dto.EmailNotificationDto;
+import com.raf.example.dto.NotificationTypeDto;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ public class UpdateNotificationTypeAction implements ActionListener {
         try{
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getNotificationService()
-                    .changeNotificationType(new EmailNotificationDto(
+                    .changeNotificationType(new NotificationTypeDto(
                             Long.valueOf(str[0].split(":")[1].trim()),
                             str[1].split(":")[1].trim(),
                             str[2].split(":")[1].trim()) );

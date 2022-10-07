@@ -20,6 +20,7 @@ public class AddAllRanksAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
+            // na server strani implementirati da kada se dodaju rankovi, da se te izmene odraze na user-e!!!!
             String text = ta.getText().trim().split("[+]")[1];
             String[] str = text.split("[#]");
             List<RankDto> list = new ArrayList<>();

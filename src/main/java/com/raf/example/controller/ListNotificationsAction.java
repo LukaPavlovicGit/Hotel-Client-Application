@@ -2,8 +2,7 @@ package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
-import com.raf.example.model.NotificationTableModel;
-import com.raf.example.model.UserTableModel;
+import com.raf.example.model.SentNotificationTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +15,11 @@ public class ListNotificationsAction implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            SentEmailsListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationsByCurrentUserEmail();
-            List<SentEmailDto> content = list.getContent();
+            SentNotificationListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationsByCurrentUserEmail();
+            List<SentNotificationDto> content = list.getContent();
 
-            NotificationTableModel tableModel = new NotificationTableModel();
-            for (SentEmailDto dto : content)
+            SentNotificationTableModel tableModel = new SentNotificationTableModel();
+            for (SentNotificationDto dto : content)
                 tableModel.addRow(new Object[]{dto.getEmail(), dto.getText(), dto.getType(), dto.getDateSent()});
 
             JTable table = new JTable(tableModel);

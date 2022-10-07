@@ -19,7 +19,7 @@ public class RoomTableModel extends DefaultTableModel {
         RoomDto dto = new RoomDto();
         dto.setHotelId(Long.valueOf(String.valueOf(row[0])));
         dto.setRoomNumber(Integer.valueOf(String.valueOf(row[1])));
-        dto.setType(String.valueOf(row[2]));
+        dto.setTypeName(String.valueOf(row[2]));
         content.add(dto);
     }
 

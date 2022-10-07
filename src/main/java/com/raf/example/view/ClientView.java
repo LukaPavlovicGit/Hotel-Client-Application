@@ -33,7 +33,7 @@ public class ClientView extends JPanel {
 
     public ClientView(){
 
-        listAvailableRoomsBtn.addActionListener(new ListAvailableRoomsAction(listAvailableRoomsTa));
+        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
         reservationBtn.addActionListener(new ReservationAction(reservationTa));
         deleteReservationBtn.addActionListener(new DeleteReservationAction(deleteReservationTa));
         addReviewBtn.addActionListener(new AddReviewAction(addReviewTa));

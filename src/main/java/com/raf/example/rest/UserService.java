@@ -19,7 +19,6 @@ public class UserService {
 
     public String login(TokenRequestDto tokenRequestDto) throws IOException {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(tokenRequestDto));
-
         Request request = new Request.Builder()
                 .url(URL + "/users/login")
                 .post(body)

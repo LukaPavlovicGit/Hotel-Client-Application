@@ -1,13 +1,13 @@
 package com.raf.example.dto;
 
-public class SentEmailDto {
+public class SentNotificationDto {
     private Long id;
     private String email;
     private String text;
     private String dateSent;
     private String type;
 
-    public SentEmailDto(Long id, String email, String text, String dateSent, String type) {
+    public SentNotificationDto(Long id, String email, String text, String dateSent, String type) {
         this.id = id;
         this.email = email;
         this.text = text;
@@ -15,7 +15,7 @@ public class SentEmailDto {
         this.type = type;
     }
 
-    public SentEmailDto() {
+    public SentNotificationDto() {
     }
 
     public Long getId() {

@@ -1,22 +1,22 @@
 package com.raf.example.dto;
 
-public class EmailNotificationDto {
+public class NotificationTypeDto {
     private Long id;
     private String type;
     private String text;
 
-    public EmailNotificationDto(Long id, String type, String text) {
+    public NotificationTypeDto(Long id, String type, String text) {
         this.id = id;
         this.type = type;
         this.text = text;
     }
 
-    public EmailNotificationDto(String type, String text) {
+    public NotificationTypeDto(String type, String text) {
         this.type = type;
         this.text = text;
     }
 
-    public EmailNotificationDto() {
+    public NotificationTypeDto() {
     }
 
     public void setId(Long id) {

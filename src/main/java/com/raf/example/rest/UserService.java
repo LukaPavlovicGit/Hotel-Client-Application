@@ -6,6 +6,7 @@ import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
 import okhttp3.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class UserService {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public String login(TokenRequestDto tokenRequestDto) throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(tokenRequestDto));
         Request request = new Request.Builder()
                 .url(URL + "/users/login")
@@ -87,7 +89,7 @@ public class UserService {
         response.body().close();
 
         if (response.code() == 200)
-            System.out.println("Manager updated successfully!");
+            JOptionPane.showMessageDialog(null, "Manager updated successfully!", "Error", JOptionPane.INFORMATION_MESSAGE);
         else
             throw new IOException();
     }
@@ -148,6 +150,7 @@ public class UserService {
     }
 
     public UserDto getUserById(String userId) throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()
@@ -167,6 +170,7 @@ public class UserService {
     }
 
     public List<ClientDto> getAllClients() throws IOException{
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()
@@ -186,6 +190,7 @@ public class UserService {
     }
 
     public List<ManagerDto> getAllManagers() throws IOException{
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
         Request request = new Request.Builder()

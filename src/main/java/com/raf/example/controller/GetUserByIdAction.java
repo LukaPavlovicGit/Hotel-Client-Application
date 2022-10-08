@@ -23,10 +23,11 @@ public class GetUserByIdAction implements ActionListener {
             JOptionPane.showMessageDialog(null, userDto);
         }
         catch (Exception exception){
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null,
                     "Error while getting user by id! \n" +
                             "Possible causes: \n" +
-                            "- user does not exist.",
+                            "-user does not exist.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }

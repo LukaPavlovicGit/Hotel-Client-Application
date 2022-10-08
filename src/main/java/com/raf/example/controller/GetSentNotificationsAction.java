@@ -30,6 +30,7 @@ public class GetSentNotificationsAction implements ActionListener {
             jDialog.setVisible(true);
         }
         catch (Exception exception){
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while getting all notifications!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

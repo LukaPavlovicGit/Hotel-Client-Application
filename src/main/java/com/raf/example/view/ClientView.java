@@ -42,7 +42,7 @@ public class ClientView extends JPanel {
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
         updateClientBtn.addActionListener(new UpdateClientAction(updateClientTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
-        listNotificationsBtn.addActionListener(new ListNotificationsAction());
+        listNotificationsBtn.addActionListener(new ListSentNotificationsByUserAction());
         backBtn.addActionListener(new Back1Action());
 
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);

@@ -19,7 +19,8 @@ public class AddRoomTypeAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            String[] str = ta.getText().split("[\n]");
+            String text = ta.getText().trim().split("[+]")[1].trim();
+            String[] str = text.split("[\n]");
             MainFrame.getInstance().getReservationService().addRoomType(new RoomTypeDto(
                                                     str[0].split(":")[1].trim(),
                                                     Double.valueOf(str[1].split(":")[1].trim())) );

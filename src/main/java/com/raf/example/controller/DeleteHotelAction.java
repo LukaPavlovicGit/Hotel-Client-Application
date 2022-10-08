@@ -13,7 +13,11 @@ public class DeleteHotelAction implements ActionListener {
         try{
             MainFrame.getInstance().getReservationService().deleteHotel();
         } catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while deleting hotel!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error while deleting hotel!\nPossible causes:\n-Hotel does not exist.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

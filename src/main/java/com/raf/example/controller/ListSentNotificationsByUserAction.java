@@ -10,12 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class ListNotificationsAction implements ActionListener{
+public class ListSentNotificationsByUserAction implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            SentNotificationListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationsByCurrentUserEmail();
+            SentNotificationListDto list = MainFrame.getInstance().getNotificationService().getNotificationsByCurrentUserEmail();
             List<SentNotificationDto> content = list.getContent();
 
             SentNotificationTableModel tableModel = new SentNotificationTableModel();
@@ -30,6 +30,7 @@ public class ListNotificationsAction implements ActionListener{
             jDialog.setVisible(true);
         }
         catch (Exception exception){
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while getting all user's notifications!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

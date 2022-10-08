@@ -103,14 +103,12 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", birthdate=" + birthdate +
-                ", role='" + roleName + '\'' +
-                '}';
+        return  "username = " + username + "\n" +
+                "firstName = " + firstName + "\n" +
+                "lastName = " + lastName + "\n" +
+                "email = " + email + "\n" +
+                "phoneNumber = " + phoneNumber + "\n" +
+                "birthdate = " + birthdate + "\n" +
+                "role = " + roleName + "\n";
     }
 }

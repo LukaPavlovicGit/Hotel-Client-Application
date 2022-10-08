@@ -38,10 +38,11 @@ public class NotificationService {
         if (response.code() == 200)
             return objectMapper.readValue(json, List.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
-    public SentNotificationListDto getAllNotificationsByCurrentUserEmail() throws IOException {
+    public SentNotificationListDto getNotificationsByCurrentUserEmail() throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/allByEmail")
@@ -57,7 +58,7 @@ public class NotificationService {
         if (response.code() == 200)
             return objectMapper.readValue(json, SentNotificationListDto.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public NotificationTypesListDto getAllNotificationTypes() throws IOException{
@@ -78,7 +79,7 @@ public class NotificationService {
         if (response.code() == 200)
             return  objectMapper.readValue(json, NotificationTypesListDto.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void changeNotificationType(NotificationTypeDto notificationTypeDto) throws IOException {
@@ -97,7 +98,7 @@ public class NotificationService {
         if (response.code() == 200)
             System.out.println("Notification type changed successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void deleteNotificationType(Long id) throws IOException {
@@ -114,7 +115,7 @@ public class NotificationService {
         if (response.code() == 200)
             System.out.println("Notification type deleted successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
 }

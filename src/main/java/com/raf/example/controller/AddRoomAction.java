@@ -27,7 +27,7 @@ public class AddRoomAction implements ActionListener {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(
                     null,
-                    "Error while adding room!\n Possible causes:\n -Hotel is not created.\n-Room type is not created.\n",
+                    "Error while adding room!\nPossible causes:\n-Hotel is not created.\n-Room type is not created.\n",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }

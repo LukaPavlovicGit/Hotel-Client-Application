@@ -24,7 +24,6 @@ public class AddAllRoomTypesAction implements ActionListener {
             List<RoomTypeDto> list = new ArrayList<>();
             for(String line : str) {
                 String decomposeLine[] = line.split(",");
-                System.out.println(decomposeLine);
                 list.add(new RoomTypeDto(
                         decomposeLine[0].split(":")[1].trim(),
                         Double.valueOf(decomposeLine[1].split(":")[1].trim())) );
@@ -32,8 +31,11 @@ public class AddAllRoomTypesAction implements ActionListener {
             MainFrame.getInstance().getReservationService().addAllRoomTypes(list);
 
         }catch(Exception exception){
-            exception.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error while adding all room types", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error while adding all room types.\nPossible causes:\n1.Hotel is not created.\n",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

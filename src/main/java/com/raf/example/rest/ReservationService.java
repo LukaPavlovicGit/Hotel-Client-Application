@@ -40,7 +40,7 @@ public class ReservationService {
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel added successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void updateHotel(HotelDto hotelDto) throws IOException {
@@ -60,7 +60,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel updated successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void deleteHotel() throws IOException {
@@ -79,7 +79,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Hotel deleted successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
 
@@ -100,10 +100,10 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room added successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
-    public void editRoom(RoomDto roomDto) throws IOException{ // DODAJ RUTU ZA UPDATE
+    public void updateRoom(RoomDto roomDto) throws IOException{ // DODAJ RUTU ZA UPDATE
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(roomDto));
 
@@ -121,7 +121,7 @@ public class ReservationService {
         if(response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room updated successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void addRoomType(RoomTypeDto roomTypeDto) throws IOException{
@@ -141,7 +141,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type added successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void addAllRoomTypes(List<RoomTypeDto> roomTypeDtos) throws IOException {
@@ -161,7 +161,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "All room types made successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void updateRoomType(RoomTypeDto roomTypeDto) throws IOException {
@@ -181,7 +181,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type updated successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void deleteRoomType(String id) throws IOException {
@@ -201,7 +201,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Room type deleted successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public AvailableRoomsListDto getAvailableRooms(AvailableRoomsFilterDto availableRoomsFilterDto) throws IOException{
@@ -229,7 +229,7 @@ public class ReservationService {
         if (response.isSuccessful())
             return objectMapper.readValue(json, AvailableRoomsListDto.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void createReservation(String roomId, String startDate, String endDate) throws IOException {
@@ -253,7 +253,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void deleteReservation(String reservationId) throws IOException {
@@ -273,7 +273,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation canceled!");
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public void addReview(ReviewDto reviewDto) throws IOException{
@@ -293,7 +293,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review added successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
 
     }
     public void updateReview(String id, ReviewDto reviewDto) throws IOException {
@@ -313,7 +313,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review updated successfully!");
         else
-            throw new RuntimeException();
+            throw new IOException();
 
     }
     public void deleteReview(String reviewId) throws IOException {
@@ -336,7 +336,7 @@ public class ReservationService {
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Review removed!");
         else
-            throw new RuntimeException();
+            throw new IOException();
 
     }
 
@@ -364,7 +364,7 @@ public class ReservationService {
             return objectMapper.readValue(json, ReviewsListDto.class);
         }
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 
     public ReservationsListDto getAllReservations() throws IOException {
@@ -385,7 +385,7 @@ public class ReservationService {
         if (response.code() == 200)
             return objectMapper.readValue(json, ReservationsListDto.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
 
     }
 
@@ -407,6 +407,6 @@ public class ReservationService {
         if (response.isSuccessful())
             return objectMapper.readValue(json, BestHotelsListDto.class);
         else
-            throw new RuntimeException();
+            throw new IOException();
     }
 }

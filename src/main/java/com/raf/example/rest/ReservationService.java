@@ -232,18 +232,14 @@ public class ReservationService {
             throw new IOException();
     }
 
-    public void createReservation(String roomId, String startDate, String endDate) throws IOException {
+    public void createReservation(ReservationDto reservationDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
-
-        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reservations").newBuilder();
-        httpBuilder.addQueryParameter("roomId", roomId);
-        httpBuilder.addQueryParameter("startDate", startDate);
-        httpBuilder.addQueryParameter("endDate", endDate);
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(reservationDto));
 
         Request request = new Request.Builder()
-                .url(httpBuilder.build())
+                .url(URL + "/reservations")
                 .addHeader("authorization", "token " + token)
-                .get()
+                .post(body)
                 .build();
 
         Call call = client.newCall(request);
@@ -271,7 +267,7 @@ public class ReservationService {
         response.body().close();
 
         if (response.isSuccessful())
-            JOptionPane.showMessageDialog(null, "Reservation canceled!");
+            JOptionPane.showMessageDialog(null, "Reservation canceled successfully!");
         else
             throw new IOException();
     }

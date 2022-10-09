@@ -7,6 +7,7 @@ import com.raf.example.dto.RoomDto;
 import com.raf.example.model.UserTableModel;
 
 import javax.swing.*;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,19 +36,24 @@ public class AvailableRoomsAction implements ActionListener {
 
             UserTableModel tableModel = new UserTableModel();
             List<RoomDto> content = list.getContent();
-            for (RoomDto dto : content)
+            Object [][] data = new Object[50][50];
+            int k=0;
+            for (RoomDto dto : content) {
+                data[k++] = new Object[]{dto.getHotelId(), dto.getRoomNumber(), dto.getTypeName()};
                 tableModel.addRow(new Object[]{dto.getHotelId(), dto.getRoomNumber(), dto.getTypeName()});
+            }
+            JTable table = new JTable(data, new String[]{"Hotel id", "room number", "Type"});
 
-            JTable table = new JTable(tableModel);;
+            JPanel panel = new JPanel();
+            panel.add(table);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(800, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
-
         }
         catch (Exception exception) {
-            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while getting available rooms!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

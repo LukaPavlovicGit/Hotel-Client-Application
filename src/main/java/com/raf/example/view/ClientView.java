@@ -18,7 +18,7 @@ public class ClientView extends JPanel {
     private JButton deleteReviewBtn = new JButton("DELETE");
     private JButton updateClientBtn = new JButton("UPDATE");
     private JButton listBestHotelsBtn = new JButton("BEST HOTELS");
-    private JButton listNotificationsBtn = new JButton("LIST NOTIFICATIONS");
+    private JButton listSentNotificationsBtn = new JButton("LIST SENT NOTIFICATIONS");
     private JButton backBtn = new JButton("BACK");
 
     private JTextArea listAvailableRoomsTa = new JTextArea();
@@ -29,7 +29,7 @@ public class ClientView extends JPanel {
     private JTextArea updateReviewTa = new JTextArea();
     private JTextArea deleteReviewTa = new JTextArea();
     private JTextArea updateClientTa = new JTextArea();
-    private JTextArea listNotificationsTa = new JTextArea();
+    private JTextArea listSentNotificationsTa = new JTextArea();
 
     public ClientView(){
 
@@ -42,17 +42,18 @@ public class ClientView extends JPanel {
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
         updateClientBtn.addActionListener(new UpdateClientAction(updateClientTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
-        listNotificationsBtn.addActionListener(new ListSentNotificationsByUserAction());
+        listSentNotificationsBtn.addActionListener(new ListSentNotificationsByUserAction());
         backBtn.addActionListener(new Back1Action());
 
-        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
         addNewTab("RESERVATION", setReservationTa(), reservationBtn);
         addNewTab("DELETE RESERVATION", setDeleteReservationTa(), deleteReservationBtn);
+        addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
+        addNewTab("LIST SENT NOTIFICATIONS", setlistSentNotificationsTa(), listSentNotificationsBtn);
+        addNewTab("ADD REVIEW", setAddReviewTa(), addReviewBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
         addNewTab("UPDATE REVIEW", setUpdateReviewTa(), updateReviewBtn);
         addNewTab("DELETE REVIEW", setDeleteReviewTa(), deleteReviewBtn);
         addNewTab("UPDATE CLIENT", setUpdateClientTa(), updateClientBtn);
-        addNewTab("LIST NOTIFICATIONS", setListNotificationsTa(), listNotificationsBtn);
 
         JPanel jContentPane = new JPanel();
         jContentPane.setLayout(null);
@@ -64,7 +65,7 @@ public class ClientView extends JPanel {
         jContentPane.add(northPanel);
 
         northPanel.add(listBestHotelsBtn);
-        northPanel.add(listNotificationsBtn);
+        northPanel.add(listSentNotificationsBtn);
         northPanel.add(backBtn);
 
         BorderLayout bl = new BorderLayout();
@@ -149,13 +150,13 @@ public class ClientView extends JPanel {
         updateClientTa.setText(sb.toString());
         return updateClientTa;
     }
-    private JTextArea setListNotificationsTa(){
+    private JTextArea setlistSentNotificationsTa(){
         sb.delete(0,sb.length());
         sb.append("city : \n");
         sb.append("hotel name : \n");
         sb.append("description : \n");
-        listNotificationsTa.setText(sb.toString());
-        return listNotificationsTa;
+        listSentNotificationsTa.setText(sb.toString());
+        return listSentNotificationsTa;
     }
 
 }

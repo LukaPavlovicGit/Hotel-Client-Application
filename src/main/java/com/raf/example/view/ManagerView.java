@@ -17,9 +17,9 @@ public class ManagerView extends JPanel {
     private JButton updateRoomBtn = new JButton("UPDATE ROOM");
     private JButton listReservations = new JButton("LIST ALL RESERVATIONS");
     private JButton deleteReservation = new JButton("DELETE");
-    private JButton listSentNotificationsBtn = new JButton("LIST SENT NOTIFICATIONS"); // NIJE IMPLEMENTIRANO
+    private JButton listSentNotificationsBtn = new JButton("LIST SENT NOTIFICATIONS");
     private JButton updateManagerBtn = new JButton("UPDATE MANAGER");
-    private JButton getNotificationsBtn = new JButton("GET NOTIFICATIONS"); // NIJE ODRANJENO, OVO JE ZA ADMINA SAMO????
+    private JButton getNotificationsBtn = new JButton("GET NOTIFICATIONS");
     private JButton addRoomTypeBtn = new JButton("ADD");
     private JButton addAllRoomTypesBtn = new JButton("ADD ALL");
     private JButton updateRoomTypeBtn = new JButton("UPDATE TYPE");

@@ -2,7 +2,6 @@ package com.raf.example.controller;
 
 import com.raf.example.MainFrame;
 import com.raf.example.dto.*;
-import com.raf.example.model.SentNotificationTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +17,22 @@ public class ListSentNotificationsByUserAction implements ActionListener{
             SentNotificationListDto list = MainFrame.getInstance().getNotificationService().getNotificationsByCurrentUserEmail();
             List<SentNotificationDto> content = list.getContent();
 
-            SentNotificationTableModel tableModel = new SentNotificationTableModel();
+            Object [][] data = new Object[50][50];
+            int k=0;
             for (SentNotificationDto dto : content)
-                tableModel.addRow(new Object[]{dto.getEmail(), dto.getText(), dto.getType(), dto.getDateSent()});
+                data[k++] = new Object[]{dto.getEmail(), dto.getText(), dto.getType(), dto.getDateSent()};
 
-            JTable table = new JTable(tableModel);
+            String[] header = {"Email", "Text", "Type", "Date"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(700, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
         }
         catch (Exception exception){

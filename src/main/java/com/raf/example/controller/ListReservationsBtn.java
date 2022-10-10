@@ -3,7 +3,6 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.ReservationDto;
 import com.raf.example.dto.ReservationsListDto;
-import com.raf.example.model.SentNotificationTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +18,22 @@ public class ListReservationsBtn implements ActionListener {
             ReservationsListDto list = MainFrame.getInstance().getReservationService().getAllReservations();
             List<ReservationDto> content = list.getContent();
 
-            SentNotificationTableModel tableModel = new SentNotificationTableModel();
+            Object [][] data = new Object[50][50];
+            int k=0;
             for (ReservationDto dto : content)
-                tableModel.addRow(new Object[]{dto.getClientEmail(), dto.getStartDate(), dto.getEndDate(), dto.getPrice()});
+                data[k++] = new Object[]{dto.getClientEmail(), dto.getStartDate(), dto.getEndDate(), dto.getPrice()};
 
-            JTable table = new JTable(tableModel);
+            String[] header = {"city", "name", "description"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(700, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
         }
         catch (Exception exception){

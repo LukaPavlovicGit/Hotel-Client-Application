@@ -54,7 +54,7 @@ public class AdminView extends JPanel {
         getAllNotificationsBtn.addActionListener(new GetSentNotificationsAction());
         getAllNotificationTypesBtn.addActionListener(new GetNotificationTypesAction());
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());
-        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
+        listAvailableRoomsBtn.addActionListener(new GetAvailableRoomsAction(listAvailableRoomsTa));
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
         backBtn.addActionListener(new Back1Action());
 

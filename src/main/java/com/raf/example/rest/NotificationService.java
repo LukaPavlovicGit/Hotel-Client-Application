@@ -22,7 +22,8 @@ public class NotificationService {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<SentNotificationDto> getSentNotifications() throws IOException {
+    public SentNotificationListDto getSentNotifications() throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
         Request request = new Request.Builder()
                 .url(URL + "/notifications/all")
@@ -36,7 +37,7 @@ public class NotificationService {
         response.body().close();
 
         if (response.code() == 200)
-            return objectMapper.readValue(json, List.class);
+            return objectMapper.readValue(json, SentNotificationListDto.class);
         else
             throw new IOException();
     }

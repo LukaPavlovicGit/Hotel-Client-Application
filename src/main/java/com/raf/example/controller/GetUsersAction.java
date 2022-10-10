@@ -3,7 +3,6 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.UserDto;
 import com.raf.example.dto.UsersListDto;
-import com.raf.example.model.UserTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,19 +15,25 @@ public class GetUsersAction implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
 
-            UserTableModel tableModel = new UserTableModel();
             UsersListDto list = MainFrame.getInstance().getUserService().getAllUsers();
             List<UserDto> content = list.getContent();
 
+            Object [][] data = new Object[50][50];
+            int k=0;
             for (UserDto dto : content)
-                tableModel.addRow(new Object[]{dto.getId(), dto.getUsername(), dto.getRoleName()});
+                data[k++] = new Object[]{dto.getId(), dto.getUsername(), dto.getRoleName()};
 
-            JTable table;
-            table = new JTable(tableModel);
+            String[] header = {"User id", "Username", "Role"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(700, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
 
         } catch (Exception exception) {

@@ -8,6 +8,12 @@ public class ReviewDto {
 
     public ReviewDto(){}
 
+    public ReviewDto(Long reservationId, Integer rating, String comment) {
+        this.reservationId = reservationId;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
     public ReviewDto(Long reservationId, Long clientId, Integer rating, String comment) {
         this.reservationId = reservationId;
         this.clientId = clientId;

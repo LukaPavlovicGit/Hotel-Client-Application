@@ -19,13 +19,17 @@ public class AddReviewAction implements ActionListener {
         try {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getReservationService()
-                    .addReview(new ReviewDto(Long.valueOf(
-                            str[0].split(":")[1].trim()),
-                            Long.valueOf(str[1].split(":")[1].trim()),
+                    .addReview(new ReviewDto(
+                            Long.valueOf(str[0].split(":")[1].trim()),
                             Integer.valueOf(str[2].split(":")[1].trim()),
                             str[3].split(":")[1].trim()) );
         }catch (Exception exception){
-            JOptionPane.showMessageDialog(null, "Error while adding review!", "Error", JOptionPane.ERROR_MESSAGE);
+            exception.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error while adding review!\nPossible causes:\n-Reservation does not exist\n",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -3,8 +3,6 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.BestHotelsListDto;
 import com.raf.example.dto.HotelDto;
-import com.raf.example.dto.UserDto;
-import com.raf.example.model.UserTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,15 +18,22 @@ public class ListBestHotelsAction implements ActionListener {
             BestHotelsListDto list = MainFrame.getInstance().getReservationService().getTopRatedHotels();
             List<HotelDto> content = list.getContent();
 
-            UserTableModel tableModel = new UserTableModel();
+            Object [][] data = new Object[50][50];
+            int k=0;
             for (HotelDto dto : content)
-                tableModel.addRow(new Object[]{dto.getCity(), dto.getName(), dto.getDescription()});
+                data[k++] = new Object[]{dto.getCity(), dto.getName(), dto.getDescription()};
 
-            JTable table = new JTable(tableModel);
+            String[] header = {"city", "name", "description"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(700, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
         }
         catch (IOException ex) {

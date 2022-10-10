@@ -3,7 +3,6 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.ReviewDto;
 import com.raf.example.dto.ReviewsListDto;
-import com.raf.example.model.ReviewTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,21 +22,29 @@ public class ListReviewsAction implements ActionListener {
         try { // String hotelName, String city
             String[] str = ta.getText().split("[\n]");
             ReviewsListDto reviews = MainFrame.getInstance().getReservationService()
-                    .getAllReviews( str[0].split(":")[1].trim(), str[1].split(":")[1].trim() );
+                    .getReviews( str[0].split(":")[1].trim(), str[1].split(":")[1].trim() );
 
             List<ReviewDto> content = reviews.getContent();
-            ReviewTableModel tableModel = new ReviewTableModel();
+            Object [][] data = new Object[50][50];
+            int k=0;
             for (ReviewDto dto : content)
-                tableModel.addRow(new Object[]{dto.getReservationId(), dto.getClientId(), dto.getRating(), dto.getComment()});
+                data[k++] = new Object[]{dto.getReservationId(), dto.getClientId(), dto.getRating(), dto.getComment()};
 
-            JTable table = new JTable(tableModel);
+            String[] header = {"Reservation id", "Client id", "Rating", "Comment"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(700, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
 
         }catch (Exception exception){
+            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "There could be no any review!", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }

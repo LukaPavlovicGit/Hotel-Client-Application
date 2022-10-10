@@ -33,7 +33,7 @@ public class ClientView extends JPanel {
 
     public ClientView(){
 
-        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
+        listAvailableRoomsBtn.addActionListener(new GetAvailableRoomsAction(listAvailableRoomsTa));
         reservationBtn.addActionListener(new ReservationAction(reservationTa));
         deleteReservationBtn.addActionListener(new DeleteReservationAction(deleteReservationTa));
         addReviewBtn.addActionListener(new AddReviewAction(addReviewTa));
@@ -48,7 +48,6 @@ public class ClientView extends JPanel {
         addNewTab("RESERVATION", setReservationTa(), reservationBtn);
         addNewTab("DELETE RESERVATION", setDeleteReservationTa(), deleteReservationBtn);
         addNewTab("LIST AVAILABLE ROOMS", setListAvailableRoomsTa(), listAvailableRoomsBtn);
-        addNewTab("LIST SENT NOTIFICATIONS", setlistSentNotificationsTa(), listSentNotificationsBtn);
         addNewTab("ADD REVIEW", setAddReviewTa(), addReviewBtn);
         addNewTab("LIST REVIEWS", setListReviewsTa(), listReviewsBtn);
         addNewTab("UPDATE REVIEW", setUpdateReviewTa(), updateReviewBtn);
@@ -117,7 +116,6 @@ public class ClientView extends JPanel {
     private JTextArea setAddReviewTa(){
         sb.delete(0,sb.length());
         sb.append("reservation id : \n");
-        sb.append("client id : \n");
         sb.append("rating (1-5) : \n");
         sb.append("comment : \n");
         addReviewTa.setText(sb.toString());
@@ -149,14 +147,6 @@ public class ClientView extends JPanel {
         sb.append("numOfPassport : \n");
         updateClientTa.setText(sb.toString());
         return updateClientTa;
-    }
-    private JTextArea setlistSentNotificationsTa(){
-        sb.delete(0,sb.length());
-        sb.append("city : \n");
-        sb.append("hotel name : \n");
-        sb.append("description : \n");
-        listSentNotificationsTa.setText(sb.toString());
-        return listSentNotificationsTa;
     }
 
 }

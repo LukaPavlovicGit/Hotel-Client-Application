@@ -67,7 +67,7 @@ public class ManagerView extends JPanel {
         listReservations.addActionListener(new ListReservationsBtn());
         listReviewsBtn.addActionListener(new ListReviewsAction(listReviewsTa));
         deleteReviewBtn.addActionListener(new DeleteReviewAction(deleteReviewTa));
-        listAvailableRoomsBtn.addActionListener(new AvailableRoomsAction(listAvailableRoomsTa));
+        listAvailableRoomsBtn.addActionListener(new GetAvailableRoomsAction(listAvailableRoomsTa));
         getAllUsersBtn.addActionListener(new GetUsersAction());
         getUserByIdBtn.addActionListener(new GetUserByIdAction(getUserByIdTa));
         listBestHotelsBtn.addActionListener(new ListBestHotelsAction());

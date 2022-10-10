@@ -336,11 +336,11 @@ public class ReservationService {
 
     }
 
-    public ReviewsListDto getAllReviews(String hotelName, String city) throws IOException {
+    public ReviewsListDto getReviews(String hotelName, String city) throws IOException {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String token = MainFrame.getInstance().getToken();
 
-        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reviews/all").newBuilder();
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(URL + "/reviews").newBuilder();
         httpBuilder.addQueryParameter("hotelName", hotelName);
         httpBuilder.addQueryParameter("city", city);
 
@@ -355,10 +355,8 @@ public class ReservationService {
         String json = response.body().string();
         response.body().close();
 
-        if (response.isSuccessful()) {
-            //if(json.isEmpty()) return new ReviewsListDto();
+        if (response.isSuccessful())
             return objectMapper.readValue(json, ReviewsListDto.class);
-        }
         else
             throw new IOException();
     }

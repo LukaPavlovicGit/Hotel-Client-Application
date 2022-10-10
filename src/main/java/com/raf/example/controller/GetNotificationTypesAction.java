@@ -3,7 +3,6 @@ package com.raf.example.controller;
 import com.raf.example.MainFrame;
 import com.raf.example.dto.NotificationTypesListDto;
 import com.raf.example.dto.NotificationTypeDto;
-import com.raf.example.model.NotificationTypeTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,19 +15,25 @@ public class GetNotificationTypesAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try{
-            NotificationTypeTableModel tableModel = new NotificationTypeTableModel();
-            JTable table;
             NotificationTypesListDto list = MainFrame.getInstance().getNotificationService().getAllNotificationTypes();
             List<NotificationTypeDto> content = list.getContent();
 
+            Object [][] data = new Object[50][50];
+            int k=0;
             for(NotificationTypeDto type : content)
-                tableModel.addRow(new Object[]{type.getId(), type.getType(), type.getText()});
+                data[k++] = new Object[]{type.getId(), type.getType(), type.getText()};
 
-            table = new JTable(tableModel);
+            String[] header = {"Notification id", "Notification type", "Text"};
+            JTable table = new JTable(data,header);
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.add(table.getTableHeader(), BorderLayout.NORTH);
+            panel.add(table, BorderLayout.CENTER);
+
             JDialog jDialog = new JDialog();
-            jDialog.setSize(new Dimension(1500, 500));
+            jDialog.setSize(new Dimension(1200, 500));
             jDialog.setLocationRelativeTo(MainFrame.getInstance());
-            jDialog.add(table);
+            jDialog.add(panel);
             jDialog.setVisible(true);
 
         }

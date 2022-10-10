@@ -21,8 +21,8 @@ public class AddReviewAction implements ActionListener {
             MainFrame.getInstance().getReservationService()
                     .addReview(new ReviewDto(
                             Long.valueOf(str[0].split(":")[1].trim()),
-                            Integer.valueOf(str[2].split(":")[1].trim()),
-                            str[3].split(":")[1].trim()) );
+                            Integer.valueOf(str[1].split(":")[1].trim()),
+                            str[2].split(":")[1].trim()) );
         }catch (Exception exception){
             exception.printStackTrace();
             JOptionPane.showMessageDialog(

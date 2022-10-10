@@ -124,7 +124,6 @@ public class ClientView extends JPanel {
     private JTextArea setUpdateReviewTa(){
         sb.delete(0,sb.length());
         sb.append("reservation id : \n");
-        sb.append("client id : \n");
         sb.append("rating (1-5) : \n");
         sb.append("comment : \n");
         updateReviewTa.setText(sb.toString());

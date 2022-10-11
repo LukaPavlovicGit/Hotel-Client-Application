@@ -246,9 +246,14 @@ public class ReservationService {
         Call call = client.newCall(request);
         Response response = call.execute();
         response.body().close();
-
         if (response.isSuccessful())
             JOptionPane.showMessageDialog(null, "Reservation made successfully!");
+        else if(response.code() == 500)
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Not able to make reservation.\n" +
+                            "Possible causes:\n" +
+                            "-Room is not available in the given period.");
         else
             throw new IOException();
     }
@@ -293,12 +298,12 @@ public class ReservationService {
             throw new IOException();
 
     }
-    public void updateReview(String id, ReviewDto reviewDto) throws IOException {
+    public void updateReview( ReviewDto reviewDto) throws IOException {
         String token = MainFrame.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(reviewDto));
 
         Request request = new Request.Builder()
-                .url(URL + "/reviews/" + id)
+                .url(URL + "/reviews/" + reviewDto.getReviewId())
                 .addHeader("authorization", "token " + token)
                 .put(body)
                 .build();

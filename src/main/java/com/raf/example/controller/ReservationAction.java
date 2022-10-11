@@ -26,7 +26,6 @@ public class ReservationAction implements ActionListener {
                             LocalDate.parse(str[2].split(":")[1].trim())));
 
         }catch (Exception exception){
-            exception.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error while making reservation!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

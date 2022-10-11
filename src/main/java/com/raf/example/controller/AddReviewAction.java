@@ -21,13 +21,16 @@ public class AddReviewAction implements ActionListener {
             MainFrame.getInstance().getReservationService()
                     .addReview(new ReviewDto(
                             Long.valueOf(str[0].split(":")[1].trim()),
+                            null,
                             Integer.valueOf(str[1].split(":")[1].trim()),
                             str[2].split(":")[1].trim()) );
         }catch (Exception exception){
-            exception.printStackTrace();
             JOptionPane.showMessageDialog(
                     null,
-                    "Error while adding review!\nPossible causes:\n-Reservation does not exist\n",
+                    "Error while adding review!\n" +
+                            "Possible causes:\n" +
+                            "-Reservation does not exist.\n" +
+                            "-Client is making multiple reviews on a one single reservation.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }

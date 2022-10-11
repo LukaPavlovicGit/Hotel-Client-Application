@@ -19,10 +19,10 @@ public class UpdateReviewAction implements ActionListener {
         try {
             String[] str = ta.getText().split("[\n]");
             MainFrame.getInstance().getReservationService()
-                    .updateReview(str[0].split(":")[1].trim(), new ReviewDto(
-                            Long.valueOf(str[0].split(":")[1].trim()),
-                            Integer.valueOf(str[1].split(":")[1].trim()),
-                            str[2].split(":")[1].trim()));
+                    .updateReview(new ReviewDto(
+                                        Long.valueOf(str[0].split(":")[1].trim()),
+                                        Integer.valueOf(str[1].split(":")[1].trim()),
+                                        str[2].split(":")[1].trim()) );
         } catch(Exception exception){
             JOptionPane.showMessageDialog(null, "Error while updating review!", "Error", JOptionPane.ERROR_MESSAGE);
         }

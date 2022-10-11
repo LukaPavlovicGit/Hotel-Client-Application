@@ -1,6 +1,7 @@
 package com.raf.example.dto;
 
 public class ReviewDto {
+    private Long reviewId;
     private Long reservationId;
     private Long clientId;
     private Integer rating;
@@ -8,8 +9,8 @@ public class ReviewDto {
 
     public ReviewDto(){}
 
-    public ReviewDto(Long reservationId, Integer rating, String comment) {
-        this.reservationId = reservationId;
+    public ReviewDto(Long reviewId, Integer rating, String comment) {
+        this.reviewId = reviewId;
         this.rating = rating;
         this.comment = comment;
     }
@@ -19,6 +20,14 @@ public class ReviewDto {
         this.clientId = clientId;
         this.rating = rating;
         this.comment = comment;
+    }
+
+    public Long getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
     public Long getReservationId() {
